@@ -9,6 +9,10 @@ package models;
  *
  * @author viccr
  */
-public class Usuario{
-   
+public interface InterfaceCreacionUsuario{
+    
+   String getNombre();
+   String getCorreo();
+   int getTelefono();
+   String getContrasenia();
 }
