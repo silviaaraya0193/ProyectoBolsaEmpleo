@@ -3,6 +3,7 @@ package controllers;
 
 import javax.inject.Inject;
 import models.FormularioEmpresa;
+import models.FormularioEstudiante;
 import play.data.Form;
 import play.mvc.*;
 import play.data.FormFactory;
@@ -26,6 +27,9 @@ public class HomeController extends Controller {
         return ok(index.render("")); 
                 
     } 
+    public Result opciones(){
+        return ok(opciones.render(""));
+    }
     public Result iniciarSesionEstudiante(){
         return ok(iniciarSesionEstudiante.render());
     }
@@ -57,6 +61,31 @@ public class HomeController extends Controller {
         }
         return ok(formularioEmpresa.render("Recepción de formulario correcto.", pregForm,
                 routes.HomeController.crearFormularioEmpresaPost()));
+    }
+    public Result crearFormularioEstudianteGet() {
+        Form<FormularioEstudiante> pregForm = formFactory.form(FormularioEstudiante.class);
+        return ok(formularioEstudiante.render(" ",
+                pregForm, routes.HomeController.crearFormularioEstudiantePost()));
+    }
+
+    public Result crearFormularioEstudiantePost() {
+        Form<FormularioEstudiante> pregForm = formFactory.form(FormularioEstudiante.class).bindFromRequest();
+        if (pregForm.hasErrors()) {
+            return badRequest(formularioEstudiante.render("Encontramos errores",
+                    pregForm, routes.HomeController.index()));
+        } else {
+            FormularioEstudiante preg = pregForm.get();
+            preg.save();
+            pregForm = formFactory.form(FormularioEstudiante.class);
+        }
+        return ok(formularioEstudiante.render("Recepción de formulario correcto.", pregForm,
+                routes.HomeController.crearFormularioEstudiantePost()));
+    }
+     public Result perfilEmpresa(){
+        return ok(perfilEmpresa.render("Perfil Empresa"));
+    }
+     public Result perfilEstudiante(){
+        return ok(perfilEstudiante.render("Pefil Estudiante"));
     }
 
 }

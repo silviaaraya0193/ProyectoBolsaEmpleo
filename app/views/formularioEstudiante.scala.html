@@ -53,9 +53,9 @@
             </div>
             <div>
                 <h4>Genero:</h4>
-                <input name="masculino" type="radio" value="rbipeliculas" />Masculino
+                <input name="genero" type="radio" value="rbipeliculas" />Masculino
                 <br>
-                <input name="femenino" type="radio" value="rbipeliculas" />Femenino
+                <input name="genero" type="radio" value="rbipeliculas" />Femenino
             </div><br>
           <div class="col-md-4"> @inputText(
                 searchForm("texto"),
@@ -130,16 +130,16 @@
              <div>
              <br>
                  <h4> Estado Laboral:</h4>
-                <input name="empleado" type="radio" value="rbipeliculas" />Empleado
+                <input name="estado" type="radio" value="rbipeliculas" />Empleado
                 <br>
-                <input name="desempleado" type="radio" value="rbipeliculas" />Desempleado
+                <input name="estado" type="radio" value="rbipeliculas" />Desempleado
                 <br>
-                <input name="practica" type="radio" value="rbipeliculas" />Practica Profesional
+                <input name="estado" type="radio" value="rbipeliculas" />Practica Profesional
                 <br>
                 <h4>Posibilidad Trasladarse:</h4>
                 <input name="si" type="radio" value="rbipeliculas" />Si
                 <br>
-                <input name="no" type="radio" value="rbipeliculas" />No
+                <input name="si" type="radio" value="rbipeliculas" />No
             </div>
  </fieldset>
  <fieldset>
@@ -176,6 +176,38 @@
                 '_help -> "",
                 'class -> "form-control"
                 )</div>
+            <div>
+                 <script  type="text/javascript"> 
+        function create_year_combo(gap, year){ 
+            var years = document.createElement("Select"); 
+            var current_year = year || new Date().getFullYear(); 
+            var ancho = gap || 5; 
+             
+            var temp_op; 
+            for(var i=current_year-ancho; i<=current_year+ancho; i++){ 
+                temp_op = document.createElement("option"); 
+                temp_op.value=i; 
+                temp_op.text=i; 
+                if(i==current_year){ 
+                    temp_op.selected=true; 
+                } 
+                years.appendChild(temp_op); 
+            } 
+            return years; 
+        } 
+        var sin_nada = create_year_combo(); 
+        var sin_nada_cont = document.getElementById("sin_nada_cont"); 
+        sin_nada_cont.appendChild(sin_nada); 
+         
+        var con_gap = create_year_combo(10); 
+        var gap_cont = document.getElementById("gap_cont"); 
+        gap_cont.appendChild(con_gap); 
+         
+        var gap_y_anyo = create_year_combo(5, 2016); 
+        var gap_y_anyo_cont = document.getElementById("gap_y_anyo_cont"); 
+        gap_y_anyo_cont.appendChild(gap_y_anyo); 
+    </script> 
+            </div>
           <!-- AGREGAR COMBO BOX CON ANOS DE INGRESO Y ANO DE FINALIZACION-->
  </fieldset>
  <fieldset>

@@ -53,9 +53,9 @@ public class FormularioEstudiante extends Model{
     //DATOS LABORALES
     //@Constraints.Required
     public String profesion;
-    @Constraints.Required
+    //@Constraints.Required
     public String perfilProfesional;
-    @Constraints.Required
+   // @Constraints.Required
     public String anosExperiencia;
     //EXPERIENCIA LABORAL
    // @Constraints.Required
@@ -72,14 +72,14 @@ public class FormularioEstudiante extends Model{
     //@Constraints.Required
     public String idiomas;
     //EDUCACION NO FORMAL
-    @Constraints.Required
+   // @Constraints.Required
     public String tituloNoFormal;
-    @Constraints.Required
+   // @Constraints.Required
     public String institucionNoFormal;
     
     public JComboBox estadoLaboral, anoIngreso, anoFinal;
     
-    public JRadioButton traslado;
+    public JRadioButton traslado, genero;
     
       public static Finder<Long, FormularioEstudiante> find = new Finder<Long, FormularioEstudiante>(FormularioEstudiante.class);
       
