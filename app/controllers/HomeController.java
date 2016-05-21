@@ -28,16 +28,16 @@ public class HomeController extends Controller {
                 
     } 
     public Result iniciarSesionEstudiante(){
-        return ok(iniciarSesionEstudiante.render(" "));
+        return ok(iniciarSesionEstudiante.render("\n Iniciar Seccion Estudiante "));
     }
     public Result iniciarSesionEmpresa(){
-        return ok(iniciarSesionEmpresa.render(" "));
+        return ok(iniciarSesionEmpresa.render("\n Inicar Seccion Empresa "));
     }
      public Result registroEstudiante(){
         return ok(registroEstudiante.render());
     }
       public Result registroEmpresa(){
-        return ok(registroEmpresa.render(" "));
+        return ok(registroEmpresa.render("Registro empresa "));
     }
       
     public Result crearFormularioEmpresaGet() {
