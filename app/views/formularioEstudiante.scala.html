@@ -1,0 +1,219 @@
+@(message: String,  searchForm: Form[FormularioEstudiante], postUrl: play.api.mvc.Call)
+@import helper._
+
+@main(message) {
+<h1> Formulario Estudiante</h1>
+<div class="alert"> @message </div>
+@form(postUrl, 'class -> "form") {
+    @if(searchForm.hasGlobalErrors) {
+        <div class="alert alert-danger">
+            @searchForm.globalError.message
+        </div>
+    }
+
+    <fieldset>
+        <h2>Datos Personales</h2>
+        <div class="row">
+            <div class="col-md-4"> @inputText(
+                searchForm("texto"),
+                '_label -> "Nombre: ",
+                '_help -> "required",
+                'class -> "form-control"
+                )</div>
+         
+            <div class="col-md-4">
+                @inputText(searchForm("Primer Apellido:"),
+                '_help -> "required",
+                'class -> "form-control")
+            </div>
+            <div class="col-md-4"> @inputText(
+                searchForm("texto"),
+                '_label -> "Segundo Apellido:",
+                '_help -> "required",
+                'class -> "form-control"
+                )</div>
+          
+            <br><br><div class="col-md-4"> @inputText(
+                searchForm("texto"),
+                '_label -> "Fecha de Nacimiento:",
+                '_help -> "required",
+                'class -> "form-control"
+                )</div>
+          
+            <div class="col-md-4">
+                @inputText(searchForm("Identificacion:"),
+                '_help -> "required",
+                'class -> "form-control")
+            </div>
+           
+            <div class="col-md-4">
+                @inputText(searchForm("Correo Electronico:"),
+                '_help -> "required",
+                'class -> "form-control")
+            </div>
+            <div>
+                <h4>Genero:</h4>
+                <input name="masculino" type="radio" value="rbipeliculas" />Masculino
+                <br>
+                <input name="femenino" type="radio" value="rbipeliculas" />Femenino
+            </div><br>
+          <div class="col-md-4"> @inputText(
+                searchForm("texto"),
+                '_label -> "Estado Civil:",
+                '_help -> "required",
+                'class -> "form-control"
+                )</div>
+          
+            <div class="col-md-4">
+                @inputText(searchForm("Pais de Nacimiento:"),
+                '_help -> "required",
+                'class -> "form-control")
+            </div>
+            <div class="col-md-4"> @inputText(
+                searchForm("texto"),
+                '_label -> "Lugar de Residencia:",
+                '_help -> "required",
+                'class -> "form-control"
+                )</div>
+          
+            <div class="col-md-4">
+                @textarea(searchForm("Direccion de Residencia:"),
+                '_help -> "required",
+                'class -> "form-control")
+            </div>
+            <div class="col-md-4"> @inputText(
+                searchForm("texto"),
+                '_label -> "Telefono Movil:",
+                '_help -> "required",
+                'class -> "form-control"
+                )</div>
+          
+            <div class="col-md-4">
+                @inputText(searchForm("Telefono Casa:"),
+                '_help -> "",
+                'class -> "form-control")
+            </div>
+            <div class="col-md-4"> @inputText(
+                searchForm("texto"),
+                '_label -> "Licencia de Conducir:",
+                '_help -> "",
+                'class -> "form-control"
+                )</div>
+    <div class="col-md-8"> @textarea(
+                searchForm("texto"),
+                '_label -> "Perfil Personal:",
+                '_help -> "",
+                'class -> "form-control"
+                )</div>
+ </div>
+ </fieldset>
+<fieldset>
+
+            <h2>Datos Laborales</h2>
+            <div class="col-md-4">
+                @inputText(searchForm("Profesion:"),
+                '_help -> "",
+                'class -> "form-control")
+            </div>
+            <div class="col-md-8"> @textarea(
+                searchForm("texto"),
+                '_label -> "Perfil Profesional:",
+                '_help -> "",
+                'class -> "form-control"
+                )</div>
+          
+            <div class="col-md-4">
+                @inputText(searchForm("Años de Experiencia:"),
+                '_help -> "",
+                'class -> "form-control")
+            </div>
+             <div>
+             <br>
+                 <h4> Estado Laboral:</h4>
+                <input name="empleado" type="radio" value="rbipeliculas" />Empleado
+                <br>
+                <input name="desempleado" type="radio" value="rbipeliculas" />Desempleado
+                <br>
+                <input name="practica" type="radio" value="rbipeliculas" />Practica Profesional
+                <br>
+                <h4>Posibilidad Trasladarse:</h4>
+                <input name="si" type="radio" value="rbipeliculas" />Si
+                <br>
+                <input name="no" type="radio" value="rbipeliculas" />No
+            </div>
+ </fieldset>
+ <fieldset>
+            <h2>Experiencia Laboral</h2>
+            <div class="col-md-4"> @inputText(
+                searchForm("texto"),
+                '_label -> "Empresa:",
+                '_help -> "",
+                'class -> "form-control"
+                )</div>
+          
+            <div class="col-md-4">
+                @inputText(searchForm("Puesto:"),
+                '_help -> "",
+                'class -> "form-control")
+            </div>
+            <div class="col-md-4"> @inputText(
+                searchForm("texto"),
+                '_label -> "Años de Trabajo:",
+                '_help -> "",
+                'class -> "form-control"
+                )</div>
+ </fieldset>
+ <fieldset>
+            <h2>Educacion Formal</h2>
+            <div class="col-md-4">
+                @inputText(searchForm("Titulo:"),
+                '_help -> "required",
+                'class -> "form-control")
+            </div>
+            <div class="col-md-4"> @inputText(
+                searchForm("texto"),
+                '_label -> "Institucion:",
+                '_help -> "",
+                'class -> "form-control"
+                )</div>
+          <!-- AGREGAR COMBO BOX CON ANOS DE INGRESO Y ANO DE FINALIZACION-->
+ </fieldset>
+ <fieldset>
+          <h2>Idiomas</h2>
+            <div class="col-md-4">
+                @textarea(searchForm("Idiomas:"),
+                '_help -> "",
+                'class -> "form-control")
+            </div>
+ </fieldset>
+ <fieldset>
+          <h2>Educacion No Formal</h2>
+          <div class="col-md-4"> @inputText(
+                searchForm("texto"),
+                '_label -> "Titulo:",
+                '_help -> "",
+                'class -> "form-control"
+                )</div>
+          
+            <div class="col-md-4">
+                @inputText(searchForm("Institucion:"),
+                '_help -> "",
+                'class -> "form-control")
+            </div>
+            <!-- AGREGAR COMBO BOX CON ANOS DE INGRESO Y ANO DE FINALIZACION-->
+             <div class="col-md-4">
+                @textarea(searchForm("Otros titulos:"),
+                '_help -> "",
+                'class -> "form-control")
+            </div>
+ </fieldset>
+            <h2>Subir Archivos</h2>
+            <input name="imagen" type="file" />
+       
+
+    <div class="form-actions text-center">
+        <input type="submit" class="btn btn-success" value="Guardar Formulario") >
+    </div>
+    }
+}
+
