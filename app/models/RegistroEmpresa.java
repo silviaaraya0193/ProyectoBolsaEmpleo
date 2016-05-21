@@ -13,17 +13,23 @@ package models;
 public class RegistroEmpresa implements InterfaceCreacionUsuario{
     
     String nombre,correo,contrasenia;
-    int telefono;
+    int telefono,cfi;
 
-    public RegistroEmpresa(String nombre, String correo, String contrasenia, int telefono) {
+    public RegistroEmpresa(String nombre, String correo, String contrasenia, int telefono,int CFI) {
         this.nombre = nombre;
         this.correo = correo;
         this.contrasenia = contrasenia;
         this.telefono = telefono;
+        this.cfi=CFI;
     }
 
     public RegistroEmpresa() {
     }
+
+    public void setCfi(int cfi) {
+        this.cfi = cfi;
+    }
+    
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }

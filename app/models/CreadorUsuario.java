@@ -12,9 +12,9 @@ package models;
  */
 public class CreadorUsuario {
     InterfaceCreacionUsuario usuario;
-      public InterfaceCreacionUsuario creadorUsuario(String tipo,String nombre,String correo,String contrasenia,int telefono){
+      public InterfaceCreacionUsuario creadorUsuario(String tipo,String nombre,String correo,String contrasenia,int telefono,int cfi){
           if(tipo.equals("Empresa")){
-             usuario = new RegistroEmpresa(nombre, correo, contrasenia, telefono);
+             usuario = new RegistroEmpresa(nombre, correo, contrasenia, telefono,cfi);
           }
           else if(tipo.equals("Usuario")){
               usuario= new RegistroUsuario(nombre, correo, contrasenia, telefono);
