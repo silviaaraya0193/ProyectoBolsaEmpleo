@@ -1,7 +1,11 @@
 package controllers;
 
+
+import javax.inject.Inject;
+import models.FormularioEmpresa;
+import play.data.Form;
 import play.mvc.*;
-import views.html.Home.*;
+import play.data.FormFactory;
 import views.html.*;
 
 /**
@@ -9,7 +13,8 @@ import views.html.*;
  * to the application's home page.
  */
 public class HomeController extends Controller {
-
+    @Inject
+    FormFactory formFactory;
     /**
      * An action that renders an HTML page with a welcome message.
      * The configuration in the <code>routes</code> file means that
@@ -18,13 +23,9 @@ public class HomeController extends Controller {
      */
     public Result index() {
         
-        return ok(index.render()); 
+        return ok(index.render("")); 
                 
-    }
-//    public Result acerca_de(){
-//        return ok(acerca_de.render());
-//        //redirect("/Home/index");
-//    }// 
+    } 
     public Result iniciarSesionEstudiante(){
         return ok(iniciarSesionEstudiante.render());
     }
@@ -37,7 +38,25 @@ public class HomeController extends Controller {
       public Result registroEmpresa(){
         return ok(registroEmpresa.render());
     }
-       public Result formularioEmpresa(){
-        return ok(formularioEmpresa.render());
+      
+    public Result crearFormularioEmpresaGet() {
+        Form<FormularioEmpresa> pregForm = formFactory.form(FormularioEmpresa.class);
+        return ok(formularioEmpresa.render(" ",
+                pregForm, routes.HomeController.crearFormularioEmpresaPost()));
     }
+
+    public Result crearFormularioEmpresaPost() {
+        Form<FormularioEmpresa> pregForm = formFactory.form(FormularioEmpresa.class).bindFromRequest();
+        if (pregForm.hasErrors()) {
+            return badRequest(formularioEmpresa.render("Encontramos errores",
+                    pregForm, routes.HomeController.index()));
+        } else {
+            FormularioEmpresa preg = pregForm.get();
+            preg.save();
+            pregForm = formFactory.form(FormularioEmpresa.class);
+        }
+        return ok(formularioEmpresa.render("Recepción de formulario correcto.", pregForm,
+                routes.HomeController.crearFormularioEmpresaPost()));
+    }
+
 }

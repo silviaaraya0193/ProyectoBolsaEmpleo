@@ -1,13 +1,83 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
+@(message: String,  searchForm: Form[FormularioEmpresa], postUrl: play.api.mvc.Call)
+@import helper._
+
+@main(message) {
+<h1> Formulario Empresa</h1>
+<div class="alert"> @message </div>
+@form(postUrl, 'class -> "form") {
+    @if(searchForm.hasGlobalErrors) {
+        <div class="alert alert-danger">
+            @searchForm.globalError.message
+        </div>
+    }
+
+    <fieldset>
+
+        <div class="row">
+            <div class="col-md-4"> @inputText(
+                searchForm("texto"),
+                '_label -> "Nombre de la Empresa: ",
+                '_help -> "required",
+                'class -> "form-control"
+                )</div>
+         
+            <div class="col-md-4">
+                @textarea(searchForm("Direccion de la Empresa"),
+                '_help -> "required",
+                'class -> "form-control")
+            </div>
+            <div class="col-md-4"> @inputText(
+                searchForm("texto"),
+                '_label -> "Telefono del Contacto:",
+                '_help -> "required",
+                'class -> "form-control"
+                )</div>
+          
+            <br><br><div class="col-md-4"> @inputText(
+                searchForm("texto"),
+                '_label -> "Correo de la Empresa:",
+                '_help -> "required",
+                'class -> "form-control"
+                )</div>
+          
+            <div class="col-md-8">
+                @textarea(searchForm("Perfil Empresa:"),
+                '_help -> "required",
+                'class -> "form-control")
+            </div>
+            <div>
+                Seleccione sus intereses:<br/>
+                <br/>
+                <input name="practicantes" type="checkbox" />Practicantes
+                <br/>
+                 <input name="profesionales" type="checkbox" />Profesionales
+                 <br/>
+                <input name="pasantias" type="checkbox" />Pasantias
+                <br/>
+            </div>
+            <div class="col-md-4">
+                @textarea(searchForm("Otras Contrataciones:"),
+                '_help -> "",
+                'class -> "form-control")
+            </div>
+          
+        </div>
+
+
+    </fieldset>
+
+    <div class="form-actions text-center">
+        <input type="submit" class="btn btn-success" value="Guardar Formulario") >
+    </div>
+    }
+}
+
+
+<!--<!DOCTYPE html>
 <html>
     <head>
         <title>Formulario Empresa</title>
-        <meta charset="UTF-8">
+       <!-- <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
@@ -32,4 +102,5 @@ and open the template in the editor.
             <input type="submit" name="boton" value="Guardar Datos"/>
         </form>
     </body>
-</html>
+</html>-->
+

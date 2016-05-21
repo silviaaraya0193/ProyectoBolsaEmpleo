@@ -3,12 +3,23 @@
 # ~~~~
 
 # An example controller showing a sample home page
-GET     /                           controllers.HomeController.index
-GET     /iniciarSesionEstudiante.scala.html          controllers.HomeController.iniciarSesionEstudiante
-GET     /iniciarSesionEmpresa.scala.html             controllers.HomeController.iniciarSesionEmpresa
+GET     /                                 controllers.HomeController.index
+#INICIAR SESEION ESTUDIANTE
+GET     /iniciarSesionEstudiante          controllers.HomeController.iniciarSesionEstudiante()
+
+#INICIAR SESEION ESTUDIANTE
+GET     /iniciarSesionEmpresa             controllers.HomeController.iniciarSesionEmpresa()
+
+#REGISTRO ESTUDIANTE
 GET     /registroEstudiante.scala.html             controllers.HomeController.registroEstudiante
+
+#REGISTRO EMPRESA
 GET     /registroEmpresa.scala.html             controllers.HomeController.registroEmpresa
-GET     /formularioEmpresa.scala.html             controllers.HomeController.formularioEmpresa
+
+#FORMULARIO EMPRESA
+GET     /formularioEmpresa.scala.html           controllers.HomeController.crearFormularioEmpresaGet()
+POST    /formularioEmpresa.scala.html           controllers.HomeController.crearFormularioEmpresaPost()
+
 # An example controller showing how to use dependency injection
 GET     /count                      controllers.CountController.count
 # An example controller showing how to write asynchronous code

@@ -1,32 +1,13 @@
+@(message: String )
 
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <title>Bolsa de Empleo</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width,initial-scale=1.0">
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.1.3/jquery.min.js">
-        </script>   
-        <script type ="text/javascript" src=""></script>
-        <link type="text/css" hret="" rel="stylesheet"></link>
-        
-    </head>
-    <body>
-        <h1 align="center">Bolsa de Empleo UCR</h1>
-        <br><br>
-        <br><br>
-        <div align="center">
-            <form metohd="get" action="iniciarSesionEstudiante.scala.html" target="blank">
-                <input type="submit" name="boton" value="Estudiante"/>
-            </form>
-        </div>
-        <br><br>
-        <br><br>
-        <br><br>
-        <div align="center">
-            <form method="get" action="iniciarSesionEmpresa.scala.html" target="blank">
-                <input type="submit" name="boton" value="Empresa"/><br><br>
-            </form>
-        </div>
-    </body>
-</html>
+@main(message) {
+<div class="container">
+    <!--<h1> Bolsa de Empleo UCR </h1>-->
+   <div class="btn-group" role="group" aria-label="...">
+    <a href="@routes.HomeController.iniciarSesionEstudiante()" class="btn btn-default">Estudiante</a></br></br>
+    <a href="@routes.HomeController.iniciarSesionEmpresa()" class="btn btn-success">Empresa   </a></br></br>
+  </div>
+</div>
+}
+
+
