@@ -11,14 +11,19 @@ GET     /iniciarSesionEstudiante          controllers.HomeController.iniciarSesi
 GET     /iniciarSesionEmpresa             controllers.HomeController.iniciarSesionEmpresa()
 
 #REGISTRO ESTUDIANTE
-GET     /registroEstudiante.scala.html             controllers.HomeController.registroEstudiante
+GET     /registroEstudiante             controllers.HomeController.registroEstudiante()
 
 #REGISTRO EMPRESA
-GET     /registroEmpresa.scala.html             controllers.HomeController.registroEmpresa
+GET     /registroEmpresa.scala.html             controllers.HomeController.registroEmpresa()
 
 #FORMULARIO EMPRESA
 GET     /formularioEmpresa.scala.html           controllers.HomeController.crearFormularioEmpresaGet()
 POST    /formularioEmpresa.scala.html           controllers.HomeController.crearFormularioEmpresaPost()
+
+#FORMULARIO ESTUDIANTE
+GET  /formularioEstudiante.scala.html         controllers.HomeController.crearFormularioEstudianteGet()
+POST    /formularioEstudiante.scala.html      controllers.HomeController.crearFormularioEstudiantePost()
+
 
 # An example controller showing how to use dependency injection
 GET     /count                      controllers.CountController.count

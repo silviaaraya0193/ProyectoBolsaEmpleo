@@ -11,7 +11,8 @@ package models;
  * @author Expression EXDER is undefined on line 12, column 14 in Templates/Classes/Class.java.
  */
 public class RegistroUsuario implements InterfaceCreacionUsuario{
-
+    
+    
     String nombre,correo,contrasenia;
     int telefono;
 
@@ -21,9 +22,8 @@ public class RegistroUsuario implements InterfaceCreacionUsuario{
         this.contrasenia = contrasenia;
         this.telefono = telefono;
     }
-
-    
     public RegistroUsuario() {
+        
     }
 
     public void setNombre(String nombre) {
@@ -63,4 +63,8 @@ public class RegistroUsuario implements InterfaceCreacionUsuario{
         return contrasenia;
     }
 
+    @Override
+    public int getCFI() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

@@ -6,13 +6,24 @@
 
 package models;
 
+import com.avaje.ebean.Model;
+import javax.persistence.*;
+import javax.swing.JCheckBox;
+import play.data.validation.*;
+import play.data.validation.Constraints.*;
+
+
 /**
  *
  * @author Expression EXDER is undefined on line 12, column 14 in Templates/Classes/Class.java.
  */
 public class RegistroEmpresa implements InterfaceCreacionUsuario{
-    
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    public Long id;
+    @Constraints.Required
     String nombre,correo,contrasenia;
+    @Constraints.Required
     int telefono,cfi;
 
     public RegistroEmpresa(String nombre, String correo, String contrasenia, int telefono,int CFI) {
@@ -65,6 +76,11 @@ public class RegistroEmpresa implements InterfaceCreacionUsuario{
     @Override
     public String getContrasenia() {
         return contrasenia;
+    }
+
+    @Override
+    public int getCFI() {
+        return cfi;
     }
 
 }

@@ -1,28 +1,15 @@
-
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <title>Iniciar Sesion Empresa</title>
-      <!--  <meta charset="UTF-8">-->
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <h1 align="center">Iniciar Sesion</h1><br><br><br>
-        <form method = "get"action="" target="blank">
-            <label>Codigo CFI:</label>
-            <input type="text" name="nombre"id="name"class="name"/> <br><br><br>
-          
-            <label>Contrasena:</label>
+@(message: String )
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+@main(message) {
+<div class="text" role="group" aria-label="...">
+      <label>Codigo CFI:</label>
+            <input type="text"name="cfi"id="codigoCFI" class="correo"><br><br><br>      
+      <label>Contraseña :</label>
             <input type="password"name="contrasena"id="pass"class="pass"/><br><br><br>
-            
-            <input name="boton"type="submit"value="Iniciar Sesion"/><br><br><br>
-            <a href="registroEmpresa.scala.html">Registrarse</a><br><br><br>
-        </form>
-        <div></div>
-    </body>
-</html>
+    </div>   
+    <a href="@routes.HomeController.crearFormularioEmpresaGet()" class="btn btn-default">Acceder</a></br></br>
+    
+    <form method="get" action="formularioEmpresa.scala.html"target="blank"/>
+                <input align="center"name="boton"type="submit"value="Registrarse"/><br><br><br>
+    <form/>
+}

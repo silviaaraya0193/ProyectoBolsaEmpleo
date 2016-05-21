@@ -3,6 +3,7 @@ package controllers;
 
 import javax.inject.Inject;
 import models.FormularioEmpresa;
+import models.FormularioEstudiante;
 import play.data.Form;
 import play.mvc.*;
 import play.data.FormFactory;
@@ -27,16 +28,16 @@ public class HomeController extends Controller {
                 
     } 
     public Result iniciarSesionEstudiante(){
-        return ok(iniciarSesionEstudiante.render());
+        return ok(iniciarSesionEstudiante.render(" "));
     }
     public Result iniciarSesionEmpresa(){
-        return ok(iniciarSesionEmpresa.render());
+        return ok(iniciarSesionEmpresa.render(" "));
     }
      public Result registroEstudiante(){
         return ok(registroEstudiante.render());
     }
       public Result registroEmpresa(){
-        return ok(registroEmpresa.render());
+        return ok(registroEmpresa.render(" "));
     }
       
     public Result crearFormularioEmpresaGet() {
@@ -59,4 +60,23 @@ public class HomeController extends Controller {
                 routes.HomeController.crearFormularioEmpresaPost()));
     }
 
+    public Result crearFormularioEstudianteGet() {
+        Form<FormularioEstudiante> pregForm = formFactory.form(FormularioEstudiante.class);
+        return ok(formularioEstudiante.render(" ",
+                pregForm, routes.HomeController.crearFormularioEstudiantePost()));
+    }
+
+    public Result crearFormularioEstudiantePost() {
+        Form<FormularioEstudiante> pregForm = formFactory.form(FormularioEstudiante.class).bindFromRequest();
+        if (pregForm.hasErrors()) {
+            return badRequest(formularioEstudiante.render("Encontramos errores",
+                    pregForm, routes.HomeController.index()));
+        } else {
+            FormularioEstudiante preg = pregForm.get();
+            preg.save();
+            pregForm = formFactory.form(FormularioEstudiante.class);
+        }
+        return ok(formularioEstudiante.render("Recepcion de formulario correcto.", pregForm,
+                routes.HomeController.crearFormularioEstudiantePost()));
+    }
 }
