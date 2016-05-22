@@ -1,43 +1,21 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <title>Registrar Estudiante</title>
-       <!--  <meta charset="UTF-8">-->
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.1.3/jquery.min.js">
-        </script>   
-        <script type ="text/javascript" src=""></script>
-        <link type="text/css" hret="" rel="stylesheet"></link>
-        
-    </head>
-    
-    <body>
-        <h1 align="center">Registro Estudiante</h1>
-        <br><br>
-        <form aling="center"method = "get"action="formularioEstudiante.scala.html" target="blank">
-            <label>Nombre Completo:</label>
+@(message: String )
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+@main(message) {
+<div class="container">
+    <!--<h1> Bolsa de Empleo UCR </h1>-->
+   <div class="text" role="group" aria-label="...">
+    <h2>Registro Estudiante</h2><br>
+       <label>Nombre Completo:</label>
             <input type="text" name="nombre"id="name"class="name"/> <br><br><br>
-            
-            <label>Correo:</label>
-            <input type="text"name="correo"id="correo" class="correo"><br><br><br>
-            
-            <label>Telefono:</label>
-            <input type="text"name="telefono"id="telefono"class="telefono"><br><br><br>
-
-            <label>Contrasena</label>
+      <label>Contraseña:</label>
             <input type="password"name="contrasena"id="pass"class="pass"/><br><br><br>
-            
-            <form method="get" action="formularioEstudiante.scala.html"target="blank"/>
-                <input align="center"name="boton"type="submit"value="Registrarse"/><br><br><br>
-           
-            
-        </form>
-        
-        <div></div>
-    </body>
-</html>
+      <label>Telefono:</label>
+            <input type="text"name="telefono"id="pass"class="pass"/><br><br><br>      
+      <label>Correo Electronico:</label>
+            <input type="text"name="correo"id="pass"class="pass"/><br><br><br>
+    </div>   
+    <a href="@routes.HomeController.crearFormularioEmpresaGet()" class="btn btn-default">Registrar</a></br></br>
+    
+  
+</div>
+}

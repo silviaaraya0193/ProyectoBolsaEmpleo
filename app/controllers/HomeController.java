@@ -28,19 +28,22 @@ public class HomeController extends Controller {
                 
     } 
     public Result opciones(){
-        return ok(opciones.render(""));
+        return ok(opciones.render(" "));
+    }
+    public Result opciones2(){
+        return ok(opciones2.render(" "));
     }
     public Result iniciarSesionEstudiante(){
-        return ok(iniciarSesionEstudiante.render());
+        return ok(iniciarSesionEstudiante.render(""));
     }
     public Result iniciarSesionEmpresa(){
-        return ok(iniciarSesionEmpresa.render());
+        return ok(iniciarSesionEmpresa.render(""));
     }
      public Result registroEstudiante(){
-        return ok(registroEstudiante.render());
+        return ok(registroEstudiante.render(""));
     }
       public Result registroEmpresa(){
-        return ok(registroEmpresa.render());
+        return ok(registroEmpresa.render(""));
     }
       
     public Result crearFormularioEmpresaGet() {

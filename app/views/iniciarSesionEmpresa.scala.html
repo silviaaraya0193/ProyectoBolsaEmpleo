@@ -1,14 +1,33 @@
+@(message: String )
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+@main(message) {
+<div class="text" role="group" aria-label="...">
+<h2>Iniciar Sesion Empresas</h2><br>
+      <label>Codigo CFI:</label>
+            <input type="text"name="cfi"id="codigoCFI" class="correo"><br><br><br>      
+      <label>Contraseña :</label>
+
+            <input type="password"name="contrasena"id="pass"class="pass"/><br><br><br>
+
+        <div></div>
+
+    </div>   
+    <a href="@routes.HomeController.crearFormularioEmpresaGet()" class="btn btn-default">Acceder</a></br></br>
+    
+}
+
+<!--
 
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
--->
+
 <html>
     <head>
         <title>Iniciar Sesion Empresa</title>
-      <!--  <meta charset="UTF-8">-->
+      <!--  <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
@@ -26,4 +45,4 @@ and open the template in the editor.
         </form>
         <div></div>
     </body>
-</html>
+</html>-->
