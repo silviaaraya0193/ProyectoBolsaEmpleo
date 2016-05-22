@@ -34,17 +34,17 @@ public class HomeController extends Controller {
         return ok(iniciarSesionEmpresa.render("\n Inicar Seccion Empresa "));
     }
      public Result registroEstudiante(){
-        return ok(registroEstudiante.render());
+        return ok(registroEstudiante.render("Registro estudiante "));
     }
       public Result registroEmpresa(){
         return ok(registroEmpresa.render("Registro empresa "));
     }
-      
     public Result crearFormularioEmpresaGet() {
         Form<FormularioEmpresa> pregForm = formFactory.form(FormularioEmpresa.class);
         return ok(formularioEmpresa.render(" ",
                 pregForm, routes.HomeController.crearFormularioEmpresaPost()));
     }
+
 
     public Result crearFormularioEmpresaPost() {
         Form<FormularioEmpresa> pregForm = formFactory.form(FormularioEmpresa.class).bindFromRequest();
