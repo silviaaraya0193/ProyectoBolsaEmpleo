@@ -27,17 +27,28 @@ public class HomeController extends Controller {
         return ok(index.render("")); 
                 
     } 
+    public Result opciones(){
+        return ok(opciones.render(" "));
+    }
+    public Result opciones2(){
+        return ok(opciones2.render(" "));
+    }
     public Result iniciarSesionEstudiante(){
+
         return ok(iniciarSesionEstudiante.render("\n Iniciar Seccion Estudiante "));
+        
     }
     public Result iniciarSesionEmpresa(){
         return ok(iniciarSesionEmpresa.render("\n Inicar Seccion Empresa "));
+        
     }
      public Result registroEstudiante(){
-        return ok(registroEstudiante.render("Registro estudiante "));
+        return ok(registroEstudiante.render(" "));
+      
     }
       public Result registroEmpresa(){
-        return ok(registroEmpresa.render("Registro empresa "));
+        return ok(registroEmpresa.render("  "));
+        
     }
     public Result crearFormularioEmpresaGet() {
         Form<FormularioEmpresa> pregForm = formFactory.form(FormularioEmpresa.class);
@@ -59,7 +70,6 @@ public class HomeController extends Controller {
         return ok(formularioEmpresa.render("Recepción de formulario correcto.", pregForm,
                 routes.HomeController.crearFormularioEmpresaPost()));
     }
-
     public Result crearFormularioEstudianteGet() {
         Form<FormularioEstudiante> pregForm = formFactory.form(FormularioEstudiante.class);
         return ok(formularioEstudiante.render(" ",
@@ -76,7 +86,15 @@ public class HomeController extends Controller {
             preg.save();
             pregForm = formFactory.form(FormularioEstudiante.class);
         }
-        return ok(formularioEstudiante.render("Recepcion de formulario correcto.", pregForm,
+        return ok(formularioEstudiante.render("Recepción de formulario correcto.", pregForm,
                 routes.HomeController.crearFormularioEstudiantePost()));
     }
+     public Result perfilEmpresa(){
+        return ok(perfilEmpresa.render("Perfil Empresa"));
+    }
+     public Result perfilEstudiante(){
+        return ok(perfilEstudiante.render("Pefil Estudiante"));
+    }
+
+    
 }
