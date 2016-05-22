@@ -15,16 +15,23 @@ import play.data.validation.Constraints.*;
 
 /**
  *
- * @author Expression EXDER is undefined on line 12, column 14 in Templates/Classes/Class.java.
+ * @author EXDER
  */
+@Entity
 public class RegistroEmpresa implements InterfaceCreacionUsuario{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long id;
     @Constraints.Required
-    String nombre,correo,contrasenia;
+    String nombre;
     @Constraints.Required
-    int telefono,cfi;
+    String correo;
+    @Constraints.Required
+    String contrasenia;
+    @Constraints.Required
+    int telefono;
+    @Constraints.Required
+    int cfi;
 
     public RegistroEmpresa(String nombre, String correo, String contrasenia, int telefono,int CFI) {
         this.nombre = nombre;
@@ -56,8 +63,6 @@ public class RegistroEmpresa implements InterfaceCreacionUsuario{
     public void setTelefono(int telefono) {
         this.telefono = telefono;
     }
-    
-    
     @Override
     public String getNombre() {
         return nombre;

@@ -7,7 +7,7 @@ package models;
 
 /**
  *
- * @author viccr
+ * @author silvia
  */
 public interface InterfaceCreacionUsuario{
     

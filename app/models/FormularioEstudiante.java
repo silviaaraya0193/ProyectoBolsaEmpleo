@@ -14,7 +14,7 @@ import play.data.validation.Constraints.*;
 
 /**
  *
- * @author viccr
+ * @author Silvia
  */
 @Entity
 public class FormularioEstudiante extends Model{

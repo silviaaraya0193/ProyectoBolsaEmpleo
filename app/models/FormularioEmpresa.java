@@ -13,8 +13,9 @@ import play.data.validation.Constraints.*;
 
 /**
  *
- * @author viccr
+ * @author Exder
  */
+@Entity
 public class FormularioEmpresa extends Model {
 
     @Id

@@ -8,7 +8,7 @@ package models;
 
 /**
  *
- * @author Expression EXDER is undefined on line 12, column 14 in Templates/Classes/Class.java.
+ * @author EXDER
  */
 public class CreadorUsuario {
     InterfaceCreacionUsuario usuario;
