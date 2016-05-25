@@ -14,33 +14,34 @@
 
         <div class="row">
             <div class="col-md-4"> @inputText(
-                searchForm("texto"),
+                searchForm("nombre"),'_showErrors -> true,
                 '_label -> "Nombre de la Empresa: ",
                 '_help -> "required",
                 'class -> "form-control"
                 )</div>
          
             <div class="col-md-4">
-                @textarea(searchForm("Direccion de la Empresa"),
+                @textarea(searchForm("direccion"),'_showErrors -> true,
+                '_label -> "Direccion:",
                 '_help -> "required",
                 'class -> "form-control")
             </div>
             <div class="col-md-4"> @inputText(
-                searchForm("texto"),
+                searchForm("telefonoContacto"),'_showErrors -> true,
                 '_label -> "Telefono del Contacto:",
                 '_help -> "required",
                 'class -> "form-control"
                 )</div>
           
             <div class="col-md-4"> @inputText(
-                searchForm("texto"),
+                searchForm("correoEmpresa"),'_showErrors -> true,
                 '_label -> "Correo de la Empresa:",
                 '_help -> "required",
                 'class -> "form-control"
                 )</div>
           
             <div class="col-md-8">
-                @textarea(searchForm("Perfil Empresa:"),
+                @textarea(searchForm("perfilEmpresarial"),'_showErrors -> true,
                 '_help -> "required",
                 'class -> "form-control")
             </div>
@@ -49,17 +50,17 @@
 <fieldset>
             <div>
                 <h4>Seleccione sus intereses:</h4>
-                <input name="practicantes" type="checkbox" />Practicantes
+                <input name="estadoContrataciones" type="radio"  checked="" value="1"/>Practicantes
                 <br/>
-                 <input name="profesionales" type="checkbox" />Profesionales
+                <input name="estadoContrataciones" type="radio" value="2"/>Profesionales
                  <br/>
-                <input name="pasantias" type="checkbox" />Pasantias
+                 <input name="estadoContrataciones" type="radio" value="3"/>Pasantias
                 <br/>
             </div><br><br>
 </fieldset>
 <fieldset>
             <div class="col-md-4">
-                @textarea(searchForm("Otras Contrataciones:"),
+                @textarea(searchForm("otrasContrataciones"),'_showErrors -> true,
                 '_help -> "",
                 'class -> "form-control")
             </div>

@@ -18,24 +18,59 @@ import play.data.validation.Constraints.*;
 @Entity
 public class FormularioEmpresa extends Model {
 
+    /**
+     *
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long id;
+
+    /**
+     *
+     */
     @Constraints.Required
     public String nombre;
 //    @Constraints.Required
 //    public String codigoCFI;
+
+    /**
+     *
+     */
     @Constraints.Required
     public String direccion;
+
+    /**
+     *
+     */
     @Constraints.Required
     public String telefonoContacto;
+
+    /**
+     *
+     */
     @Email
     @Constraints.Required
     public String correoEmpresa;
+
+    /**
+     *
+     */
     @Constraints.Required
     public String perfilEmpresarial;
+
+    /**
+     *
+     */
     @Constraints.Required
-    public JCheckBox estadoContrataciones;
+    public int estadoContrataciones;
     
-     public static Finder<Long, FormularioEmpresa> find = new Finder<Long, FormularioEmpresa>(FormularioEmpresa.class);
+    /**
+     *
+     */
+    public String otrasContrataciones;
+
+    /**
+     *
+     */
+    public static Finder<Long, FormularioEmpresa> find = new Finder<Long, FormularioEmpresa>(FormularioEmpresa.class);
 }

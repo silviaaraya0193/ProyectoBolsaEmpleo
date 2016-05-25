@@ -3,13 +3,15 @@ name := """prueba1"""
 version := "1.0-SNAPSHOT"
 
 lazy val root = (project in file(".")).enablePlugins(PlayJava)
-lazy val myProject = (project in file(".")).enablePlugins(PlayJava, PlayEbean)
+lazy val  myProject= (project in file(".")).enablePlugins(PlayJava, PlayEbean)
 
 scalaVersion := "2.11.7"
-
+routesGenerator := InjectedRoutesGenerator
 
 libraryDependencies ++= Seq(
   javaJdbc,
   cache,
-  javaWs
+  javaWs,
+    javaEbean,
+    "org.mindrot" % "jbcrypt" % "0.3m"
 )

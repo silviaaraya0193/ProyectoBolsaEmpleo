@@ -40,3 +40,22 @@ GET     /message                    controllers.AsyncController.message
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+
+
+
+# Manejo de login de sesion
+
+GET     /ingreso                    controllers.ApplicationUser.home()
+POST    /login                      controllers.ApplicationUser.authenticate()
+GET     /logout                     controllers.ApplicationUser.logout()
+
+# Creacion de usuarios
+
+#GET     /signup                     controllers.Signup.create()
+#POST    /signup                     controllers.Signup.save()
+
+
+#Eliminar 
+#GET     /eliminarPregunta/:id       controllers.HomeController.EliminarPregunta(id: Long)
+# Map static resources from the /public folder to the /assets URL path
+#GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

@@ -31,21 +31,21 @@ public class RegistroEmpresa implements InterfaceCreacionUsuario{
     @Constraints.Required
     int telefono;
     @Constraints.Required
-    int cfi;
+    int CFI;
 
     public RegistroEmpresa(String nombre, String correo, String contrasenia, int telefono,int CFI) {
         this.nombre = nombre;
         this.correo = correo;
         this.contrasenia = contrasenia;
         this.telefono = telefono;
-        this.cfi=CFI;
+        this.CFI=CFI;
     }
 
     public RegistroEmpresa() {
     }
 
     public void setCfi(int cfi) {
-        this.cfi = cfi;
+        this.CFI = cfi;
     }
     
     public void setNombre(String nombre) {
@@ -85,7 +85,7 @@ public class RegistroEmpresa implements InterfaceCreacionUsuario{
 
     @Override
     public int getCFI() {
-        return cfi;
+        return CFI;
     }
 
 }
