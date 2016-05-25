@@ -1,6 +1,8 @@
 package controllers;
 
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.inject.Inject;
 import models.FormularioEmpresa;
 import models.FormularioEstudiante;
@@ -62,26 +64,34 @@ public class HomeController extends Controller {
             preg.save();
             pregForm = formFactory.form(FormularioEmpresa.class);
         }
-        return ok(formularioEmpresa.render("Recepción de formulario correcto.", pregForm,
+        return ok(formularioEmpresa.render("Recepcion de formulario correcto.", pregForm,
                 routes.HomeController.crearFormularioEmpresaPost()));
     }
     public Result crearFormularioEstudianteGet() {
         Form<FormularioEstudiante> pregForm = formFactory.form(FormularioEstudiante.class);
+        List anios = new ArrayList();
+        for (int x = 1990; x<2017; x++){anios.add(x);}
+        
         return ok(formularioEstudiante.render(" ",
-                pregForm, routes.HomeController.crearFormularioEstudiantePost()));
+                pregForm, anios, routes.HomeController.crearFormularioEstudiantePost()));
     }
 
     public Result crearFormularioEstudiantePost() {
+        List anios = new ArrayList();
+        for (int x = 1990; x<2017; x++){anios.add(x);}
         Form<FormularioEstudiante> pregForm = formFactory.form(FormularioEstudiante.class).bindFromRequest();
         if (pregForm.hasErrors()) {
+            //System.out.println("primero: "+pregForm);
             return badRequest(formularioEstudiante.render("Encontramos errores",
-                    pregForm, routes.HomeController.index()));
+                    pregForm,anios, routes.HomeController.index()));
         } else {
             FormularioEstudiante preg = pregForm.get();
+            //System.out.println("informacion: "+preg);
             preg.save();
             pregForm = formFactory.form(FormularioEstudiante.class);
         }
-        return ok(formularioEstudiante.render("Recepción de formulario correcto.", pregForm,
+        return ok(formularioEstudiante.render("Recepcion de formulario correcto.", pregForm,
+                anios,
                 routes.HomeController.crearFormularioEstudiantePost()));
     }
      public Result perfilEmpresa(){

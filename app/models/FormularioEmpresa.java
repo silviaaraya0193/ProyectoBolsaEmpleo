@@ -15,6 +15,7 @@ import play.data.validation.Constraints.*;
  *
  * @author viccr
  */
+@Entity
 public class FormularioEmpresa extends Model {
 
     @Id
@@ -22,8 +23,8 @@ public class FormularioEmpresa extends Model {
     public Long id;
     @Constraints.Required
     public String nombre;
-//    @Constraints.Required
-//    public String codigoCFI;
+    //@Constraints.Required
+    public String codigoCFI;
     @Constraints.Required
     public String direccion;
     @Constraints.Required
@@ -34,7 +35,8 @@ public class FormularioEmpresa extends Model {
     @Constraints.Required
     public String perfilEmpresarial;
     @Constraints.Required
-    public JCheckBox estadoContrataciones;
+    public String estadoContrataciones;
+    public String otrasContrataciones;
     
      public static Finder<Long, FormularioEmpresa> find = new Finder<Long, FormularioEmpresa>(FormularioEmpresa.class);
 }

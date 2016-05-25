@@ -1,4 +1,4 @@
-@(message: String,  searchForm: Form[FormularioEstudiante], postUrl: play.api.mvc.Call)
+@(message: String,  searchForm: Form[FormularioEstudiante], anio: List[Integer],postUrl: play.api.mvc.Call)
 @import helper._
 
 @main(message) {
@@ -10,242 +10,247 @@
             @searchForm.globalError.message
         </div>
     }
-
-    <fieldset>
+<div>
+     <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#datosPersonales" aria-controls="datosPersonales" role="tab" data-toggle="tab">Datos Personales</a></li>
+    <li role="presentation"><a href="#datosLaborales" aria-controls="datosLaborales" role="tab" data-toggle="tab">Datos Laborales</a></li>
+    <li role="presentation"><a href="#experienciaLaboral" aria-controls="experienciaLaboral" role="tab" data-toggle="tab">Experiencia Laboral</a></li>
+    <li role="presentation"><a href="#educacion" aria-controls="educacion" role="tab" data-toggle="tab">Educacion</a></li>
+  </ul>
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="datosPersonales">
+             <fieldset>
         <h2>Datos Personales</h2>
         <div class="row">
             <div class="col-md-4"> @inputText(
-                searchForm("texto"),
+                searchForm("nombre"),
                 '_label -> "Nombre: ",
-                '_help -> "required",
+                '_help -> "Requerido",
                 'class -> "form-control"
                 )</div>
          
             <div class="col-md-4">
-                @inputText(searchForm("Primer Apellido:"),
-                '_help -> "required",
+                @inputText(searchForm("primerApellido"),
+                '_label -> "Primero Apellido: ",
+                '_help -> "Requerido",
                 'class -> "form-control")
             </div>
             <div class="col-md-4"> @inputText(
-                searchForm("texto"),
+                searchForm("segundoApellido"),
                 '_label -> "Segundo Apellido:",
-                '_help -> "required",
+                '_help -> "Requerido",
                 'class -> "form-control"
                 )</div>
           
             <br><br><div class="col-md-4"> @inputText(
-                searchForm("texto"),
+                searchForm("fechaNacimiento"),
                 '_label -> "Fecha de Nacimiento:",
-                '_help -> "required",
+                '_help -> "Requerido",
                 'class -> "form-control"
                 )</div>
           
             <div class="col-md-4">
-                @inputText(searchForm("Identificacion:"),
-                '_help -> "required",
+                @inputText(searchForm("cedula"),
+                '_label -> "Identificacion: ",
+                '_help -> "Requerido",
                 'class -> "form-control")
             </div>
            
             <div class="col-md-4">
-                @inputText(searchForm("Correo Electronico:"),
-                '_help -> "required",
+                @inputText(searchForm("correo"),
+                '_label -> "Correo Electronico: ",
+                '_help -> "Requerido",
                 'class -> "form-control")
             </div>
             <div>
                 <h4>Genero:</h4>
-                <input name="genero" type="radio" value="rbipeliculas" />Masculino
+                <input name="genero" type="radio" value="genero" />Masculino
                 <br>
-                <input name="genero" type="radio" value="rbipeliculas" />Femenino
+                <input name="genero" type="radio" value="genero" />Femenino
             </div><br>
           <div class="col-md-4"> @inputText(
-                searchForm("texto"),
+                searchForm("estadoCivil"),
                 '_label -> "Estado Civil:",
-                '_help -> "required",
+                '_help -> "Requerido",
                 'class -> "form-control"
                 )</div>
           
             <div class="col-md-4">
-                @inputText(searchForm("Pais de Nacimiento:"),
-                '_help -> "required",
+                @inputText(searchForm("paisNacimiento"),
+                '_label -> "Pais de Nacimiento: ",
+                '_help -> "Requerido",
                 'class -> "form-control")
             </div>
             <div class="col-md-4"> @inputText(
-                searchForm("texto"),
+                searchForm("lugarResidencia"),
                 '_label -> "Lugar de Residencia:",
-                '_help -> "required",
+                '_help -> "Requerido",
                 'class -> "form-control"
                 )</div>
           
             <div class="col-md-4">
-                @textarea(searchForm("Direccion de Residencia:"),
-                '_help -> "required",
+                @textarea(searchForm("direccion"),
+                '_label -> "Direccion de Residencia: ",
+                '_help -> "Requerido",
                 'class -> "form-control")
             </div>
             <div class="col-md-4"> @inputText(
-                searchForm("texto"),
-                '_label -> "Telefono Movil:",
-                '_help -> "required",
+                searchForm("telefonoMovil"),
+                '_label -> "Telefono Movil",
+                '_help -> "Requerido",
                 'class -> "form-control"
                 )</div>
           
             <div class="col-md-4">
-                @inputText(searchForm("Telefono Casa:"),
+                @inputText(searchForm("telefonoCasa"),
+                '_label -> "Telefono Casa: ",
                 '_help -> "",
                 'class -> "form-control")
             </div>
             <div class="col-md-4"> @inputText(
-                searchForm("texto"),
+                searchForm("licencia"),
                 '_label -> "Licencia de Conducir:",
                 '_help -> "",
                 'class -> "form-control"
                 )</div>
     <div class="col-md-8"> @textarea(
-                searchForm("texto"),
+                searchForm("perfilPersonal"),
                 '_label -> "Perfil Personal:",
-                '_help -> "",
+                '_help -> "Requerido",
                 'class -> "form-control"
                 )</div>
  </div>
- </fieldset>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="datosLaborales">
+            
 <fieldset>
 
             <h2>Datos Laborales</h2>
             <div class="col-md-4">
-                @inputText(searchForm("Profesion:"),
+                @inputText(searchForm("profesion"),
+                '_label -> "Profesion: ",
                 '_help -> "",
                 'class -> "form-control")
             </div>
             <div class="col-md-8"> @textarea(
-                searchForm("texto"),
+                searchForm("perfilProfesional"),
                 '_label -> "Perfil Profesional:",
                 '_help -> "",
                 'class -> "form-control"
                 )</div>
           
             <div class="col-md-4">
-                @inputText(searchForm("Años de Experiencia:"),
+                @inputText(searchForm("anosExperiencia"),
+                '_label -> "Años de Experiencia:",
                 '_help -> "",
                 'class -> "form-control")
             </div>
              <div>
              <br>
                  <h4> Estado Laboral:</h4>
-                <input name="estado" type="radio" value="rbipeliculas" />Empleado
+                <input name="estadoLaboral" type="radio" value="estadoLaboral" />Empleado
                 <br>
-                <input name="estado" type="radio" value="rbipeliculas" />Desempleado
+                <input name="estadoLaboral" type="radio" value="estadoLaboral" />Desempleado
                 <br>
-                <input name="estado" type="radio" value="rbipeliculas" />Practica Profesional
+                <input name="estadoLaboral" type="radio" value="estadoLaboral" />Practica Profesional
                 <br>
                 <h4>Posibilidad Trasladarse:</h4>
-                <input name="si" type="radio" value="rbipeliculas" />Si
+                <input name="traslado" type="radio" value="traslado" />Si
                 <br>
-                <input name="si" type="radio" value="rbipeliculas" />No
+                <input name="traslado" type="radio" value="traslado" />No
             </div>
  </fieldset>
- <fieldset>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="experienciaLaboral">
+            <fieldset>
             <h2>Experiencia Laboral</h2>
             <div class="col-md-4"> @inputText(
-                searchForm("texto"),
+                searchForm("empresa"),
                 '_label -> "Empresa:",
                 '_help -> "",
                 'class -> "form-control"
                 )</div>
           
             <div class="col-md-4">
-                @inputText(searchForm("Puesto:"),
+                @inputText(searchForm("puesto"),
+                '_label -> "Puesto: ",
                 '_help -> "",
                 'class -> "form-control")
             </div>
             <div class="col-md-4"> @inputText(
-                searchForm("texto"),
+                searchForm("anosTrabajo"),
                 '_label -> "Años de Trabajo:",
                 '_help -> "",
                 'class -> "form-control"
                 )</div>
  </fieldset>
- <fieldset>
+
+        </div>
+        <div role="tabpanel" class="tab-pane" id="educacion">
+            <fieldset>
             <h2>Educacion Formal</h2>
             <div class="col-md-4">
-                @inputText(searchForm("Titulo:"),
-                '_help -> "required",
+                @inputText(searchForm("titulo"),
+                '_label -> "Titulo: ",
+                '_help -> "Requerido",
                 'class -> "form-control")
             </div>
             <div class="col-md-4"> @inputText(
-                searchForm("texto"),
+                searchForm("institucion"),
                 '_label -> "Institucion:",
-                '_help -> "",
+                '_help -> "Requerido",
                 'class -> "form-control"
                 )</div>
+                </br></br>
             <div>
-                 <script  type="text/javascript"> 
-        function create_year_combo(gap, year){ 
-            var years = document.createElement("Select"); 
-            var current_year = year || new Date().getFullYear(); 
-            var ancho = gap || 5; 
-             
-            var temp_op; 
-            for(var i=current_year-ancho; i<=current_year+ancho; i++){ 
-                temp_op = document.createElement("option"); 
-                temp_op.value=i; 
-                temp_op.text=i; 
-                if(i==current_year){ 
-                    temp_op.selected=true; 
-                } 
-                years.appendChild(temp_op); 
-            } 
-            return years; 
-        } 
-        var sin_nada = create_year_combo(); 
-        var sin_nada_cont = document.getElementById("sin_nada_cont"); 
-        sin_nada_cont.appendChild(sin_nada); 
-         
-        var con_gap = create_year_combo(10); 
-        var gap_cont = document.getElementById("gap_cont"); 
-        gap_cont.appendChild(con_gap); 
-         
-        var gap_y_anyo = create_year_combo(5, 2016); 
-        var gap_y_anyo_cont = document.getElementById("gap_y_anyo_cont"); 
-        gap_y_anyo_cont.appendChild(gap_y_anyo); 
-    </script> 
+               <h4>Año Ingreso:</h4>
+        <select name="anoIngresoFormal" class="form-control">
+           
+            @for( anyo <- anio){
+             <option value="@anyo"> @anyo </option>
+            }
+        </select>
+               <h4>Año Finalizacion:</h4>
+        <select name="anoFinalFormal" class="form-control">
+            
+            @for( anyo <- anio){
+              <option value="@anyo"> @anyo </option>
+            }
+        </select>
             </div>
-          <!-- AGREGAR COMBO BOX CON ANOS DE INGRESO Y ANO DE FINALIZACION-->
  </fieldset>
  <fieldset>
           <h2>Idiomas</h2>
             <div class="col-md-4">
-                @textarea(searchForm("Idiomas:"),
+                @textarea(searchForm("idiomas"),
+                '_label -> "Idiomas: ",
                 '_help -> "",
                 'class -> "form-control")
             </div>
  </fieldset>
  <fieldset>
           <h2>Educacion No Formal</h2>
-          <div class="col-md-4"> @inputText(
-                searchForm("texto"),
-                '_label -> "Titulo:",
-                '_help -> "",
-                'class -> "form-control"
-                )</div>
-          
+         
             <div class="col-md-4">
-                @inputText(searchForm("Institucion:"),
+                @textarea(searchForm("otrosTitulos"),
+                '_label -> "Otros Titulos: ",
                 '_help -> "",
                 'class -> "form-control")
             </div>
-            <!-- AGREGAR COMBO BOX CON ANOS DE INGRESO Y ANO DE FINALIZACION-->
-             <div class="col-md-4">
-                @textarea(searchForm("Otros titulos:"),
-                '_help -> "",
-                'class -> "form-control")
-            </div>
+          
  </fieldset>
             <h2>Subir Archivos</h2>
             <input name="imagen" type="file" />
-       
-
-    <div class="form-actions text-center">
+        <div class="form-actions text-center">
         <input type="submit" class="btn btn-success" value="Guardar Formulario") >
-    </div>
+        </div>
+        </div>
+    
+  </div>
+ 
+</div>       
+
+   
     }
 }
 

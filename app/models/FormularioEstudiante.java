@@ -22,9 +22,11 @@ public class FormularioEstudiante extends Model{
      @Id
      @GeneratedValue(strategy = GenerationType.AUTO)
     public Long id;
+     
      //DATOS PERSONALES
      @Constraints.Required
      public String fechaNacimiento;
+     
     @Constraints.Required
     public String nombre;
     @Constraints.Required
@@ -50,6 +52,8 @@ public class FormularioEstudiante extends Model{
     public String telefonoMovil;
     //@Constraints.Required
     public String licencia;
+    @Constraints.Required
+    public String perfilPersonal;
     //DATOS LABORALES
     //@Constraints.Required
     public String profesion;
@@ -73,13 +77,15 @@ public class FormularioEstudiante extends Model{
     public String idiomas;
     //EDUCACION NO FORMAL
    // @Constraints.Required
-    public String tituloNoFormal;
+    public String otrosTitulos;
    // @Constraints.Required
-    public String institucionNoFormal;
-    
-    public JComboBox estadoLaboral, anoIngreso, anoFinal;
-    
-    public JRadioButton traslado, genero;
+    public String estadoLaboral;
+    @Constraints.Required
+    public String anoIngresoFormal, anoFinalFormal;
+    @Constraints.Required
+    public String traslado;
+    @Constraints.Required
+    public String genero;
     
       public static Finder<Long, FormularioEstudiante> find = new Finder<Long, FormularioEstudiante>(FormularioEstudiante.class);
       
