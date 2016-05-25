@@ -67,11 +67,11 @@ public Result create() {
 
         if (registerForm.hasErrors()) {
             String CFI = ctx().session().get("CFI");
-            return badRequest(create.render(UserEmpresa.findByUsername(CFI), registerForm)); // errores en el form
+            return badRequest(index.render(UserEmpresa.findByUsername(CFI), registerForm)); // errores en el form
         }
 
         ApplicationUser.CreateUser register = registerForm.get();
-        Result resultError = checkBeforeSave(registerForm, register.username); // comprueba si el nombre de usuario ya existe en la bd
+        Result resultError = checkBeforeSave(registerForm, register.CFI); // comprueba si el nombre de usuario ya existe en la bd
 
         if (resultError != null) {
             return resultError; // en caso de que el nombre de usuario ya exista
@@ -79,7 +79,7 @@ public Result create() {
 
         try {
             UserEmpresa user = new UserEmpresa();
-            user.CFI = register.username;
+            user.CFI = register.CFI;
             user.passwordHash = Hash.createPassword(register.password);
             user.creationDate = new Date();
             user.save();
@@ -90,7 +90,7 @@ public Result create() {
             flash("danger", "Error guardando los datos"); // error al guardar el usuario en la bd
         }
         String CFI = ctx().session().get("CFI");
-        return badRequest(create.render(UserEmpresa.findByUsername(CFI), registerForm));
+        return badRequest(index.render(UserEmpresa.findByUsername(CFI), registerForm));
     }
 
     /**
@@ -106,7 +106,7 @@ public Result create() {
     private Result checkBeforeSave(Form<ApplicationUser.CreateUser> registerForm, String CFI) {
         if (UserEmpresa.findByUsername(CFI) != null) {
             flash("danger", "Usuario existente");
-            return badRequest(create.render(UserEmpresa.findByUsername(CFI), registerForm));
+            return badRequest(index.render(UserEmpresa.findByUsername(CFI), registerForm));
         }
         return null;
     }
