@@ -3,6 +3,7 @@ package controllers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import javax.inject.Inject;
 import models.FormularioEmpresa;
 import models.FormularioEstudiante;
@@ -79,18 +80,48 @@ public class HomeController extends Controller {
     public Result crearFormularioEstudiantePost() {
         List anios = new ArrayList();
         for (int x = 1990; x<2017; x++){anios.add(x);}
-        Form<FormularioEstudiante> pregForm = formFactory.form(FormularioEstudiante.class).bindFromRequest();
-        if (pregForm.hasErrors()) {
+        Form<FormularioEstudiante> formEst = formFactory.form(FormularioEstudiante.class).bindFromRequest();
+        if (formEst.hasErrors()) {
             //System.out.println("primero: "+pregForm);
             return badRequest(formularioEstudiante.render("Encontramos errores",
-                    pregForm,anios, routes.HomeController.index()));
+                    formEst,anios, routes.HomeController.index()));
         } else {
-            FormularioEstudiante preg = pregForm.get();
+            Map<String,String> values = formEst.data();
+            
+            FormularioEstudiante nuevoFormEst = new FormularioEstudiante();
+            nuevoFormEst.nombre = values.get("nombre");
+            nuevoFormEst.primerApellido = values.get("primerApellido");
+            nuevoFormEst.segundoApellido = values.get("segundoApellido");
+            nuevoFormEst.fechaNacimiento = values.get("fechaNacimiento");
+            nuevoFormEst.cedula = values.get("cedula");
+            nuevoFormEst.correo = values.get("correo");
+            nuevoFormEst.estadoCivil = values.get("estadoCivil");
+            nuevoFormEst.paisNacimiento = values.get("paisNacimiento");
+            nuevoFormEst.lugarResidencia = values.get("lugarResidencia");
+            nuevoFormEst.direccion = values.get("direccion");
+            nuevoFormEst.telefonoCasa = values.get("telefonoCasa");
+            nuevoFormEst.telefonoMovil = values.get("telefonoMovil");
+            nuevoFormEst.licencia = values.get("licencia");
+            nuevoFormEst.profesion = values.get("profesion");
+            nuevoFormEst.perfilProfesional = values.get("perfilProfesional");
+            nuevoFormEst.anosExperiencia = values.get("anosExperiencia");
+            nuevoFormEst.empresa = values.get("empresa");
+            nuevoFormEst.puesto = values.get("puesto");
+            nuevoFormEst.anosTrabajo = values.get("anosTrabajo");
+            nuevoFormEst.titulo = values.get("titulo");
+            nuevoFormEst.institucion = values.get("institucion");
+            nuevoFormEst.idiomas = values.get("idiomas");
+            nuevoFormEst.otrosTitulos = values.get("otrosTitulos");
+            nuevoFormEst.estadoLaboral = values.get("estadoLaboral");
+            nuevoFormEst.anoIngresoFormal = values.get("anoIngresoFormal");
+            nuevoFormEst.anoFinalFormal = values.get("anoFinalFormal");
+            nuevoFormEst.traslado = values.get("traslado");
+            nuevoFormEst.genero = values.get("genero");
             //System.out.println("informacion: "+preg);
-            preg.save();
-            pregForm = formFactory.form(FormularioEstudiante.class);
+            nuevoFormEst.save();
+            formEst = formFactory.form(FormularioEstudiante.class);
         }
-        return ok(formularioEstudiante.render("Recepcion de formulario correcto.", pregForm,
+        return ok(formularioEstudiante.render("Recepcion de formulario correcto.", formEst,
                 anios,
                 routes.HomeController.crearFormularioEstudiantePost()));
     }
