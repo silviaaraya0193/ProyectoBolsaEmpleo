@@ -68,12 +68,15 @@
                 <br>
                 <input name="genero" type="radio" value="genero" />Femenino
             </div><br>
-          <div class="col-md-4"> @inputText(
-                searchForm("estadoCivil"),
-                '_label -> "Estado Civil:",
-                '_help -> "Requerido",
-                'class -> "form-control"
-                )</div>
+    
+                <select name="estadoCivil" class="form-control">
+                    <option value="soltero">Soltero</option>
+                    <option value ="casado">Casado</option>
+                     <option value ="divorciado">Divorciado</option>
+                      <option value ="unionlibre">Union Libre</option>
+                       <option value ="viudo">Viudo</option>
+                </select>
+            
           
             <div class="col-md-4">
                 @inputText(searchForm("paisNacimiento"),
@@ -107,12 +110,12 @@
                 '_help -> "",
                 'class -> "form-control")
             </div>
-            <div class="col-md-4"> @inputText(
-                searchForm("licencia"),
-                '_label -> "Licencia de Conducir:",
-                '_help -> "",
-                'class -> "form-control"
-                )</div>
+           <div>
+                <h4>Licencia de Conducir:</h4>
+                <input name="licencia" type="radio" value="genero" />Si
+                <br>
+                <input name="licencia" type="radio" value="genero" />No
+            </div><br>
     <div class="col-md-8"> @textarea(
                 searchForm("perfilPersonal"),
                 '_label -> "Perfil Personal:",
