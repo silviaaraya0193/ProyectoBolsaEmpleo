@@ -15,5 +15,6 @@ public interface InterfaceCreacionUsuario{
    String getCorreo();
    int getTelefono();
    String getContrasenia();
-   int getCFI();
+   String getCFI();
+   
 }

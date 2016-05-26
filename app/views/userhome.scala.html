@@ -1,0 +1,10 @@
+@(user: UserEmpresa)
+
+@main(user.CFI.toString()){
+
+<h2> Bienvenido @user.CFI </h2>
+
+<p> Su clave está encriptadad y es: @user.passwordHash</p>
+
+<a class="btn btn-success" href="@routes.ApplicationUser.logout()"> Salir </a>
+}

@@ -76,7 +76,7 @@ public class RegistroUsuario implements InterfaceCreacionUsuario{
     }
 
     @Override
-    public int getCFI() {
+    public String getCFI() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

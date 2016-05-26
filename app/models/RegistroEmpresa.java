@@ -8,84 +8,55 @@ package models;
 
 import com.avaje.ebean.Model;
 import javax.persistence.*;
-import javax.swing.JCheckBox;
 import play.data.validation.*;
 import play.data.validation.Constraints.*;
-
 
 /**
  *
  * @author EXDER
  */
 @Entity
-public class RegistroEmpresa implements InterfaceCreacionUsuario{
+public class RegistroEmpresa extends Model {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long id;
     @Constraints.Required
-    String nombre;
+    public String nombre;
+     @Constraints.Required
+    public String cfi;   
+    @Email
     @Constraints.Required
-    String correo;
+    public String correo;
     @Constraints.Required
-    String contrasenia;
+    public int telefono;
     @Constraints.Required
-    int telefono;
-    @Constraints.Required
-    int CFI;
+    public String contrasenia;
 
-    public RegistroEmpresa(String nombre, String correo, String contrasenia, int telefono,int CFI) {
-        this.nombre = nombre;
-        this.correo = correo;
-        this.contrasenia = contrasenia;
-        this.telefono = telefono;
-        this.CFI=CFI;
-    }
-
-    public RegistroEmpresa() {
-    }
-
-    public void setCfi(int cfi) {
-        this.CFI = cfi;
-    }
+   
+//    @Override
+//    public String getNombre() {
+//        return nombre;
+//    }
+//
+//    @Override
+//    public String getCorreo() {
+//        return correo;
+//    }
+//
+//    @Override
+//    public int getTelefono() {
+//        return telefono;
+//    }
+//
+//    @Override
+//    public String getContrasenia() {
+//        return contrasenia;
+//    }
+//
+//    @Override
+//    public String getCFI() {
+//        return CFI;
+//    }
     
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public void setCorreo(String correo) {
-        this.correo = correo;
-    }
-
-    public void setContrasenia(String contrasenia) {
-        this.contrasenia = contrasenia;
-    }
-
-    public void setTelefono(int telefono) {
-        this.telefono = telefono;
-    }
-    @Override
-    public String getNombre() {
-        return nombre;
-    }
-
-    @Override
-    public String getCorreo() {
-        return correo;
-    }
-
-    @Override
-    public int getTelefono() {
-        return telefono;
-    }
-
-    @Override
-    public String getContrasenia() {
-        return contrasenia;
-    }
-
-    @Override
-    public int getCFI() {
-        return CFI;
-    }
-
+    public static Finder<Long, RegistroEmpresa> find = new Finder<Long, RegistroEmpresa>(RegistroEmpresa.class);
 }

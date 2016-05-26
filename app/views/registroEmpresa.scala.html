@@ -1,24 +1,65 @@
-@(message: String )
+@(message: String, searchForm: Form[RegistroEmpresa], postUrl: play.api.mvc.Call)
+@import helper._
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 @main(message) {
-<div class="container">
-    <!--<h1> Bolsa de Empleo UCR </h1>-->
-   <div class="text" role="group" aria-label="...">
-    <h2>Registro Empresa</h2><br>
-       <label>Nombre Empresa:</label>
-            <input type="text" name="nombre"id="name"class="name"/> <br><br><br>
-      <label>Codigo CFI:</label>
-            <input type="text"name="CFI"id="CFI" class="CFI"><br><br><br>      
-      <label>Contraseña:</label>
-            <input type="password"name="contrasena"id="contrasenia"class="pass"/><br><br><br>
-      <label>Telefono:</label>
-            <input type="text"name="telefono"id="telefono"class="telefono"/><br><br><br>      
-      <label>Corre Electronico:</label>
-            <input type="text"name="correo"id="correoElectronico"class="corrreoElectronico"/><br><br><br>
-    </div>   
-    <a href="@routes.HomeController.crearFormularioEmpresaGet()" class="btn btn-default">Registrar</a></br></br>
-    
-  
-</div>
+<h1>Registro Empresa</h1>
+<div class="alert"> @message </div>
+@form(postUrl, 'class -> "form") {
+    @if(searchForm.hasGlobalErrors) {
+        <div class="alert alert-danger">
+            @searchForm.globalError.message
+        </div>
+    }
+    <fieldset>
+        <div class="row">
+            <div class="col-md-4"> @inputText(
+                searchForm("nombre"),'_showErrors -> true,
+                '_label -> "Nombre",
+                '_help -> "required",
+                'class -> "form-control"
+                )
+            </div>   
+        </div>
+        <div class="row">
+            <div class="col-md-4">@inputText(
+                searchForm("cfi"),'_showErrors -> true,
+                 '_label -> "CFI EMPRESA",
+                '_help -> "requeried",
+                'class -> "form-control"
+                )
+            </div>
+        </div>
+        <div class="row">
+              <div class="col-md-4">@inputText(
+                searchForm("correo"),
+                '_label -> "Correo de la empresa",'_showErrors -> true,
+                '_help -> "requeried",
+                'class -> "form-control"
+                )
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">@inputText(
+                searchForm("telefono"),
+                  '_label -> "Telefono",
+                '_help -> "requeried",
+                'class -> "form-control"
+                )
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-4">@inputPassword(
+                searchForm("contrasenia"),'_showErrors -> true,
+                '_label -> "Contrasenia",
+                '_help -> "requeried",
+                'class -> "form-control")
+            </div>   
+        </div>
+    </fieldset>
+    <div class="form-actions">
+        <input type="submit" class="btn btn-success" value="Registrarse" >
+    </div>
+    }
 }
 

@@ -6,14 +6,14 @@
 package controllers;
 import models.RegistroEmpresa;
 import models.UserEmpresa;
-//import models.utils.AppException;
+import models.utils.AppException;
 import play.Logger;
 import play.data.Form;
 import play.data.validation.Constraints;
 import play.i18n.Messages;
 import play.mvc.Controller;
 import play.mvc.Result;
-
+import views.html.*;
 
 import static play.data.Form.form;
 
@@ -21,30 +21,30 @@ import static play.data.Form.form;
 
 /**
  *
- * @author Expression EXDER is undefined on line 12, column 14 in Templates/Classes/Class.java.
+ * @author Expression EXDER 
  */
 public class ApplicationUser extends Controller {
  public Result GO_HOME = redirect(
-            routes.HomeController.index()
+            routes.HomeController.registroEmpresaGet()
     );
 
  public Result home() {//controlador del home o index
-        String CFI = ctx().session().get("CFI");
+        String CFI = ctx().session().get("cfi");
         if (CFI!=null) {
             UserEmpresa user = UserEmpresa.findByUsername(CFI);
             if (user != null) {
-                return  ok(index.render(user));//redirect("/");
+                return  ok(userhome.render(user));//redirect("/");
             } else {
                 session().clear();
             }
         }
-        return ok(index.render(form(Login.class)));
+        return ok(home.render(form(Login.class)));
     }
     
-  public static class Login {
+    public static class Login {
 
         @Constraints.Required()
-        public int CFI;
+        public String cfi;
         @Constraints.Required()
         public String password;
         
@@ -52,7 +52,7 @@ public class ApplicationUser extends Controller {
 
             UserEmpresa user = null;
             try {
-                user = UserEmpresa.authenticate(CFI, password);
+                user = UserEmpresa.authenticate(cfi, password);
             } catch (AppException e) {
                 return Messages.get("error.technical");
             }
@@ -67,7 +67,7 @@ public class ApplicationUser extends Controller {
   public static class CreateUser {
 
     @Constraints.Required
-    public int CFI;
+    public String cfi;
 
     @Constraints.Required
     public String password;
@@ -84,12 +84,13 @@ public class ApplicationUser extends Controller {
 }
   
   public Result authenticate() {
-        Form<RegistroEmpresa> loginForm = form(RegistroEmpresa.class).bindFromRequest();
+        Form<Login> loginForm = form(Login.class).bindFromRequest();
 
         if (loginForm.hasErrors()) {
-            return badRequest(index.render(loginForm));
+            return badRequest(home.render(loginForm));
         } else {
-            session("CFI", loginForm.get().CFI);
+            //String variable=loginForm.get().CFI.toString();
+            session("cfi", loginForm.get().cfi);
             return GO_HOME;
         }
     }

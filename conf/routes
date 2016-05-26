@@ -13,8 +13,12 @@ GET     /iniciarSesionEmpresa             controllers.HomeController.iniciarSesi
 #REGISTRO ESTUDIANTE
 GET     /registroEstudiante.scala.html          controllers.HomeController.registroEstudiante
 
+
+
 #REGISTRO EMPRESA
-GET     /registroEmpresa.scala.html             controllers.HomeController.registroEmpresa()
+GET     /registroEmpresa.scala.html             controllers.HomeController.registroEmpresaGet()
+POST   /registroEmpresa.scala.html             controllers.HomeController.registroEmpresaPost()
+
 
 #FORMULARIO EMPRESA
 GET     /formularioEmpresa.scala.html           controllers.HomeController.crearFormularioEmpresaGet()

@@ -29,7 +29,7 @@ public class UserEmpresa extends Model{
      @Constraints.Required
     @Formats.NonEmpty
     @Column(unique = true)
-    public int CFI;
+    public String CFI;
      
     @Constraints.Required
     @Formats.NonEmpty
@@ -41,7 +41,7 @@ public class UserEmpresa extends Model{
     // -- querys (long id, user.class)
     public static Model.Finder<Long, UserEmpresa> find = new Model.Finder<Long, UserEmpresa>(Long.class, UserEmpresa.class);
     
-     public static UserEmpresa findByUsername(int CFI) {
+     public static UserEmpresa findByUsername(String CFI) {
         return find.where().eq("CFI", CFI).findUnique();
     }
      
@@ -53,7 +53,7 @@ public class UserEmpresa extends Model{
      * @return un usuario si se autentica correctamente, null en el caso contrario
      * @throws AppException en caso de error
      */
-    public static UserEmpresa authenticate(int CFI, String password) throws AppException {
+    public static UserEmpresa authenticate(String CFI, String password) throws AppException {
         UserEmpresa userEmpresa = find.where().eq("CFI", CFI).findUnique();
         if (userEmpresa != null) {
             if (Hash.checkPassword(password, userEmpresa.passwordHash)) {

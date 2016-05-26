@@ -4,10 +4,13 @@ package controllers;
 import java.util.HashMap;
 import java.util.Map;
 import javax.inject.Inject;
+import models.CreadorUsuario;
 import play.data.Form;
 import play.mvc.*;
 import models.FormularioEmpresa;
 import models.FormularioEstudiante;
+import models.InterfaceCreacionUsuario;
+import models.RegistroEmpresa;
 import play.data.FormFactory;
 import play.data.validation.Constraints;
 import views.html.*;
@@ -48,17 +51,44 @@ public class HomeController extends Controller {
         return ok(registroEstudiante.render(" "));
       
     }
-      public Result registroEmpresa(){
-        return ok(registroEmpresa.render("  "));
+      public Result registroEmpresaGet(){
+          Form<RegistroEmpresa> pregForm = formFactory.form(RegistroEmpresa.class);
+        return ok(registroEmpresa.render(" Registro Empresa",pregForm,routes.HomeController.registroEmpresaPost()));
         
     }
+      public Result registroEmpresaPost(){
+          Form<RegistroEmpresa> formRegistro=formFactory.form(RegistroEmpresa.class).bindFromRequest();
+          if(formRegistro.hasErrors()){
+              System.out.println("error");
+              return badRequest(registroEmpresa.render("Encontramos errores",
+                    formRegistro, routes.HomeController.registroEmpresaPost()));
+          }
+          else{
+            Map<String ,String> values=formRegistro.data();//optiene los datos como un map del registro Empresaa
+            RegistroEmpresa nuevaEmpresa= new RegistroEmpresa();
+              System.out.println(values);
+            nuevaEmpresa.nombre=values.get("nombre");
+            nuevaEmpresa.cfi=values.get("cfi");
+            nuevaEmpresa.correo= values.get("correo");
+            nuevaEmpresa.telefono= Integer.parseInt(values.get("telefono"));
+            nuevaEmpresa.contrasenia= values.get("contrasenia");
+            
+            nuevaEmpresa.save();
+            
+            
+            formRegistro=formFactory.form(RegistroEmpresa.class);
+          }
+          return ok(registroEmpresa.render("Recepción de registro correcto.", formRegistro,
+                routes.HomeController.registroEmpresaPost()));
+      }
+     
+      
+      
     public Result crearFormularioEmpresaGet() {
         Form<FormularioEmpresa> pregForm = formFactory.form(FormularioEmpresa.class);
         return ok(formularioEmpresa.render(" ",
                 pregForm, routes.HomeController.crearFormularioEmpresaPost()));
     }
-
-
     public Result crearFormularioEmpresaPost() {//creacion del formulario sin errores
         //verificacion y recepciones de requierds and data view//
         //datas- que son los datos de la vista, values obtenidos por la key q se obtiene de el preform que fuarda la vista
@@ -70,7 +100,6 @@ public class HomeController extends Controller {
         } else {
             Map<String ,String> values=formEmpresa.data();//optiene los datos como un map
             System.out.println(values);
-            
             FormularioEmpresa nuevoFormEmpresa= new FormularioEmpresa();            
             nuevoFormEmpresa.nombre=values.get("nombre");
             nuevoFormEmpresa.direccion=values.get("direccion");
@@ -92,7 +121,6 @@ public class HomeController extends Controller {
         return ok(formularioEstudiante.render(" ",
                 pregForm, routes.HomeController.crearFormularioEstudiantePost()));
     }
-
     public Result crearFormularioEstudiantePost() {
         Form<FormularioEstudiante> pregForm = formFactory.form(FormularioEstudiante.class).bindFromRequest();
         if (pregForm.hasErrors()) {
@@ -100,6 +128,7 @@ public class HomeController extends Controller {
                     pregForm, routes.HomeController.index()));
         } else {
             FormularioEstudiante preg = pregForm.get();
+            //crear el estudiante formulario
             preg.save();
             pregForm = formFactory.form(FormularioEstudiante.class);
         }
