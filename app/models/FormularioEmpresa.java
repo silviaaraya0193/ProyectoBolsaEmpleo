@@ -7,13 +7,12 @@ package models;
 
 import com.avaje.ebean.Model;
 import javax.persistence.*;
-import javax.swing.JCheckBox;
 import play.data.validation.*;
 import play.data.validation.Constraints.*;
 
 /**
  *
- * @author viccr
+ * @author Exder
  */
 @Entity
 public class FormularioEmpresa extends Model {
@@ -23,20 +22,31 @@ public class FormularioEmpresa extends Model {
     public Long id;
     @Constraints.Required
     public String nombre;
+
     //@Constraints.Required
     public String codigoCFI;
+
     @Constraints.Required
     public String direccion;
+
+    
     @Constraints.Required
     public String telefonoContacto;
+
+    
     @Email
     @Constraints.Required
     public String correoEmpresa;
+
+  
     @Constraints.Required
     public String perfilEmpresarial;
+
+  
     @Constraints.Required
+
     public String estadoContrataciones;
     public String otrasContrataciones;
-    
-     public static Finder<Long, FormularioEmpresa> find = new Finder<Long, FormularioEmpresa>(FormularioEmpresa.class);
+
+    public static Finder<Long, FormularioEmpresa> find = new Finder<Long, FormularioEmpresa>(FormularioEmpresa.class);
 }

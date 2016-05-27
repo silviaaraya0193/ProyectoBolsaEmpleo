@@ -8,18 +8,18 @@ package models;
 
 /**
  *
- * @author Expression EXDER is undefined on line 12, column 14 in Templates/Classes/Class.java.
+ * @author EXDER
  */
 public class CreadorUsuario {
-    InterfaceCreacionUsuario usuario;
-      public InterfaceCreacionUsuario creadorUsuario(String tipo,String nombre,String correo,String contrasenia,int telefono,int cfi){
-          if(tipo.equals("Empresa")){
-             usuario = new RegistroEmpresa(nombre, correo, contrasenia, telefono,cfi);
-          }
-          else if(tipo.equals("Usuario")){
-              usuario= new RegistroUsuario(nombre, correo, contrasenia, telefono);
-          } 
-          return usuario;
-          
-      }
+//    InterfaceCreacionUsuario usuario;
+//      public InterfaceCreacionUsuario creadorUsuario(String tipo,String nombre,String correo,String contrasenia,int telefono,String cfi){
+//          if(tipo.equals("Empresa")){
+//             usuario = new RegistroEmpresa(nombre, correo, contrasenia, telefono,cfi);
+//          }
+//          else if(tipo.equals("Usuario")){
+//              usuario= new RegistroUsuario(nombre, correo, contrasenia, telefono);
+//          } 
+//          return usuario;
+//          
+//      }
 }

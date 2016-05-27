@@ -7,7 +7,7 @@ package models;
 
 /**
  *
- * @author viccr
+ * @author silvia
  */
 public interface InterfaceCreacionUsuario{
     
@@ -15,5 +15,6 @@ public interface InterfaceCreacionUsuario{
    String getCorreo();
    int getTelefono();
    String getContrasenia();
+   String getCFI();
    
 }
