@@ -3,6 +3,7 @@ package controllers;
 
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import java.util.HashMap;
@@ -13,8 +14,9 @@ import play.data.Form;
 import play.mvc.*;
 import models.FormularioEmpresa;
 import models.FormularioEstudiante;
-import models.InterfaceCreacionUsuario;
+import models.utils.Hash;
 import models.RegistroEmpresa;
+import models.utils.AppException;
 import play.data.FormFactory;
 import play.data.validation.Constraints;
 import views.html.*;
@@ -47,10 +49,10 @@ public class HomeController extends Controller {
         return ok(iniciarSesionEstudiante.render("\n Iniciar Seccion Estudiante "));
         
     }
-    public Result iniciarSesionEmpresa(){
-        return ok(iniciarSesionEmpresa.render("\n Inicar Seccion Empresa "));
-        
-    }
+//    public Result iniciarSesionEmpresa(){
+//        return ok(iniciarSesionEmpresa.render("\n Inicar Seccion Empresa "));
+//        
+//    }
      public Result registroEstudiante(){
         return ok(registroEstudiante.render(" "));
       
@@ -60,34 +62,33 @@ public class HomeController extends Controller {
         return ok(registroEmpresa.render(" Registro Empresa",pregForm,routes.HomeController.registroEmpresaPost()));
         
     }
-      public Result registroEmpresaPost(){
-          Form<RegistroEmpresa> formRegistro=formFactory.form(RegistroEmpresa.class).bindFromRequest();
+      public Result registroEmpresaPost() throws AppException{//error por e hashpassword que se crea como variable
+          Form<RegistroEmpresa> formRegistro=formFactory.form(RegistroEmpresa.class).fill(new RegistroEmpresa("ABC123", new Date())).bindFromRequest();
           if(formRegistro.hasErrors()){
-              System.out.println("error");
-              return badRequest(registroEmpresa.render("Encontramos errores",
+              //formRegistro.
+              System.out.println("error form registro ");
+              return badRequest(registroEmpresa.render("Encontramos errores en form registro",
                     formRegistro, routes.HomeController.registroEmpresaPost()));
           }
           else{
             Map<String ,String> values=formRegistro.data();//optiene los datos como un map del registro Empresaa
             RegistroEmpresa nuevaEmpresa= new RegistroEmpresa();
-              System.out.println(values);
+            System.out.println(values);
             nuevaEmpresa.nombre=values.get("nombre");
             nuevaEmpresa.cfi=values.get("cfi");
             nuevaEmpresa.correo= values.get("correo");
             nuevaEmpresa.telefono= Integer.parseInt(values.get("telefono"));
             nuevaEmpresa.contrasenia= values.get("contrasenia");
-            
+            nuevaEmpresa.passwordHash=Hash.createPassword(nuevaEmpresa.contrasenia);
+            nuevaEmpresa.creationDate=new Date();
             nuevaEmpresa.save();
-            
             
             formRegistro=formFactory.form(RegistroEmpresa.class);
           }
           return ok(registroEmpresa.render("\nRecepción de registro correcto.", formRegistro,
                 routes.HomeController.registroEmpresaPost()));
       }
-     
-      
-      
+ 
     public Result crearFormularioEmpresaGet() {
         Form<FormularioEmpresa> pregForm = formFactory.form(FormularioEmpresa.class);
         return ok(formularioEmpresa.render(" ",
@@ -177,9 +178,9 @@ public class HomeController extends Controller {
                 anios,
                 routes.HomeController.crearFormularioEstudiantePost()));
     }
-     public Result perfilEmpresa(){
-        return ok(perfilEmpresa.render("Perfil Empresa"));
-    }
+//     public Result perfilEmpresa(){
+//        return ok(perfilEmpresa.render("Perfil Empresa"));
+//    }
      public Result perfilEstudiante(){
         return ok(perfilEstudiante.render("Pefil Estudiante"));
     }

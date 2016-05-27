@@ -24,21 +24,23 @@ import static play.data.Form.form;
  * @author Expression EXDER 
  */
 public class ApplicationUser extends Controller {
+    
  public Result GO_HOME = redirect(
             routes.HomeController.registroEmpresaGet()
     );
 
  public Result home() {//controlador del home o index
-        String CFI = ctx().session().get("cfi");
-        if (CFI!=null) {
-            UserEmpresa user = UserEmpresa.findByUsername(CFI);
+        String cfi = ctx().session().get("cfi");
+        if (cfi!=null) {
+            RegistroEmpresa user = RegistroEmpresa.findByUsername(cfi);//busca el cfi
+            System.out.println("user"+user);
             if (user != null) {
-                return  ok(userhome.render(user));//redirect("/");
+                return  ok(perfilEmpresa.render("Hola empresa",user));//redirect("/");
             } else {
                 session().clear();
             }
         }
-        return ok(home.render(form(Login.class)));
+        return ok(iniciarSesionEmpresa.render("Error",form(Login.class)));
     }
     
     public static class Login {
@@ -50,14 +52,14 @@ public class ApplicationUser extends Controller {
         
          public String validate() {
 
-            UserEmpresa user = null;
+            RegistroEmpresa user = null;
             try {
-                user = UserEmpresa.authenticate(cfi, password);
+                user = RegistroEmpresa.authenticate(cfi, password);
             } catch (AppException e) {
                 return Messages.get("error.technical");
             }
             if (user == null) {
-                return Messages.get("invalid.CFI.or.password");
+                return Messages.get("user es null");
             }
             return null;
         }
@@ -87,9 +89,8 @@ public class ApplicationUser extends Controller {
         Form<Login> loginForm = form(Login.class).bindFromRequest();
 
         if (loginForm.hasErrors()) {
-            return badRequest(home.render(loginForm));
+            return badRequest(iniciarSesionEmpresa.render("Error Autentificacion",loginForm));
         } else {
-            //String variable=loginForm.get().CFI.toString();
             session("cfi", loginForm.get().cfi);
             return GO_HOME;
         }

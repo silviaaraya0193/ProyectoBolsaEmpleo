@@ -8,7 +8,7 @@ GET     /                                 controllers.HomeController.index()
 GET     /iniciarSesionEstudiante          controllers.HomeController.iniciarSesionEstudiante()
 
 #INICIAR SESEION ESTUDIANTE
-GET     /iniciarSesionEmpresa             controllers.HomeController.iniciarSesionEmpresa()
+GET     /iniciarSesionEmpresa             controllers.ApplicationUser.home()
 
 #REGISTRO ESTUDIANTE
 GET     /registroEstudiante.scala.html          controllers.HomeController.registroEstudiante
@@ -29,7 +29,7 @@ GET     /formularioEstudiante.scala.html        controllers.HomeController.crear
 POST    /formularioEstudiante.scala.html        controllers.HomeController.crearFormularioEstudiantePost()
 
 #PERFIL EMPRESA
-GET     /perfilEmpresa.scala.html               controllers.HomeController.perfilEmpresa()
+#GET     /perfilEmpresa.scala.html               controllers.HomeController.perfilEmpresa()
 
 #PERFIL ESTUDIANTE
 GET     /perfilEstudiante.scala.html            controllers.HomeController.perfilEstudiante()
@@ -37,6 +37,11 @@ GET     /perfilEstudiante.scala.html            controllers.HomeController.perfi
 #OPCIONES
 GET     /opciones                               controllers.HomeController.opciones()
 GET     /opciones2                              controllers.HomeController.opciones2()
+
+# Creacion de usuarios
+GET     /SignUp                     controllers.SignUp.create()
+POST    /SignUp                     controllers.SignUp.save()
+
 # An example controller showing how to use dependency injection
 GET     /count                      controllers.CountController.count
 # An example controller showing how to write asynchronous code
