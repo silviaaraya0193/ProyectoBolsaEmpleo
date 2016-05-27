@@ -6,65 +6,57 @@
 
 package models;
 
+import com.avaje.ebean.Model;
+import javax.persistence.*;
+import play.data.validation.*;
+import play.data.validation.Constraints.*;
+
 /**
  *
- * @author Expression EXDER is undefined on line 12, column 14 in Templates/Classes/Class.java.
+ * @author EXDER
  */
-public class RegistroEmpresa implements InterfaceCreacionUsuario{
+@Entity
+public class RegistroEmpresa extends Model {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    public Long id;
+    @Constraints.Required
+    public String nombre;
+     @Constraints.Required
+    public String cfi;   
+    @Email
+    @Constraints.Required
+    public String correo;
+    @Constraints.Required
+    public int telefono;
+    @Constraints.Required
+    public String contrasenia;
+
+   
+//    @Override
+//    public String getNombre() {
+//        return nombre;
+//    }
+//
+//    @Override
+//    public String getCorreo() {
+//        return correo;
+//    }
+//
+//    @Override
+//    public int getTelefono() {
+//        return telefono;
+//    }
+//
+//    @Override
+//    public String getContrasenia() {
+//        return contrasenia;
+//    }
+//
+//    @Override
+//    public String getCFI() {
+//        return CFI;
+//    }
     
-    String nombre,correo,contrasenia;
-    int telefono,cfi;
-
-    public RegistroEmpresa(String nombre, String correo, String contrasenia, int telefono,int CFI) {
-        this.nombre = nombre;
-        this.correo = correo;
-        this.contrasenia = contrasenia;
-        this.telefono = telefono;
-        this.cfi=CFI;
-    }
-
-    public RegistroEmpresa() {
-    }
-
-    public void setCfi(int cfi) {
-        this.cfi = cfi;
-    }
-    
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public void setCorreo(String correo) {
-        this.correo = correo;
-    }
-
-    public void setContrasenia(String contrasenia) {
-        this.contrasenia = contrasenia;
-    }
-
-    public void setTelefono(int telefono) {
-        this.telefono = telefono;
-    }
-    
-    
-    @Override
-    public String getNombre() {
-        return nombre;
-    }
-
-    @Override
-    public String getCorreo() {
-        return correo;
-    }
-
-    @Override
-    public int getTelefono() {
-        return telefono;
-    }
-
-    @Override
-    public String getContrasenia() {
-        return contrasenia;
-    }
-
+    public static Finder<Long, RegistroEmpresa> find = new Finder<Long, RegistroEmpresa>(RegistroEmpresa.class);
 }

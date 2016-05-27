@@ -5,14 +5,27 @@
  */
 
 package models;
-
+import com.avaje.ebean.Model;
+import javax.persistence.*;
+import javax.swing.JCheckBox;
+import play.data.validation.*;
+import play.data.validation.Constraints.*;
 /**
  *
- * @author Expression EXDER is undefined on line 12, column 14 in Templates/Classes/Class.java.
+ * @author Exder
  */
+@Entity
 public class RegistroUsuario implements InterfaceCreacionUsuario{
-
-    String nombre,correo,contrasenia;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    public Long id;
+     @Constraints.Required
+    String nombre;
+    @Constraints.Required
+    String correo;
+    @Constraints.Required
+    String contrasenia;
+    @Constraints.Required
     int telefono;
 
     public RegistroUsuario(String nombre, String correo, String contrasenia, int telefono) {
@@ -21,9 +34,8 @@ public class RegistroUsuario implements InterfaceCreacionUsuario{
         this.contrasenia = contrasenia;
         this.telefono = telefono;
     }
-
-    
     public RegistroUsuario() {
+        
     }
 
     public void setNombre(String nombre) {
@@ -63,4 +75,8 @@ public class RegistroUsuario implements InterfaceCreacionUsuario{
         return contrasenia;
     }
 
+    @Override
+    public String getCFI() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

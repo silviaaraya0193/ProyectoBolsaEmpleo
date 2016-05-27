@@ -3,7 +3,7 @@
 # ~~~~
 
 # An example controller showing a sample home page
-GET     /                                 controllers.HomeController.index
+GET     /                                 controllers.HomeController.index()
 #INICIAR SESEION ESTUDIANTE
 GET     /iniciarSesionEstudiante          controllers.HomeController.iniciarSesionEstudiante()
 
@@ -13,8 +13,12 @@ GET     /iniciarSesionEmpresa             controllers.HomeController.iniciarSesi
 #REGISTRO ESTUDIANTE
 GET     /registroEstudiante.scala.html          controllers.HomeController.registroEstudiante
 
+
+
 #REGISTRO EMPRESA
-GET     /registroEmpresa.scala.html             controllers.HomeController.registroEmpresa
+GET     /registroEmpresa.scala.html             controllers.HomeController.registroEmpresaGet()
+POST   /registroEmpresa.scala.html             controllers.HomeController.registroEmpresaPost()
+
 
 #FORMULARIO EMPRESA
 GET     /formularioEmpresa.scala.html           controllers.HomeController.crearFormularioEmpresaGet()
@@ -40,3 +44,22 @@ GET     /message                    controllers.AsyncController.message
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+
+
+
+# Manejo de login de sesion
+
+GET     /ingreso                    controllers.ApplicationUser.home()
+POST    /login                      controllers.ApplicationUser.authenticate()
+GET     /logout                     controllers.ApplicationUser.logout()
+
+# Creacion de usuarios
+
+#GET     /signup                     controllers.Signup.create()
+#POST    /signup                     controllers.Signup.save()
+
+
+#Eliminar 
+#GET     /eliminarPregunta/:id       controllers.HomeController.EliminarPregunta(id: Long)
+# Map static resources from the /public folder to the /assets URL path
+#GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
