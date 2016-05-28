@@ -26,7 +26,7 @@ import static play.data.Form.form;
 public class ApplicationUser extends Controller {
     
  public Result GO_HOME = redirect(
-            routes.HomeController.registroEmpresaGet()
+            routes.ApplicationUser.home()
     );
 
  public Result home() {//controlador del home o index
