@@ -4,19 +4,14 @@ package controllers;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import java.util.HashMap;
 import java.util.Map;
 import javax.inject.Inject;
-import models.CreadorUsuario;
 import play.data.Form;
 import play.mvc.*;
 import models.FormularioEmpresa;
 import models.FormularioEstudiante;
-import models.InterfaceCreacionUsuario;
 import models.RegistroEmpresa;
 import play.data.FormFactory;
-import play.data.validation.Constraints;
 import views.html.*;
 
 /**
@@ -181,6 +176,63 @@ public class HomeController extends Controller {
         return ok(perfilEmpresa.render("Perfil Empresa"));
     }
      public Result perfilEstudiante(){
-        return ok(perfilEstudiante.render("Pefil Estudiante"));
+         List<FormularioEstudiante> formEstu = FormularioEstudiante.find.all();
+        return ok(perfilEstudiante.render("", formEstu));
     }
+     public Result editarPerfilEstudianteGet(Long id){
+         List anios = new ArrayList();
+        for (int x = 1990; x<2017; x++){anios.add(x);}
+         FormularioEstudiante instancia = FormularioEstudiante.find.byId(id);
+         Form<FormularioEstudiante> formEst = formFactory.form(FormularioEstudiante.class).fill(instancia);
+         return ok(formularioEstudiante.render("Formulario Estudiante", formEst,
+                 anios, routes.HomeController.editarPerfilPost(id)));
+     }
+     public Result editarPerfilPost(Long id){
+         List anios = new ArrayList();
+        for (int x = 1990; x<2017; x++){anios.add(x);}
+         FormularioEstudiante instancia = FormularioEstudiante.find.byId(id);
+         Form<FormularioEstudiante> formEstu = formFactory.form(FormularioEstudiante.class).fill(instancia).bindFromRequest();
+         if(formEstu.hasErrors()){
+             return badRequest(formularioEstudiante.render("Encontramos errores en el formulario", formEstu, 
+                     anios, routes.HomeController.editarPerfilPost(id)));
+         }
+         FormularioEstudiante formEst = formEstu.get();
+         instancia.nombre = formEst.nombre;
+         instancia.primerApellido = formEst.primerApellido;
+         instancia.segundoApellido = formEst.segundoApellido;
+         instancia.fechaNacimiento = formEst.fechaNacimiento;
+         instancia.cedula = formEst.cedula;
+         instancia.correo = formEst.correo;
+         instancia.estadoCivil = formEst.estadoCivil;
+         instancia.paisNacimiento = formEst.paisNacimiento;
+         instancia.lugarResidencia = formEst.lugarResidencia;
+         instancia.direccion = formEst.direccion;
+         instancia.telefonoCasa = formEst.telefonoCasa;
+         instancia.telefonoMovil = formEst.telefonoMovil;
+         instancia.licencia = formEst.licencia;
+         instancia.perfilPersonal = formEst.perfilPersonal;
+         instancia.profesion = formEst.profesion;
+         instancia.perfilProfesional = formEst.perfilProfesional;
+         instancia.anosExperiencia = formEst.anosExperiencia;
+         instancia.empresa = formEst.empresa;
+         instancia.puesto = formEst.puesto;
+         instancia.anosTrabajo = formEst.anosTrabajo;
+         instancia.titulo = formEst.titulo;
+         instancia.institucion = formEst.institucion;
+         instancia.idiomas = formEst.idiomas;
+         instancia.otrosTitulos = formEst.otrosTitulos;
+         instancia.estadoLaboral = formEst.estadoLaboral;
+         instancia.anoIngresoFormal= formEst.anoIngresoFormal;
+         instancia.anoFinalFormal = formEst.anoFinalFormal;
+         instancia.traslado = formEst.traslado;
+         instancia.genero = formEst.genero;
+         instancia.save();
+         return redirect(routes.HomeController.listarFormularioEstudiante());
+     }
+     
+     public Result listarFormularioEstudiante(){
+         List<FormularioEstudiante> formEstu = FormularioEstudiante.find.all();
+         System.out.println("impresion lista formulario est: "+formEstu);
+         return ok(perfilEstudiante.render("Formulario Estudiantes", formEstu));
+     }
 }

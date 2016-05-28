@@ -37,6 +37,14 @@ GET     /perfilEstudiante.scala.html            controllers.HomeController.perfi
 #OPCIONES
 GET     /opciones                               controllers.HomeController.opciones()
 GET     /opciones2                              controllers.HomeController.opciones2()
+
+#LISTARFORMULARIOESTUDIANTE
+GET     /listarFormularioEstudiante                controllers.HomeController.listarFormularioEstudiante()
+
+#EDITARFORMULARIOESTUDIANTES
+GET     /editarEstudiante/:id                       controllers.HomeController.editarPerfilEstudianteGet(id: Long)
+POST    /editarEstudiante/:id                       controllers.HomeController.editarPerfilPost(id: Long)
+
 # An example controller showing how to use dependency injection
 GET     /count                      controllers.CountController.count
 # An example controller showing how to write asynchronous code

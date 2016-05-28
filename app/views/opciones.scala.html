@@ -3,8 +3,52 @@
 @main(message) {
 <div class="container">
     <!--<h1> Bolsa de Empleo UCR </h1>-->
-  <div class="btn-group" role="group" aria-label="...">
-    <a href="@routes.HomeController.iniciarSesionEstudiante()" class="btn btn-default">Iniciar Sesion</a></br></br>
-    <a href="@routes.HomeController.registroEstudiante()" class="btn btn-success">Registrarme </a></br></br>
+  <!-- <div class="btn-group" role="group" aria-label="...">
+    <a href="@routes.HomeController.iniciarSesionEstudiante()" class="btn btn-default">Estudiante</a></br></br>
+    <a href="@routes.HomeController.iniciarSesionEmpresa()" class="btn btn-success">Empresa   </a></br></br>
   </div>
+  }-->
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 200px;
+    background-color: #f1f1f1;
 }
+
+li a {
+    display: block;
+    color: #000;
+    padding: 8px 0 8px 16px;
+    text-decoration: none;
+}
+
+/* Change the link color on hover */
+li a:hover {
+    background-color: #555;
+    color: white;
+}
+</style>
+
+</head>
+<body>
+<ul class="nav nav-pills nav-stacked">
+    <li role="presentation" class="active">
+        
+        <a href="@routes.HomeController.iniciarSesionEstudiante()"> 
+            <span class="glyphicon glyphicon-log-in"></span>  Iniciar Sesion</a>
+        
+    </li></br></br>
+    <li role="presentation">
+        
+        <a href="@routes.HomeController.registroEstudiante()">
+            <span class="glyphicon glyphicon-user"></span>  Registrarme </a></li></br></br>
+</ul>
+</body>
+</html>
+
+</div>
