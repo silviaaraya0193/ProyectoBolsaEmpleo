@@ -1,15 +1,39 @@
-@(message: String )
+@(message:String,loginForm: Form[ApplicationEstudiante.Login])
+@import helper._
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-@main(message) {
-<div class="text" role="group" aria-label="...">
-    <h2>Iniciar Sesion Estudiantes</h2><br>
-      <label>Nombre o Correo:</label>
-            <input type="text"name="cfi"id="correo" class="correo"><br><br><br>      
-      <label>Contraseña :</label>
-            <input type="password"name="contrasena"id="pass"class="pass"/><br><br><br>
-    </div>   
-    <a href="@routes.HomeController.perfilEstudiante()" class="btn btn-default">Acceder</a></br></br>
-    
-}
+@main(null) {
+<h1>Iniciar seccion Estudiante</h1>
 
+@form(routes.ApplicationEstudiante.authenticate(), 'class -> "form") {
 
+    @if(loginForm.hasGlobalErrors) {
+        <div class="alert alert-danger">
+            @loginForm.globalError.message
+        </div>
+    }
+     <fieldset>
+         <div class="row">
+            <div class="col-md-4">@inputText(
+                loginForm("correo"),'_showErrors -> true,
+                 '_label -> "Correo Usuario",
+                '_help -> "requeried",
+                'class -> "form-control"
+                )
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4"> @inputPassword(
+                loginForm("contrasenia"),'_showErrors -> true,
+                '_label -> "Password",
+                '_help -> "required",
+                'class -> "form-control"
+                )
+            </div>   
+        </div>
+    </fieldset>
+    <div class="form-actions">
+        <input type="submit" class="btn btn-success" value="Iniciar Sesion" >
+    </div>
+
+  }
+    }

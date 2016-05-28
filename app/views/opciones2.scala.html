@@ -2,12 +2,6 @@
 
 @main(message) {
 <div class="container">
-    <!--<h1> Bolsa de Empleo UCR </h1>-->
-  <!-- <div class="btn-group" role="group" aria-label="...">
-    <a href="@routes.HomeController.iniciarSesionEstudiante()" class="btn btn-default">Estudiante</a></br></br>
-    <a href="@routes.HomeController.iniciarSesionEmpresa()" class="btn btn-success">Empresa   </a></br></br>
-  </div>
-  }-->
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,7 +31,7 @@ li a:hover {
 <body>
 <ul class="nav nav-pills nav-stacked">
     <li role="presentation" class="active">
-        <a href="@routes.HomeController.iniciarSesionEmpresa()">
+        <a href="@routes.ApplicationEmpresa.home()">
                <span class="glyphicon glyphicon-log-in"></span>  Iniciar Sesion</a></li></br></br>
     <li role="presentation">
         <a href="@routes.HomeController.registroEmpresaGet()">
@@ -47,14 +41,5 @@ li a:hover {
 </html>
 
 </div>
-
-<!--@(message: String )
-
-@main(message) {
-<div class="container">
-  <div class="btn-group" role="group" aria-label="...">
-    <a href="@routes.HomeController.iniciarSesionEmpresa()" class="btn btn-default">Iniciar Sesion</a></br></br>
-    <a href="@routes.HomeController.registroEmpresaGet()" class="btn btn-success">Registrarme </a></br></br>
-  </div>
-}-->
+}
 

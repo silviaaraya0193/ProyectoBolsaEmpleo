@@ -1,0 +1,48 @@
+@(user: RegistroUsuario, signupForm: Form[ApplicationEstudiante.CreateUser])
+@import helper._
+
+@main("Administrando usuarios") {
+<div class="span3">
+    &nbsp;
+</div>
+
+<div class="span12">
+    <div class="well">
+        @flash.map {
+            case (key, value) => {
+            <div class="alert alert-@key">
+                @value
+            </div>
+            }
+        }
+        #llama al metodo para guardar en el navegador
+        @form(controllers.routes.SignUp.save(), 'class -> "form text-center") {
+
+    <fieldset>
+        @inputText(
+            signupForm("correo"),
+            'placeholder -> "correo",
+            '_label -> null,
+            '_help -> "Requerido",
+            'class -> "form-control"
+        )
+
+        @inputPassword(
+            signupForm("contrasenia"),
+            '_label -> null,
+            '_help -> "Requerido",
+            'placeholder -> "Contraseña",
+            'class -> "form-control"
+        )
+    </fieldset>
+
+
+    <div class="form-actions">
+        <input type="submit" class="btn btn-success" value="Crear">
+    </div>
+}
+        
+        
+    </div>
+</div>
+}

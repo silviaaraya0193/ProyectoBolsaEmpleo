@@ -10,6 +10,12 @@
             @searchForm.globalError.message
         </div>
     }
+    @for(error <- searchForm("passwordHash").errors) {
+    <p> passwordHash @Messages(error.messages, error.arguments.toArray: _*)</p>
+}
+@for(error <- searchForm("creationDate").errors) {
+    <p> creationDate @Messages(error.messages, error.arguments.toArray: _*)</p>
+}
     <fieldset>
         <div class="row">
             <div class="col-md-4"> @inputText(

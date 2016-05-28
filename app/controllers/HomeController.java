@@ -1,8 +1,7 @@
 package controllers;
 
-
-
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
@@ -10,7 +9,10 @@ import play.data.Form;
 import play.mvc.*;
 import models.FormularioEmpresa;
 import models.FormularioEstudiante;
+import models.utils.Hash;
 import models.RegistroEmpresa;
+import models.RegistroUsuario;
+import models.utils.AppException;
 import play.data.FormFactory;
 import views.html.*;
 
@@ -37,19 +39,7 @@ public class HomeController extends Controller {
     public Result opciones2(){
         return ok(opciones2.render(" "));
     }
-    public Result iniciarSesionEstudiante(){
-
-        return ok(iniciarSesionEstudiante.render("\n Iniciar Seccion Estudiante "));
-        
-    }
-    public Result iniciarSesionEmpresa(){
-        return ok(iniciarSesionEmpresa.render("\n Inicar Seccion Empresa "));
-        
-    }
-     public Result registroEstudiante(){
-        return ok(registroEstudiante.render(" "));
-      
-    }
+     
       public Result registroEmpresaGet(){
           Form<RegistroEmpresa> pregForm = formFactory.form(RegistroEmpresa.class);
         return ok(registroEmpresa.render(" Registro Empresa",pregForm,routes.HomeController.registroEmpresaPost()));
@@ -173,11 +163,13 @@ public class HomeController extends Controller {
                 routes.HomeController.crearFormularioEstudiantePost()));
     }
      public Result perfilEmpresa(){
-        return ok(perfilEmpresa.render("Perfil Empresa"));
+         RegistroEmpresa registro = new RegistroEmpresa();
+        return ok(perfilEmpresa.render("Perfil Empresa", registro));
     }
      public Result perfilEstudiante(){
+         RegistroUsuario usuario = new RegistroUsuario();
          List<FormularioEstudiante> formEstu = FormularioEstudiante.find.all();
-        return ok(perfilEstudiante.render("", formEstu));
+        return ok(perfilEstudiante.render("", formEstu, usuario));
     }
      public Result editarPerfilEstudianteGet(Long id){
          List anios = new ArrayList();
@@ -231,8 +223,163 @@ public class HomeController extends Controller {
      }
      
      public Result listarFormularioEstudiante(){
+         RegistroUsuario usuario = new RegistroUsuario();
          List<FormularioEstudiante> formEstu = FormularioEstudiante.find.all();
          System.out.println("impresion lista formulario est: "+formEstu);
-         return ok(perfilEstudiante.render("Formulario Estudiantes", formEstu));
+         return ok(perfilEstudiante.render("Formulario Estudiantes", formEstu, usuario));
      }
+
+//   
+     public Result registroEstudianteGet(){
+         Form<RegistroUsuario> formUsuario= formFactory.form(RegistroUsuario.class);
+        return ok(registroEstudiante.render(" Registro Estudiante",formUsuario,routes.HomeController.registroEstudiantePost())); 
+    }
+    public Result registroEstudiantePost() throws AppException{
+         Form<RegistroUsuario> formUsuario=formFactory.form(RegistroUsuario.class).fill(new RegistroUsuario("ABC123", new Date())).bindFromRequest();
+          if(formUsuario.hasErrors()){
+              //formRegistro.
+              System.out.println("error form registro ");
+              return badRequest(registroEstudiante.render("Encontramos errores en form registro",
+                    formUsuario, routes.HomeController.registroEstudiantePost()));
+          }
+          else{
+            Map<String ,String> values=formUsuario.data();//optiene los datos como un map del registro Empresaa
+            RegistroUsuario nuevoUsuario= new RegistroUsuario();
+            System.out.println(values);
+            nuevoUsuario.nombre=values.get("nombre");
+            nuevoUsuario.correo= values.get("correo");
+            nuevoUsuario.telefono= Integer.parseInt(values.get("telefono"));
+            nuevoUsuario.contrasenia= values.get("contrasenia");
+            nuevoUsuario.passwordHash=Hash.createPassword(nuevoUsuario.contrasenia);
+            nuevoUsuario.creationDate=new Date();
+            nuevoUsuario.save();
+            
+            formUsuario=formFactory.form(RegistroUsuario.class);
+          }
+          return ok(registroEstudiante.render("\nRecepción de registro correcto.", formUsuario,
+                routes.HomeController.registroEstudiantePost()));
+    } 
+//    
+//      public Result registroEmpresaGet(){
+//          Form<RegistroEmpresa> formEmpresa = formFactory.form(RegistroEmpresa.class);
+//        return ok(registroEmpresa.render(" Registro Empresa",formEmpresa,routes.HomeController.registroEmpresaPost())); 
+//    }
+//      
+//      public Result registroEmpresaPost() throws AppException{//error por e hashpassword que se crea como variable
+//          Form<RegistroEmpresa> formRegistro=formFactory.form(RegistroEmpresa.class).fill(new RegistroEmpresa("ABC123", new Date())).bindFromRequest();
+//          if(formRegistro.hasErrors()){
+//              //formRegistro.
+//              System.out.println("error form registro ");
+//              return badRequest(registroEmpresa.render("Encontramos errores en form registro",
+//                    formRegistro, routes.HomeController.registroEmpresaPost()));
+//          }
+//          else{
+//            Map<String ,String> values=formRegistro.data();//optiene los datos como un map del registro Empresaa
+//            RegistroEmpresa nuevaEmpresa= new RegistroEmpresa();
+//            System.out.println(values);
+//            nuevaEmpresa.nombre=values.get("nombre");
+//            nuevaEmpresa.cfi=values.get("cfi");
+//            nuevaEmpresa.correo= values.get("correo");
+//            nuevaEmpresa.telefono= Integer.parseInt(values.get("telefono"));
+//            nuevaEmpresa.contrasenia= values.get("contrasenia");
+//            nuevaEmpresa.passwordHash=Hash.createPassword(nuevaEmpresa.contrasenia);
+//            nuevaEmpresa.creationDate=new Date();
+//            nuevaEmpresa.save();
+//            
+//            formRegistro=formFactory.form(RegistroEmpresa.class);
+//          }
+//          return ok(registroEmpresa.render("\nRecepción de registro correcto.", formRegistro,
+//                routes.HomeController.registroEmpresaPost()));
+//      }
 }
+// 
+//    public Result crearFormularioEmpresaGet() {
+//        Form<FormularioEmpresa> pregForm = formFactory.form(FormularioEmpresa.class);
+//        return ok(formularioEmpresa.render(" ",
+//                pregForm, routes.HomeController.crearFormularioEmpresaPost()));
+//    }
+//    public Result crearFormularioEmpresaPost() {//creacion del formulario sin errores
+//        //verificacion y recepciones de requierds and data view//
+//        //datas- que son los datos de la vista, values obtenidos por la key q se obtiene de el preform que fuarda la vista
+//        Form<FormularioEmpresa> formEmpresa = formFactory.form(FormularioEmpresa.class).bindFromRequest();//captura los datos de la vista
+//        if (formEmpresa.hasErrors()) {
+//            
+//            return badRequest(formularioEmpresa.render("Encontramos errores",
+//                    formEmpresa, routes.HomeController.crearFormularioEmpresaPost()));
+//        } else {
+//            Map<String ,String> values=formEmpresa.data();//optiene los datos como un map
+//            System.out.println(values);
+//            FormularioEmpresa nuevoFormEmpresa= new FormularioEmpresa();            
+//            nuevoFormEmpresa.nombre=values.get("nombre");
+//            nuevoFormEmpresa.direccion=values.get("direccion");
+//            nuevoFormEmpresa.telefonoContacto=values.get("telefonoContacto");
+//            nuevoFormEmpresa.correoEmpresa=values.get("correoEmpresa");
+//            nuevoFormEmpresa.perfilEmpresarial=values.get("perfilEmpresarial");//
+//            nuevoFormEmpresa.estadoContrataciones=values.get("estadoContrataciones");
+//            nuevoFormEmpresa.otrasContrataciones=values.get("otrasContrataciones");
+//            nuevoFormEmpresa.save();
+//            
+//            formEmpresa = formFactory.form(FormularioEmpresa.class);
+//        }
+//        return ok(formularioEmpresa.render("Recepcion de formulario correcto.", formEmpresa,
+//
+//                routes.HomeController.crearFormularioEmpresaPost()));
+//    }
+//    
+//    public Result crearFormularioEstudianteGet() {//muestrar la pantalla el post hace la operacio
+//        Form<FormularioEstudiante> pregForm = formFactory.form(FormularioEstudiante.class);
+//        List anios = new ArrayList();
+//        for (int x = 1990; x<2017; x++){anios.add(x);}
+//        
+//        return ok(formularioEstudiante.render(" ",
+//                pregForm, anios, routes.HomeController.crearFormularioEstudiantePost()));
+//    }
+//    public Result crearFormularioEstudiantePost() {
+//        List anios = new ArrayList();
+//        for (int x = 1990; x<2017; x++){anios.add(x);}
+//        Form<FormularioEstudiante> formEst = formFactory.form(FormularioEstudiante.class).bindFromRequest();
+//        if (formEst.hasErrors()) {
+//            //System.out.println("primero: "+pregForm);
+//            return badRequest(formularioEstudiante.render("Encontramos errores",
+//                    formEst,anios, routes.HomeController.index()));
+//        } else {
+//            Map<String,String> values = formEst.data();
+//            
+//            FormularioEstudiante nuevoFormEst = new FormularioEstudiante();
+//            nuevoFormEst.nombre = values.get("nombre");
+//            nuevoFormEst.primerApellido = values.get("primerApellido");
+//            nuevoFormEst.segundoApellido = values.get("segundoApellido");
+//            nuevoFormEst.fechaNacimiento = values.get("fechaNacimiento");
+//            nuevoFormEst.cedula = values.get("cedula");
+//            nuevoFormEst.correo = values.get("correo");
+//            nuevoFormEst.estadoCivil = values.get("estadoCivil");
+//            nuevoFormEst.paisNacimiento = values.get("paisNacimiento");
+//            nuevoFormEst.lugarResidencia = values.get("lugarResidencia");
+//            nuevoFormEst.direccion = values.get("direccion");
+//            nuevoFormEst.telefonoCasa = values.get("telefonoCasa");
+//            nuevoFormEst.telefonoMovil = values.get("telefonoMovil");
+//            nuevoFormEst.licencia = values.get("licencia");
+//            nuevoFormEst.profesion = values.get("profesion");
+//            nuevoFormEst.perfilProfesional = values.get("perfilProfesional");
+//            nuevoFormEst.anosExperiencia = values.get("anosExperiencia");
+//            nuevoFormEst.empresa = values.get("empresa");
+//            nuevoFormEst.puesto = values.get("puesto");
+//            nuevoFormEst.anosTrabajo = values.get("anosTrabajo");
+//            nuevoFormEst.titulo = values.get("titulo");
+//            nuevoFormEst.institucion = values.get("institucion");
+//            nuevoFormEst.idiomas = values.get("idiomas");
+//            nuevoFormEst.otrosTitulos = values.get("otrosTitulos");
+//            nuevoFormEst.estadoLaboral = values.get("estadoLaboral");
+//            nuevoFormEst.anoIngresoFormal = values.get("anoIngresoFormal");
+//            nuevoFormEst.anoFinalFormal = values.get("anoFinalFormal");
+//            nuevoFormEst.traslado = values.get("traslado");
+//            nuevoFormEst.genero = values.get("genero");
+//            //System.out.println("informacion: "+preg);
+//            nuevoFormEst.save();
+//            formEst = formFactory.form(FormularioEstudiante.class);
+//        }
+//        return ok(formularioEstudiante.render("Recepcion de formulario correcto.", formEst,
+//                anios,
+//                routes.HomeController.crearFormularioEstudiantePost()));
+//    }
+//}
