@@ -81,29 +81,27 @@ public class HomeController extends Controller {
         return ok(registroEmpresa.render(" Registro Empresa",pregForm,routes.HomeController.registroEmpresaPost()));
         
     }
-      public Result registroEmpresaPost(){
-          Form<RegistroEmpresa> formRegistro=formFactory.form(RegistroEmpresa.class).bindFromRequest();
+       public Result registroEmpresaPost() throws AppException{//error por e hashpassword que se crea como variable
+          Form<RegistroEmpresa> formRegistro=formFactory.form(RegistroEmpresa.class).fill(new RegistroEmpresa("ABC123", new Date())).bindFromRequest();
           if(formRegistro.hasErrors()){
-              System.out.println("error");
-              return badRequest(registroEmpresa.render("Encontramos errores",
+              //formRegistro.
+              System.out.println("error form registro ");
+              return badRequest(registroEmpresa.render("Encontramos errores en form registro",
                     formRegistro, routes.HomeController.registroEmpresaPost()));
           }
           else{
             Map<String ,String> values=formRegistro.data();//optiene los datos como un map del registro Empresaa
             RegistroEmpresa nuevaEmpresa= new RegistroEmpresa();
-
+             if(nuevaEmpresa.findByUsername(values.get("cfi"))==null){
             System.out.println(values);
-           if(nuevaEmpresa.findByUsername(values.get("cfi"))==null){
-            System.out.println(values);
-
             nuevaEmpresa.nombre=values.get("nombre");
             nuevaEmpresa.cfi=values.get("cfi");
             nuevaEmpresa.correo= values.get("correo");
             nuevaEmpresa.telefono= Integer.parseInt(values.get("telefono"));
             nuevaEmpresa.contrasenia= values.get("contrasenia");
-            
+            nuevaEmpresa.passwordHash=Hash.createPassword(nuevaEmpresa.contrasenia);
+            nuevaEmpresa.creationDate=new Date();
             nuevaEmpresa.save();
-            
             
             formRegistro=formFactory.form(RegistroEmpresa.class);
             }
@@ -112,11 +110,9 @@ public class HomeController extends Controller {
                 routes.HomeController.registroEmpresaPost()));
             }
           }
-          return ok(registroEmpresa.render("\nRecepción de registro correcto.", formRegistro,
+          return ok(registroEmpresa.render("\nRecepcion de registro correcto.", formRegistro,
                 routes.HomeController.registroEmpresaPost()));
       }
-     
-      
       
     public Result crearFormularioEmpresaGet() {
         Form<FormularioEmpresa> pregForm = formFactory.form(FormularioEmpresa.class);
