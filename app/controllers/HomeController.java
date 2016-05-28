@@ -60,6 +60,7 @@ public class HomeController extends Controller {
           else{
             Map<String ,String> values=formUsuario.data();//optiene los datos como un map del registro Empresaa
             RegistroUsuario nuevoUsuario= new RegistroUsuario();
+            if(nuevoUsuario.findByUsername(values.get("correo"))==null){
             System.out.println(values);
             nuevoUsuario.nombre=values.get("nombre");
             nuevoUsuario.correo= values.get("correo");
@@ -70,6 +71,11 @@ public class HomeController extends Controller {
             nuevoUsuario.save();
             
             formUsuario=formFactory.form(RegistroUsuario.class);
+            }
+            else{
+                 return ok(registroEstudiante.render("\n Correo ya existe.", formUsuario,
+                routes.HomeController.registroEstudiantePost()));
+            }
           }
           return ok(registroEstudiante.render("\nRecepción de registro correcto.", formUsuario,
                 routes.HomeController.registroEstudiantePost()));
@@ -91,6 +97,7 @@ public class HomeController extends Controller {
           else{
             Map<String ,String> values=formRegistro.data();//optiene los datos como un map del registro Empresaa
             RegistroEmpresa nuevaEmpresa= new RegistroEmpresa();
+             if(nuevaEmpresa.findByUsername(values.get("cfi"))==null){
             System.out.println(values);
             nuevaEmpresa.nombre=values.get("nombre");
             nuevaEmpresa.cfi=values.get("cfi");
@@ -102,6 +109,11 @@ public class HomeController extends Controller {
             nuevaEmpresa.save();
             
             formRegistro=formFactory.form(RegistroEmpresa.class);
+            }
+            else{
+                  return ok(registroEmpresa.render("\n El codigo CFI  yas se encuentra registrado.", formRegistro,
+                routes.HomeController.registroEmpresaPost()));
+            }
           }
           return ok(registroEmpresa.render("\nRecepción de registro correcto.", formRegistro,
                 routes.HomeController.registroEmpresaPost()));
