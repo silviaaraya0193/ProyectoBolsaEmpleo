@@ -92,8 +92,8 @@ public class HomeController extends Controller {
             Map<String ,String> values=formRegistro.data();//optiene los datos como un map del registro Empresaa
             RegistroEmpresa nuevaEmpresa= new RegistroEmpresa();
 
-              System.out.println(values);
-             if(nuevaEmpresa.findByUsername(values.get("cfi"))==null){
+            System.out.println(values);
+           if(nuevaEmpresa.findByUsername(values.get("cfi"))==null){
             System.out.println(values);
 
             nuevaEmpresa.nombre=values.get("nombre");
