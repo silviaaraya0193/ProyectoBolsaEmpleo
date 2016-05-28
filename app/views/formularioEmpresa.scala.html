@@ -10,23 +10,24 @@
             @searchForm.globalError.message
         </div>
     }
-
     <fieldset>
 
         <div class="row">
             <div class="col-md-4"> @inputText(
+
                 searchForm("nombre"),
                 '_label -> "Nombre de la Empresa: ",
                 '_help -> "required",
                 'class -> "form-control"
-                )</div>
-         
+                )
+            </div>
             <div class="col-md-4">
-                @textarea(searchForm("direccion"),
+                @inputText(
+                searchForm("direccion"),
                 '_label -> "Direccion de la Empresa: ",
                 '_help -> "required",
-                'class -> "form-control")
-            </div>
+                'class -> "form-control"
+                )</div>
             <div class="col-md-4"> @inputText(
                 searchForm("telefonoContacto"),
                 '_label -> "Telefono del Contacto:",
@@ -52,11 +53,11 @@
 <fieldset>
             <div>
                 <h4>Seleccione sus intereses:</h4>
-                <input name="practicantes" type="checkbox" />Practicantes
+                <input name="estadoContrataciones" type="radio"  checked="" value="1"/>Practicantes
                 <br/>
-                 <input name="profesionales" type="checkbox" />Profesionales
+                <input name="estadoContrataciones" type="radio" value="2"/>Profesionales
                  <br/>
-                <input name="pasantias" type="checkbox" />Pasantias
+                 <input name="estadoContrataciones" type="radio" value="3"/>Pasantias
                 <br/>
             </div><br><br>
 </fieldset>
@@ -73,40 +74,7 @@
 
 
     <div class="form-actions text-center">
-        <input type="submit" class="btn btn-success" value="Guardar Formulario") >
+        <input type="submit" class="btn btn-success" value="Guardar formulario">
     </div>
     }
 }
-
-
-<!--<!DOCTYPE html>
-<html>
-    <head>
-        <title>Formulario Empresa</title>
-       <!--<meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <h1 align="center">Formulario Empresa</h1>
-        <form method="get"action=""target="blank">
-            <h1>Datos de la Empresa</h1>
-            <label>Nombre de la Empresa:</label><input type="text"name="nombre"id="name"class="name"><br><br>
-            <label>Direccion exacta:</label><input type="text"name="direccion"id="direccion"class="direccion"><br><br>
-            <label>Telefono de la Empresa:</label><input type="text"name="telefono1"id="telefono"class="telefono"><br><br>
-            <label>Telefono del contacto:</label><input type="text"name="telefonocontacto"id="telefonoContacto"class="telefonoContacto"><br><br>
-            <label>Correo Electronico:</label><input type="text"name="correo"id="correo"class="correo"><br><br>
-            <label><strong>Estado:</strong></label><br><br>
-            <input type="radio"name="practica"value="Practicantes"/><label>Practicantes</label><br><br>
-            
-            <input type="radio"name="profesionales"value="Profesionales"/><label>Profesionales</label><br><br>
-            
-            <input type="radio"name="pasantias"value="Pasantias"/><label>Pasantias</label><br><br>
-            
-            
-            <label>Perfil Empresarial:</label><br><br>
-            <textarea name="perfil"rows="15"cols="70">Escribe aqui el perfil empresarial de tu empresa</textarea><br><br>
-            <input type="submit" name="boton" value="Guardar Datos"/>
-        </form>
-    </body>
-</html>-->
-

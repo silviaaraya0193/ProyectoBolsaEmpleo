@@ -5,62 +5,69 @@
  */
 
 package models;
-
+import com.avaje.ebean.Model;
+import java.util.Date;
+import javax.persistence.*;
+import models.utils.AppException;
+import models.utils.Hash;
+import play.data.validation.*;
+import play.data.validation.Constraints.*;
+import play.data.format.Formats;
 /**
  *
- * @author Expression EXDER is undefined on line 12, column 14 in Templates/Classes/Class.java.
+ * @author Exder
  */
-public class RegistroUsuario implements InterfaceCreacionUsuario{
+@Entity
+public class RegistroUsuario extends Model{
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    public Long id;
+     @Constraints.Required
+    public String nombre;
+     @Email
+    @Constraints.Required
+    public String correo;
+    @Constraints.Required
+    public String contrasenia;
+    @Constraints.Required
+    public int telefono;
+    @Formats.NonEmpty
+    public String passwordHash;
+    @Formats.DateTime(pattern = "yyyy-MM-dd HH:mm:ss")
+    public Date creationDate;
 
-    String nombre,correo,contrasenia;
-    int telefono;
-
-    public RegistroUsuario(String nombre, String correo, String contrasenia, int telefono) {
-        this.nombre = nombre;
-        this.correo = correo;
-        this.contrasenia = contrasenia;
-        this.telefono = telefono;
+    public RegistroUsuario(String passwordHash, Date creationDate) {
+        this.passwordHash = passwordHash;
+        this.creationDate = creationDate;
     }
-
-    
     public RegistroUsuario() {
+        
     }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public void setCorreo(String correo) {
-        this.correo = correo;
-    }
-
-    public void setContrasenia(String contrasenia) {
-        this.contrasenia = contrasenia;
-    }
-
-    public void setTelefono(int telefono) {
-        this.telefono = telefono;
-    }
+     public static Finder<Long, RegistroUsuario> find = new Finder<Long, RegistroUsuario>(RegistroUsuario.class);
     
-    
-    @Override
-    public String getNombre() {
-        return nombre;
+     public static RegistroUsuario findByUsername(String correo) {
+         System.out.println("find correo "+correo);
+        return find.where().eq("correo", correo).findUnique();
     }
-
-    @Override
-    public String getCorreo() {
-        return correo;
+     
+     /**
+     * Autentica usuarios utilizando el nombre de usuario y la contraseña sin encriptar
+     *
+     * @param username nombre de usuario
+     * @param password contraseña sin encriptar
+     * @return un usuario si se autentica correctamente, null en el caso contrario
+     * @throws AppException en caso de error
+     */
+    public static RegistroUsuario authenticate(String correo, String password) throws AppException {
+        System.out.println("Correo "+correo);
+        System.out.println("pass usuario"+password);
+        RegistroUsuario userEstudiante = find.where().eq("correo", correo).findUnique();
+        System.out.println("aqui algo paso "+userEstudiante);
+        if (userEstudiante != null) {
+            if (Hash.checkPassword(password, userEstudiante.passwordHash)) {
+                return userEstudiante;
+            }
+        }
+        return null;
     }
-
-    @Override
-    public int getTelefono() {
-        return telefono;
-    }
-
-    @Override
-    public String getContrasenia() {
-        return contrasenia;
-    }
-
 }

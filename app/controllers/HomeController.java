@@ -1,14 +1,18 @@
 package controllers;
 
-
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
-import models.FormularioEmpresa;
-import models.FormularioEstudiante;
 import play.data.Form;
 import play.mvc.*;
+import models.FormularioEmpresa;
+import models.FormularioEstudiante;
+import models.utils.Hash;
+import models.RegistroEmpresa;
+import models.RegistroUsuario;
+import models.utils.AppException;
 import play.data.FormFactory;
 import views.html.*;
 
@@ -17,8 +21,7 @@ import views.html.*;
  * to the application's home page.
  */
 public class HomeController extends Controller {
-    @Inject
-    FormFactory formFactory;
+    @Inject FormFactory formFactory;
     /**
      * An action that renders an HTML page with a welcome message.
      * The configuration in the <code>routes</code> file means that
@@ -36,39 +39,115 @@ public class HomeController extends Controller {
     public Result opciones2(){
         return ok(opciones2.render(" "));
     }
-    public Result iniciarSesionEstudiante(){
-        return ok(iniciarSesionEstudiante.render(""));
+   
+     public Result registroEstudianteGet(){
+         Form<RegistroUsuario> formUsuario= formFactory.form(RegistroUsuario.class);
+        return ok(registroEstudiante.render(" Registro Estudiante",formUsuario,routes.HomeController.registroEstudiantePost())); 
     }
-    public Result iniciarSesionEmpresa(){
-        return ok(iniciarSesionEmpresa.render(""));
+    public Result registroEstudiantePost() throws AppException{
+         Form<RegistroUsuario> formUsuario=formFactory.form(RegistroUsuario.class).fill(new RegistroUsuario("ABC123", new Date())).bindFromRequest();
+          if(formUsuario.hasErrors()){
+              //formRegistro.
+              System.out.println("error form registro ");
+              return badRequest(registroEstudiante.render("Encontramos errores en form registro",
+                    formUsuario, routes.HomeController.registroEstudiantePost()));
+          }
+          else{
+            Map<String ,String> values=formUsuario.data();//optiene los datos como un map del registro Empresaa
+            RegistroUsuario nuevoUsuario= new RegistroUsuario();
+            if(nuevoUsuario.findByUsername(values.get("correo"))==null){
+            System.out.println(values);
+            nuevoUsuario.nombre=values.get("nombre");
+            nuevoUsuario.correo= values.get("correo");
+            nuevoUsuario.telefono= Integer.parseInt(values.get("telefono"));
+            nuevoUsuario.contrasenia= values.get("contrasenia");
+            nuevoUsuario.passwordHash=Hash.createPassword(nuevoUsuario.contrasenia);
+            nuevoUsuario.creationDate=new Date();
+            nuevoUsuario.save();
+            
+            formUsuario=formFactory.form(RegistroUsuario.class);
+            }
+            else{
+                 return ok(registroEstudiante.render("\n Correo ya existe.", formUsuario,
+                routes.HomeController.registroEstudiantePost()));
+            }
+          }
+          return ok(registroEstudiante.render("\nRecepción de registro correcto.", formUsuario,
+                routes.HomeController.registroEstudiantePost()));
+    } 
+    
+      public Result registroEmpresaGet(){
+          Form<RegistroEmpresa> pregForm = formFactory.form(RegistroEmpresa.class);
+        return ok(registroEmpresa.render(" Registro Empresa",pregForm,routes.HomeController.registroEmpresaPost()));
+        
     }
-     public Result registroEstudiante(){
-        return ok(registroEstudiante.render(""));
-    }
-      public Result registroEmpresa(){
-        return ok(registroEmpresa.render(""));
-    }
+       public Result registroEmpresaPost() throws AppException{//error por e hashpassword que se crea como variable
+          Form<RegistroEmpresa> formRegistro=formFactory.form(RegistroEmpresa.class).fill(new RegistroEmpresa("ABC123", new Date())).bindFromRequest();
+          if(formRegistro.hasErrors()){
+              //formRegistro.
+              System.out.println("error form registro ");
+              return badRequest(registroEmpresa.render("Encontramos errores en form registro",
+                    formRegistro, routes.HomeController.registroEmpresaPost()));
+          }
+          else{
+            Map<String ,String> values=formRegistro.data();//optiene los datos como un map del registro Empresaa
+            RegistroEmpresa nuevaEmpresa= new RegistroEmpresa();
+             if(nuevaEmpresa.findByUsername(values.get("cfi"))==null){
+            System.out.println(values);
+            nuevaEmpresa.nombre=values.get("nombre");
+            nuevaEmpresa.cfi=values.get("cfi");
+            nuevaEmpresa.correo= values.get("correo");
+            nuevaEmpresa.telefono= Integer.parseInt(values.get("telefono"));
+            nuevaEmpresa.contrasenia= values.get("contrasenia");
+            nuevaEmpresa.passwordHash=Hash.createPassword(nuevaEmpresa.contrasenia);
+            nuevaEmpresa.creationDate=new Date();
+            nuevaEmpresa.save();
+            
+            formRegistro=formFactory.form(RegistroEmpresa.class);
+            }
+            else{
+                  return ok(registroEmpresa.render("\n El codigo CFI  yas se encuentra registrado.", formRegistro,
+                routes.HomeController.registroEmpresaPost()));
+            }
+          }
+          return ok(registroEmpresa.render("\nRecepcion de registro correcto.", formRegistro,
+                routes.HomeController.registroEmpresaPost()));
+      }
       
     public Result crearFormularioEmpresaGet() {
         Form<FormularioEmpresa> pregForm = formFactory.form(FormularioEmpresa.class);
         return ok(formularioEmpresa.render(" ",
                 pregForm, routes.HomeController.crearFormularioEmpresaPost()));
     }
-
-    public Result crearFormularioEmpresaPost() {
-        Form<FormularioEmpresa> pregForm = formFactory.form(FormularioEmpresa.class).bindFromRequest();
-        if (pregForm.hasErrors()) {
+    public Result crearFormularioEmpresaPost() {//creacion del formulario sin errores
+        //verificacion y recepciones de requierds and data view//
+        //datas- que son los datos de la vista, values obtenidos por la key q se obtiene de el preform que fuarda la vista
+        Form<FormularioEmpresa> formEmpresa = formFactory.form(FormularioEmpresa.class).bindFromRequest();//captura los datos de la vista
+        if (formEmpresa.hasErrors()) {
+            
             return badRequest(formularioEmpresa.render("Encontramos errores",
-                    pregForm, routes.HomeController.index()));
+                    formEmpresa, routes.HomeController.crearFormularioEmpresaPost()));
         } else {
-            FormularioEmpresa preg = pregForm.get();
-            preg.save();
-            pregForm = formFactory.form(FormularioEmpresa.class);
+            Map<String ,String> values=formEmpresa.data();//optiene los datos como un map
+            System.out.println(values);
+            FormularioEmpresa nuevoFormEmpresa= new FormularioEmpresa();            
+            nuevoFormEmpresa.nombre=values.get("nombre");
+            nuevoFormEmpresa.direccion=values.get("direccion");
+            nuevoFormEmpresa.telefonoContacto=values.get("telefonoContacto");
+            nuevoFormEmpresa.correoEmpresa=values.get("correoEmpresa");
+            nuevoFormEmpresa.perfilEmpresarial=values.get("perfilEmpresarial");//
+            nuevoFormEmpresa.estadoContrataciones=values.get("estadoContrataciones");
+            nuevoFormEmpresa.otrasContrataciones=values.get("otrasContrataciones");
+            nuevoFormEmpresa.save();
+            
+            formEmpresa = formFactory.form(FormularioEmpresa.class);
         }
-        return ok(formularioEmpresa.render("Recepcion de formulario correcto.", pregForm,
+        return ok(formularioEmpresa.render("Recepcion de formulario correcto.", formEmpresa,
+
                 routes.HomeController.crearFormularioEmpresaPost()));
     }
-    public Result crearFormularioEstudianteGet() {
+    
+    public Result crearFormularioEstudianteGet() {//muestrar la pantalla el post hace la operacio
         Form<FormularioEstudiante> pregForm = formFactory.form(FormularioEstudiante.class);
         List anios = new ArrayList();
         for (int x = 1990; x<2017; x++){anios.add(x);}
@@ -76,7 +155,6 @@ public class HomeController extends Controller {
         return ok(formularioEstudiante.render(" ",
                 pregForm, anios, routes.HomeController.crearFormularioEstudiantePost()));
     }
-
     public Result crearFormularioEstudiantePost() {
         List anios = new ArrayList();
         for (int x = 1990; x<2017; x++){anios.add(x);}
@@ -126,10 +204,70 @@ public class HomeController extends Controller {
                 routes.HomeController.crearFormularioEstudiantePost()));
     }
      public Result perfilEmpresa(){
-        return ok(perfilEmpresa.render("Perfil Empresa"));
+         RegistroEmpresa registro = new RegistroEmpresa();
+        return ok(perfilEmpresa.render("Perfil Empresa", registro));
     }
      public Result perfilEstudiante(){
-        return ok(perfilEstudiante.render("Pefil Estudiante"));
+         RegistroUsuario usuario = new RegistroUsuario();
+         List<FormularioEstudiante> formEstu = FormularioEstudiante.find.all();
+        return ok(perfilEstudiante.render("", formEstu, usuario));
     }
+     public Result editarPerfilEstudianteGet(Long id){
+         List anios = new ArrayList();
+        for (int x = 1990; x<2017; x++){anios.add(x);}
+         FormularioEstudiante instancia = FormularioEstudiante.find.byId(id);
+         Form<FormularioEstudiante> formEst = formFactory.form(FormularioEstudiante.class).fill(instancia);
+         return ok(formularioEstudiante.render("Formulario Estudiante", formEst,
+                 anios, routes.HomeController.editarPerfilPost(id)));
+     }
+     public Result editarPerfilPost(Long id){
+         List anios = new ArrayList();
+        for (int x = 1990; x<2017; x++){anios.add(x);}
+         FormularioEstudiante instancia = FormularioEstudiante.find.byId(id);
+         Form<FormularioEstudiante> formEstu = formFactory.form(FormularioEstudiante.class).fill(instancia).bindFromRequest();
+         if(formEstu.hasErrors()){
+             return badRequest(formularioEstudiante.render("Encontramos errores en el formulario", formEstu, 
+                     anios, routes.HomeController.editarPerfilPost(id)));
+         }
+         FormularioEstudiante formEst = formEstu.get();
+         instancia.nombre = formEst.nombre;
+         instancia.primerApellido = formEst.primerApellido;
+         instancia.segundoApellido = formEst.segundoApellido;
+         instancia.fechaNacimiento = formEst.fechaNacimiento;
+         instancia.cedula = formEst.cedula;
+         instancia.correo = formEst.correo;
+         instancia.estadoCivil = formEst.estadoCivil;
+         instancia.paisNacimiento = formEst.paisNacimiento;
+         instancia.lugarResidencia = formEst.lugarResidencia;
+         instancia.direccion = formEst.direccion;
+         instancia.telefonoCasa = formEst.telefonoCasa;
+         instancia.telefonoMovil = formEst.telefonoMovil;
+         instancia.licencia = formEst.licencia;
+         instancia.perfilPersonal = formEst.perfilPersonal;
+         instancia.profesion = formEst.profesion;
+         instancia.perfilProfesional = formEst.perfilProfesional;
+         instancia.anosExperiencia = formEst.anosExperiencia;
+         instancia.empresa = formEst.empresa;
+         instancia.puesto = formEst.puesto;
+         instancia.anosTrabajo = formEst.anosTrabajo;
+         instancia.titulo = formEst.titulo;
+         instancia.institucion = formEst.institucion;
+         instancia.idiomas = formEst.idiomas;
+         instancia.otrosTitulos = formEst.otrosTitulos;
+         instancia.estadoLaboral = formEst.estadoLaboral;
+         instancia.anoIngresoFormal= formEst.anoIngresoFormal;
+         instancia.anoFinalFormal = formEst.anoFinalFormal;
+         instancia.traslado = formEst.traslado;
+         instancia.genero = formEst.genero;
+         instancia.save();
+         return redirect(routes.HomeController.listarFormularioEstudiante());
+     }
+     
+     public Result listarFormularioEstudiante(){
+         RegistroUsuario usuario = new RegistroUsuario();
+         List<FormularioEstudiante> formEstu = FormularioEstudiante.find.all();
+         System.out.println("impresion lista formulario est: "+formEstu);
+         return ok(perfilEstudiante.render("Formulario Estudiantes", formEstu, usuario));
+     }
 
 }

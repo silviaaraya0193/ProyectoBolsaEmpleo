@@ -1,64 +1,71 @@
-@(message: String )
+@(message: String, searchForm: Form[RegistroEmpresa], postUrl: play.api.mvc.Call)
+@import helper._
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 @main(message) {
-<div class="container">
-    <!--<h1> Bolsa de Empleo UCR </h1>-->
-   <div class="text" role="group" aria-label="...">
-    <h2>Registro Empresa</h2><br>
-       <label>Nombre Empresa:</label>
-            <input type="text" name="nombre"id="name"class="name"/> <br><br><br>
-      <label>Codigo CFI:</label>
-            <input type="text"name="cfi"id="correo" class="correo"><br><br><br>      
-      <label>Contraseña:</label>
-            <input type="password"name="contrasena"id="pass"class="pass"/><br><br><br>
-      <label>Telefono:</label>
-            <input type="password"name="telefono"id="pass"class="pass"/><br><br><br>      
-      <label>Corre Electronico:</label>
-            <input type="password"name="correo"id="pass"class="pass"/><br><br><br>
-    </div>   
-    <a href="@routes.HomeController.crearFormularioEmpresaGet()" class="btn btn-default">Registrar</a></br></br>
-    
-  
-</div>
+<h1>Registro Empresa</h1>
+<div class="alert"> @message </div>
+@form(postUrl, 'class -> "form") {
+    @if(searchForm.hasGlobalErrors) {
+        <div class="alert alert-danger">
+            @searchForm.globalError.message
+        </div>
+    }
+    @for(error <- searchForm("passwordHash").errors) {
+    <p> passwordHash @Messages(error.messages, error.arguments.toArray: _*)</p>
 }
-<!--
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
+@for(error <- searchForm("creationDate").errors) {
+    <p> creationDate @Messages(error.messages, error.arguments.toArray: _*)</p>
+}
+    <fieldset>
+        <div class="row">
+            <div class="col-md-4"> @inputText(
+                searchForm("nombre"),'_showErrors -> true,
+                '_label -> "Nombre",
+                '_help -> "required",
+                'class -> "form-control"
+                )
+            </div>   
+        </div>
+        <div class="row">
+            <div class="col-md-4">@inputText(
+                searchForm("cfi"),'_showErrors -> true,
+                 '_label -> "CFI EMPRESA",
+                '_help -> "requeried",
+                'class -> "form-control"
+                )
+            </div>
+        </div>
+        <div class="row">
+              <div class="col-md-4">@inputText(
+                searchForm("correo"),
+                '_label -> "Correo de la empresa",'_showErrors -> true,
+                '_help -> "requeried",
+                'class -> "form-control"
+                )
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">@inputText(
+                searchForm("telefono"),
+                  '_label -> "Telefono",
+                '_help -> "requeried",
+                'class -> "form-control"
+                )
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-4">@inputPassword(
+                searchForm("contrasenia"),'_showErrors -> true,
+                '_label -> "Contrasenia",
+                '_help -> "requeried",
+                'class -> "form-control")
+            </div>   
+        </div>
+    </fieldset>
+    <div class="form-actions">
+        <input type="submit" class="btn btn-success" value="Registrarse" >
+    </div>
+    }
+}
 
-<html>
-    <head>
-        <title>Registrar Empresa</title>
-         <!--  <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.1.3/jquery.min.js">
-        </script>   
-        <script type ="text/javascript" src=""></script>
-        <link type="text/css" hret="" rel="stylesheet"></link>
-        
-    </head>
-    
-    <body>
-        <h1 align="center">Registro Empresa</h1>
-        <br><br>
-        <form aling="center"method = "get"action="formularioEmpresa.scala.html" target="blank">
-            <label>Nombre Empresa:</label>
-            <input type="text" name="nombre"id="name"class="name"/> <br><br><br>
-            
-            <label>Codigo CFI:</label>
-            <input type="text"name="correo"id="correo" class="correo"><br><br><br>
-            
-            <label>Contrasena</label>
-            <input type="password"name="contrasena"id="pass"class="pass"/><br><br><br>
-            
-            <form method="get" action="formularioEmpresa.scala.html"target="blank"/>
-                <input align="center"name="boton"type="submit"value="Registrarse"/><br><br><br>
-            
-            
-        </form>
-        
-        <div></div>
-    </body>
-</html>-->

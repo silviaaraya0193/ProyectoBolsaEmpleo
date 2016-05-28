@@ -4,8 +4,8 @@
 <div class="container">
     <!--<h1> Bolsa de Empleo UCR </h1>-->
   <!-- <div class="btn-group" role="group" aria-label="...">
-    <a href="@routes.HomeController.iniciarSesionEstudiante()" class="btn btn-default">Estudiante</a></br></br>
-    <a href="@routes.HomeController.iniciarSesionEmpresa()" class="btn btn-success">Empresa   </a></br></br>
+    <a href="@routes.ApplicationEstudiante.homeEst()" class="btn btn-default">Estudiante</a></br></br>
+    <a href="@routes.ApplicationEmpresa.home()" class="btn btn-success">Empresa   </a></br></br>
   </div>
   }-->
 <!DOCTYPE html>
@@ -35,12 +35,17 @@ li a:hover {
 </style>
 </head>
 <body>
-<ul>
-  <li><a href="@routes.HomeController.opciones2()"><span class=""></span> Empresa</a></li>
-  <li><a href="@routes.HomeController.opciones()"><span class=""></span> Estudiante</a></li>
+<ul class="nav nav-pills nav-stacked">
+   <li role="presentation" class="active"><a href="@routes.HomeController.opciones2()">Empresas</a></li>
+  <li role="presentation"><a href="@routes.HomeController.opciones()">Estudiante</a></li>
   <li><a href="#contact">Contacto</a></li>
   <li><a href="#about">Salir</a></li>
 </ul>
+   <!-- <ul class="nav nav-pills nav-stacked">
+  <li role="presentation" class="active"><a href="#">Home</a></li>
+  <li role="presentation"><a href="#">Profile</a></li>
+  <li role="presentation"><a href="#">Messages</a></li>
+</ul>-->
 
 </body>
 </html>
