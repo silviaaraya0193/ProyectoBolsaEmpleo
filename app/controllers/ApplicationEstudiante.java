@@ -1,6 +1,7 @@
 package controllers;
 import java.util.ArrayList;
 import java.util.List;
+import models.FormularioEstudiante;
 import models.RegistroUsuario;
 import models.utils.AppException;
 import play.data.Form;
@@ -24,6 +25,7 @@ public class ApplicationEstudiante extends Controller {
             routes.ApplicationEstudiante.homeEst()
     );
 public Result homeEst() {//controlador del home o index
+    List <FormularioEstudiante> formEstu= FormularioEstudiante.find.all();
         List anios = new ArrayList();
         for (int x = 1990; x<2017; x++){anios.add(x);}
         String correo = ctx().session().get("correo");
@@ -31,7 +33,8 @@ public Result homeEst() {//controlador del home o index
             RegistroUsuario user = RegistroUsuario.findByUsername(correo);//busca el coreo
             System.out.println("user"+user);
             if (user != null) {
-                return  ok(perfilEstudiante.render("Hola Estudiante",anios,user));//redirect("/");
+                return  ok(perfilEstudiante.render("Hola Estudiante",formEstu,user));//redirect("/");
+                //linea 34 error de anios silvia ya lo arreglo :v
             } else {
                 session().clear();
             }
