@@ -9,13 +9,13 @@ import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
 import javax.inject.Inject;
-import models.CreadorUsuario;
 import play.data.Form;
 import play.mvc.*;
 import models.FormularioEmpresa;
 import models.FormularioEstudiante;
 import models.utils.Hash;
 import models.RegistroEmpresa;
+import models.RegistroUsuario;
 import models.utils.AppException;
 import play.data.FormFactory;
 import play.data.validation.Constraints;
@@ -44,24 +44,42 @@ public class HomeController extends Controller {
     public Result opciones2(){
         return ok(opciones2.render(" "));
     }
-    public Result iniciarSesionEstudiante(){
-
-        return ok(iniciarSesionEstudiante.render("\n Iniciar Seccion Estudiante "));
-        
+   
+     public Result registroEstudianteGet(){
+         Form<RegistroUsuario> formUsuario= formFactory.form(RegistroUsuario.class);
+        return ok(registroEstudiante.render(" Registro Estudiante",formUsuario,routes.HomeController.registroEstudiantePost())); 
     }
-//    public Result iniciarSesionEmpresa(){
-//        return ok(iniciarSesionEmpresa.render("\n Inicar Seccion Empresa "));
-//        
-//    }
-     public Result registroEstudiante(){
-        return ok(registroEstudiante.render(" "));
-      
-    }
+    public Result registroEstudiantePost() throws AppException{
+         Form<RegistroUsuario> formUsuario=formFactory.form(RegistroUsuario.class).fill(new RegistroUsuario("ABC123", new Date())).bindFromRequest();
+          if(formUsuario.hasErrors()){
+              //formRegistro.
+              System.out.println("error form registro ");
+              return badRequest(registroEstudiante.render("Encontramos errores en form registro",
+                    formUsuario, routes.HomeController.registroEstudiantePost()));
+          }
+          else{
+            Map<String ,String> values=formUsuario.data();//optiene los datos como un map del registro Empresaa
+            RegistroUsuario nuevoUsuario= new RegistroUsuario();
+            System.out.println(values);
+            nuevoUsuario.nombre=values.get("nombre");
+            nuevoUsuario.correo= values.get("correo");
+            nuevoUsuario.telefono= Integer.parseInt(values.get("telefono"));
+            nuevoUsuario.contrasenia= values.get("contrasenia");
+            nuevoUsuario.passwordHash=Hash.createPassword(nuevoUsuario.contrasenia);
+            nuevoUsuario.creationDate=new Date();
+            nuevoUsuario.save();
+            
+            formUsuario=formFactory.form(RegistroUsuario.class);
+          }
+          return ok(registroEstudiante.render("\nRecepción de registro correcto.", formUsuario,
+                routes.HomeController.registroEstudiantePost()));
+    } 
+    
       public Result registroEmpresaGet(){
-          Form<RegistroEmpresa> pregForm = formFactory.form(RegistroEmpresa.class);
-        return ok(registroEmpresa.render(" Registro Empresa",pregForm,routes.HomeController.registroEmpresaPost()));
-        
+          Form<RegistroEmpresa> formEmpresa = formFactory.form(RegistroEmpresa.class);
+        return ok(registroEmpresa.render(" Registro Empresa",formEmpresa,routes.HomeController.registroEmpresaPost())); 
     }
+      
       public Result registroEmpresaPost() throws AppException{//error por e hashpassword que se crea como variable
           Form<RegistroEmpresa> formRegistro=formFactory.form(RegistroEmpresa.class).fill(new RegistroEmpresa("ABC123", new Date())).bindFromRequest();
           if(formRegistro.hasErrors()){
@@ -177,11 +195,5 @@ public class HomeController extends Controller {
         return ok(formularioEstudiante.render("Recepcion de formulario correcto.", formEst,
                 anios,
                 routes.HomeController.crearFormularioEstudiantePost()));
-    }
-//     public Result perfilEmpresa(){
-//        return ok(perfilEmpresa.render("Perfil Empresa"));
-//    }
-     public Result perfilEstudiante(){
-        return ok(perfilEstudiante.render("Pefil Estudiante"));
     }
 }

@@ -6,77 +6,68 @@
 
 package models;
 import com.avaje.ebean.Model;
+import java.util.Date;
 import javax.persistence.*;
-import javax.swing.JCheckBox;
+import models.utils.AppException;
+import models.utils.Hash;
 import play.data.validation.*;
 import play.data.validation.Constraints.*;
+import play.data.format.Formats;
 /**
  *
  * @author Exder
  */
 @Entity
-public class RegistroUsuario implements InterfaceCreacionUsuario{
+public class RegistroUsuario extends Model{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long id;
      @Constraints.Required
-    String nombre;
+    public String nombre;
+     @Email
     @Constraints.Required
-    String correo;
+    public String correo;
     @Constraints.Required
-    String contrasenia;
+    public String contrasenia;
     @Constraints.Required
-    int telefono;
+    public int telefono;
+    @Formats.NonEmpty
+    public String passwordHash;
+    @Formats.DateTime(pattern = "yyyy-MM-dd HH:mm:ss")
+    public Date creationDate;
 
-    public RegistroUsuario(String nombre, String correo, String contrasenia, int telefono) {
-        this.nombre = nombre;
-        this.correo = correo;
-        this.contrasenia = contrasenia;
-        this.telefono = telefono;
+    public RegistroUsuario(String passwordHash, Date creationDate) {
+        this.passwordHash = passwordHash;
+        this.creationDate = creationDate;
     }
     public RegistroUsuario() {
         
     }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public void setCorreo(String correo) {
-        this.correo = correo;
-    }
-
-    public void setContrasenia(String contrasenia) {
-        this.contrasenia = contrasenia;
-    }
-
-    public void setTelefono(int telefono) {
-        this.telefono = telefono;
-    }
+     public static Finder<Long, RegistroUsuario> find = new Finder<Long, RegistroUsuario>(RegistroUsuario.class);
     
-    
-    @Override
-    public String getNombre() {
-        return nombre;
+     public static RegistroUsuario findByUsername(String correo) {
+         System.out.println("find correo "+correo);
+        return find.where().eq("correo", correo).findUnique();
     }
-
-    @Override
-    public String getCorreo() {
-        return correo;
-    }
-
-    @Override
-    public int getTelefono() {
-        return telefono;
-    }
-
-    @Override
-    public String getContrasenia() {
-        return contrasenia;
-    }
-
-    @Override
-    public String getCFI() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+     
+     /**
+     * Autentica usuarios utilizando el nombre de usuario y la contraseña sin encriptar
+     *
+     * @param username nombre de usuario
+     * @param password contraseña sin encriptar
+     * @return un usuario si se autentica correctamente, null en el caso contrario
+     * @throws AppException en caso de error
+     */
+    public static RegistroUsuario authenticate(String correo, String password) throws AppException {
+        System.out.println("Correo "+correo);
+        System.out.println("pass usuario"+password);
+        RegistroUsuario userEstudiante = find.where().eq("correo", correo).findUnique();
+        System.out.println("aqui algo paso "+userEstudiante);
+        if (userEstudiante != null) {
+            if (Hash.checkPassword(password, userEstudiante.passwordHash)) {
+                return userEstudiante;
+            }
+        }
+        return null;
     }
 }

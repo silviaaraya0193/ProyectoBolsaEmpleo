@@ -1,4 +1,4 @@
-@(user: RegistroEmpresa, signupForm: Form[ApplicationEmpresa.CreateUser])
+@(user: RegistroUsuario, signupForm: Form[ApplicationEstudiante.CreateUser])
 @import helper._
 
 @main("Administrando usuarios") {
@@ -20,15 +20,15 @@
 
     <fieldset>
         @inputText(
-            signupForm("cfi"),
-            'placeholder -> "CFI",
+            signupForm("correo"),
+            'placeholder -> "correo",
             '_label -> null,
             '_help -> "Requerido",
             'class -> "form-control"
         )
 
         @inputPassword(
-            signupForm("password"),
+            signupForm("contrasenia"),
             '_label -> null,
             '_help -> "Requerido",
             'placeholder -> "Contraseña",

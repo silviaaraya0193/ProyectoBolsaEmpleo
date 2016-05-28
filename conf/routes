@@ -4,14 +4,25 @@
 
 # An example controller showing a sample home page
 GET     /                                 controllers.HomeController.index()
-#INICIAR SESEION ESTUDIANTE
-GET     /iniciarSesionEstudiante          controllers.HomeController.iniciarSesionEstudiante()
+# An example controller showing how to use dependency injection
+GET     /count                      controllers.CountController.count
+# An example controller showing how to write asynchronous code
+GET     /message                    controllers.AsyncController.message
 
-#INICIAR SESEION ESTUDIANTE
-GET     /iniciarSesionEmpresa             controllers.ApplicationUser.home()
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+
+
+
+#INICIAR SESEION EMPRESA
+GET     /iniciarSesionEmpresa             controllers.ApplicationEmpresa.home()
+
+#INICIAR SESSION ESTUDIANTE
+GET       /iniciarSesionEstudiante       controllers.ApplicationEstudiante.homeEst()
 
 #REGISTRO ESTUDIANTE
-GET     /registroEstudiante.scala.html          controllers.HomeController.registroEstudiante
+GET     /registroEstudiante.scala.html          controllers.HomeController.registroEstudianteGet()
+POST     /registroEstudiante.scala.html          controllers.HomeController.registroEstudiantePost()
 
 
 
@@ -28,11 +39,9 @@ POST    /formularioEmpresa.scala.html           controllers.HomeController.crear
 GET     /formularioEstudiante.scala.html        controllers.HomeController.crearFormularioEstudianteGet()
 POST    /formularioEstudiante.scala.html        controllers.HomeController.crearFormularioEstudiantePost()
 
-#PERFIL EMPRESA
-#GET     /perfilEmpresa.scala.html               controllers.HomeController.perfilEmpresa()
 
 #PERFIL ESTUDIANTE
-GET     /perfilEstudiante.scala.html            controllers.HomeController.perfilEstudiante()
+#GET     /perfilEstudiante.scala.html            controllers.HomeController.perfilEstudiante()
 
 #OPCIONES
 GET     /opciones                               controllers.HomeController.opciones()
@@ -42,26 +51,23 @@ GET     /opciones2                              controllers.HomeController.opcio
 GET     /SignUp                     controllers.SignUp.create()
 POST    /SignUp                     controllers.SignUp.save()
 
-# An example controller showing how to use dependency injection
-GET     /count                      controllers.CountController.count
-# An example controller showing how to write asynchronous code
-GET     /message                    controllers.AsyncController.message
 
-# Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+# Manejo de login de sesion Empresa
 
+GET     /ingreso                    controllers.ApplicationEmpresa.home()
+POST    /login                      controllers.ApplicationEmpresa.authenticate()
+GET     /logout                     controllers.ApplicationEmpresa.logout()
 
+# Manejo de login de sesion Estudiante
 
-# Manejo de login de sesion
-
-GET     /ingreso                    controllers.ApplicationUser.home()
-POST    /login                      controllers.ApplicationUser.authenticate()
-GET     /logout                     controllers.ApplicationUser.logout()
+GET     /ingresoEst                    controllers.ApplicationEstudiante.homeEst()
+POST    /loginEst                      controllers.ApplicationEstudiante.authenticate()
+GET     /logoutEst                     controllers.ApplicationEstudiante.logout()
 
 # Creacion de usuarios
 
-#GET     /signup                     controllers.Signup.create()
-#POST    /signup                     controllers.Signup.save()
+#GET     /signup                     controllers.SignupEstudiante.create()
+#POST    /signup                     controllers.SignupEstudiante.save()
 
 
 #Eliminar 

@@ -37,7 +37,6 @@ public class RegistroEmpresa extends Model {
     public int telefono;
     @Constraints.Required
     public String contrasenia;
-    // @Constraints.Required
     @Formats.NonEmpty
     public String passwordHash;
 @Formats.DateTime(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -50,13 +49,6 @@ public class RegistroEmpresa extends Model {
 
     public RegistroEmpresa() {
     }
-    
-     
-     
-     
-    
-     
-   
     public static Finder<Long, RegistroEmpresa> find = new Finder<Long, RegistroEmpresa>(RegistroEmpresa.class);
     
      public static RegistroEmpresa findByUsername(String cfi) {

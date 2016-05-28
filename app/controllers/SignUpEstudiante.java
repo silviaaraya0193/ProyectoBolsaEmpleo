@@ -21,6 +21,7 @@ import views.html.*;
 import java.net.URL;
 import java.util.UUID;
 import java.util.Date;
+import models.RegistroUsuario;
 import play.mvc.Security;
 
 import static play.data.Form.form;
@@ -32,13 +33,13 @@ import static play.data.Form.form;
  * @authorEXDER 
  */
 @Security.Authenticated(Secured.class)
-public class SignUp extends Controller{
+public class SignUpEstudiante extends Controller{
     
 public Result create() {
       //String username = ctx().session().get("username");
       //User user = User.findByUsername(username)
-      RegistroEmpresa user = null;
-      return ok(create.render(user, form(ApplicationEmpresa.CreateUser.class)));
+      RegistroUsuario user = null;
+      return ok(createEstudiante.render(user, form(ApplicationEstudiante.CreateUser.class)));
     }
     /**
      * Se encarga de la renderización del form de creación de usuarios, envía al render la información
@@ -49,8 +50,8 @@ public Result create() {
     public Result createOnlyForm() {
       //String username = ctx().session().get("username");
       //User user = User.findByUsername(username);
-      RegistroEmpresa user = null;
-      return ok(create.render(user, form(ApplicationEmpresa.CreateUser.class)));
+      RegistroUsuario user = null;
+      return ok(createEstudiante.render(user, form(ApplicationEstudiante.CreateUser.class)));
       
     }
 
@@ -63,34 +64,34 @@ public Result create() {
                en otro caso retorna badRequest con la información de los errores encontrados en el formulario
      **/
     public Result save() {
-        Form<ApplicationEmpresa.CreateUser> registerForm = form(ApplicationEmpresa.CreateUser.class).bindFromRequest();
+        Form<ApplicationEstudiante.CreateUser> registerForm = form(ApplicationEstudiante.CreateUser.class).bindFromRequest();
 
         if (registerForm.hasErrors()) {
-            String cfi = ctx().session().get("cfi");
-            return badRequest(create.render(RegistroEmpresa.findByUsername(cfi), registerForm)); // errores en el form
+            String correo = ctx().session().get("correo");
+            return badRequest(createEstudiante.render(RegistroUsuario.findByUsername(correo), registerForm)); // errores en el form
         }
 
-        ApplicationEmpresa.CreateUser register = registerForm.get();
-        Result resultError = checkBeforeSave(registerForm, register.cfi); // comprueba si el nombre de usuario ya existe en la bd
+        ApplicationEstudiante.CreateUser register = registerForm.get();
+        Result resultError = checkBeforeSave(registerForm, register.correo); // comprueba si el nombre de usuario ya existe en la bd
 
         if (resultError != null) {
             return resultError; // en caso de que el nombre de usuario ya exista
         }
 
         try {
-            RegistroEmpresa user = new RegistroEmpresa();
-            user.cfi = register.cfi;
-            user.passwordHash = Hash.createPassword(register.password);
+            RegistroUsuario user = new RegistroUsuario();
+            user.correo = register.correo;
+            user.passwordHash = Hash.createPassword(register.contrasenia);
             //user.creationDate = new Date();
             user.save();
-            String cfi = ctx().session().get("cfi");
-            return redirect(routes.ApplicationEmpresa.home()); // usuario creado correctamente
+            String correo = ctx().session().get("correo");
+            return redirect(routes.ApplicationEstudiante.homeEst()); // usuario creado correctamente
         } catch (Exception e) {
             Logger.error("Error salvando usuario", e);
             flash("danger", "Error guardando los datos"); // error al guardar el usuario en la bd
         }
-        String cfi = ctx().session().get("cfi");
-        return badRequest(create.render(RegistroEmpresa.findByUsername(cfi), registerForm));
+        String correo = ctx().session().get("cfi");
+        return badRequest(createEstudiante.render(RegistroUsuario.findByUsername(correo), registerForm));
     }
 
     /**
@@ -105,10 +106,10 @@ public Result create() {
      */
     
     
-    private Result checkBeforeSave(Form<ApplicationEmpresa.CreateUser> registerForm, String cfi) {
-        if (RegistroEmpresa.findByUsername(cfi) != null) {
+    private Result checkBeforeSave(Form<ApplicationEstudiante.CreateUser> registerForm, String correo) {
+        if (RegistroUsuario.findByUsername(correo) != null) {
             flash("danger", "Usuario existente");
-            return badRequest(create.render(RegistroEmpresa.findByUsername(cfi), registerForm));
+            return badRequest(createEstudiante.render(RegistroUsuario.findByUsername(correo), registerForm));
         }
         return null;
     }

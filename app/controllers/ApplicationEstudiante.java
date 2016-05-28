@@ -1,19 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controllers;
-import models.RegistroEmpresa;
-import models.UserEmpresa;
+import models.RegistroUsuario;
 import models.utils.AppException;
-import play.Logger;
 import play.data.Form;
 import play.data.validation.Constraints;
 import play.i18n.Messages;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.*;
+import play.data.validation.Constraints.*;
 
 import static play.data.Form.form;
 
@@ -23,38 +17,35 @@ import static play.data.Form.form;
  *
  * @author Expression EXDER 
  */
-public class ApplicationUser extends Controller {
-    
- public Result GO_HOME = redirect(
-            routes.ApplicationUser.home()
+public class ApplicationEstudiante extends Controller {
+       public Result GO_HOME = redirect(
+            routes.ApplicationEstudiante.homeEst()
     );
-
- public Result home() {//controlador del home o index
-        String cfi = ctx().session().get("cfi");
-        if (cfi!=null) {
-            RegistroEmpresa user = RegistroEmpresa.findByUsername(cfi);//busca el cfi
+public Result homeEst() {//controlador del home o index
+        String correo = ctx().session().get("correo");
+        if (correo!=null) {
+            RegistroUsuario user = RegistroUsuario.findByUsername(correo);//busca el coreo
             System.out.println("user"+user);
             if (user != null) {
-                return  ok(perfilEmpresa.render("Hola empresa",user));//redirect("/");
+                return  ok(perfilEstudiante.render("Hola Estudiante",user));//redirect("/");
             } else {
                 session().clear();
             }
         }
-        return ok(iniciarSesionEmpresa.render("Error",form(Login.class)));
+        return ok(iniciarSesionEstudiante.render("Error",form(ApplicationEstudiante.Login.class)));
     }
-    
-    public static class Login {
-
+public static class Login {
+        @Email
         @Constraints.Required()
-        public String cfi;
+        public String correo;
         @Constraints.Required()
-        public String password;
+        public String contrasenia;
         
          public String validate() {
 
-            RegistroEmpresa user = null;
+            RegistroUsuario user = null;
             try {
-                user = RegistroEmpresa.authenticate(cfi, password);
+                user = RegistroUsuario.authenticate(correo, contrasenia);
             } catch (AppException e) {
                 return Messages.get("error.technical");
             }
@@ -63,16 +54,14 @@ public class ApplicationUser extends Controller {
             }
             return null;
         }
-
-    }
-  
-  public static class CreateUser {
+}
+ public static class CreateUser {
 
     @Constraints.Required
-    public String cfi;
+    public String correo;
 
     @Constraints.Required
-    public String password;
+    public String contrasenia;
 
     /**
      * Comprueba que los datos ingresados en un input dado no estén en blanco
@@ -84,21 +73,21 @@ public class ApplicationUser extends Controller {
         return input == null || input.isEmpty() || input.trim().isEmpty();
     }
 }
-  
-  public Result authenticate() {
+
+     public Result authenticate() {
         Form<Login> loginForm = form(Login.class).bindFromRequest();
 
         if (loginForm.hasErrors()) {
-            return badRequest(iniciarSesionEmpresa.render("Error Autentificacion",loginForm));
+            return badRequest(iniciarSesionEstudiante.render("Error Autentificacion",loginForm));
         } else {
-            session("cfi", loginForm.get().cfi);
+            session("correo", loginForm.get().correo);
             return GO_HOME;
         }
     }
-  public Result logout() {
+    public Result logout() {
         session().clear();
         flash("success",  "Usted ha cerrado sesión correctamente");
         return GO_HOME;
     }
-        
-  }
+     
+}

@@ -1,10 +1,10 @@
-@(message:String,loginForm: Form[ApplicationUser.Login])
+@(message:String,loginForm: Form[ApplicationEmpresa.Login])
 @import helper._
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 @main(null) {
 <h1>Iniciar seccion Empresa</h1>
 
-@form(routes.ApplicationUser.authenticate(), 'class -> "form") {
+@form(routes.ApplicationEmpresa.authenticate(), 'class -> "form") {
 
     @if(loginForm.hasGlobalErrors) {
         <div class="alert alert-danger">
@@ -21,7 +21,6 @@
                 )
             </div>
         </div>
-         
         <div class="row">
             <div class="col-md-4"> @inputPassword(
                 loginForm("password"),'_showErrors -> true,
@@ -30,11 +29,10 @@
                 'class -> "form-control"
                 )
             </div>   
-        </div>
-        
+        </div>        
     </fieldset>
     <div class="form-actions">
-        <input type="submit" class="btn btn-success" value="Iniciar Seccion" >
+        <input type="submit" class="btn btn-success" value="Iniciar Sesion" >
     </div>
 
   }
