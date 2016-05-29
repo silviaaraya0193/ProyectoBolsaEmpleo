@@ -1,17 +1,39 @@
-@(message: String)
+@(message:String,loginForm: Form[ApplicationEmpresa.Login])
+@import helper._
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-@main(message) {
-<div class="text" role="group" aria-label="...">
-<h2>Iniciar Sesion Empresas</h2><br>
-      <label>Codigo CFI:</label>
-            <input type="text"name="cfi"id="codigoCFI" class="correo"><br><br><br>      
-      <label>Contraseña :</label>
+@main(null) {
+<h1>Iniciar seccion Empresa</h1>
 
-            <input type="password"name="contrasena"id="pass"class="pass"/><br><br><br>
-        <div></div>
-    </div>   
-    <a href="@routes.HomeController.perfilEmpresa()" class="btn btn-default">Acceder</a></br></br>
+@form(routes.ApplicationEmpresa.authenticate(), 'class -> "form") {
 
-    <a href="@routes.HomeController.crearFormularioEmpresaGet()" class="btn btn-default">Acceder</a></br></br> 
+    @if(loginForm.hasGlobalErrors) {
+        <div class="alert alert-danger">
+            @loginForm.globalError.message
+        </div>
+    }
+     <fieldset>
+         <div class="row">
+            <div class="col-md-4">@inputText(
+                loginForm("cfi"),'_showErrors -> true,
+                 '_label -> "CFI EMPRESA",
+                '_help -> "requeried",
+                'class -> "form-control"
+                )
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4"> @inputPassword(
+                loginForm("password"),'_showErrors -> true,
+                '_label -> "password",
+                '_help -> "required",
+                'class -> "form-control"
+                )
+            </div>   
+        </div>        
+    </fieldset>
+    <div class="form-actions">
+        <input type="submit" class="btn btn-success" value="Iniciar Sesion" >
+    </div>
 
-}
+  }
+    }

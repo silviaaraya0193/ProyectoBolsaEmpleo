@@ -10,6 +10,12 @@
             @searchForm.globalError.message
         </div>
     }
+    @for(error <- searchForm("passwordHash").errors) {
+    <p> passwordHash @Messages(error.messages, error.arguments.toArray: _*)</p>
+}
+@for(error <- searchForm("creationDate").errors) {
+    <p> creationDate @Messages(error.messages, error.arguments.toArray: _*)</p>
+}
     <fieldset>
         <div class="row">
             <div class="col-md-4"> @inputText(
@@ -59,6 +65,8 @@
     </fieldset>
     <div class="form-actions">
         <input type="submit" class="btn btn-success" value="Registrarse" >
+        <a href="@routes.HomeController.crearFormularioEmpresaPost()" 
+           class="btn btn-default">Llenar Formulario</a>
     </div>
     }
 }

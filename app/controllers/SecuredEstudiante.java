@@ -13,14 +13,14 @@ import play.mvc.Security;
  *
  * @author EXDER 
  */
-public class Secured extends Security.Authenticator {
+public class SecuredEstudiante extends Security.Authenticator {
    @Override
     public String getUsername(Http.Context ctx) {
-        return ctx.session().get("cfi");
+        return ctx.session().get("correo");
     }
     
      @Override
     public Result onUnauthorized(Http.Context ctx) {
-        return redirect(routes.ApplicationEmpresa.home());
+        return redirect(routes.ApplicationEstudiante.homeEst());
     }  
 }

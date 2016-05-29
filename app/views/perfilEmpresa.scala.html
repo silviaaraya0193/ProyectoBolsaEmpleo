@@ -1,4 +1,4 @@
-@(message: String)
+@(message: String,registroEmpresa:RegistroEmpresa)
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,25 +10,25 @@
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </head>
 <body>
-
+    <label>Perfil Empresa</label>
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand" href="#">Bolsa de Empleo UCR</a>
     </div>
-    <ul class="nav navbar-nav">]
+    <ul class="nav navbar-nav">
       <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Perfil <span class="caret"></span></a>
       <ul class="dropdown-menu">
-          <li><a href="#">Modificar Pefil</a></li>
+          <li><a href="#">Modificar Perfil</a></li>
           <li><a href="#">Ver Perfil</a></li>
-          <li><a href="#">Eliminar Pefil</a></li> 
+          <li><a href="#">Eliminar Perfil</a></li> 
         </ul>
       </li>
       <li><a href="#">Convertir en PDF</a></li>
       <li><a href="#">Traducir a Ingles</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
-      <li><a href="#"><span class="glyphicon glyphicon-exit"></span> Salir</a></li>
+      <li><a href="@routes.ApplicationEmpresa.logout()"><span class="glyphicon glyphicon-exit"></span> Salir</a></li>
       <!--<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>-->
     </ul>
   </div>

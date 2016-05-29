@@ -1,0 +1,81 @@
+[33mcommit bbc81c023ffb871b0024dc2ca191297d39e8bfbf[m
+Author: victorCarranzaR94 <viccra3094@gmail.com>
+Date:   Sat May 21 22:13:18 2016 -0600
+
+    error del registro estudiante
+
+[33mcommit 3b9d9f4532a9010490e18f763c211cba3871c592[m
+Author: victorCarranzaR94 <viccra3094@gmail.com>
+Date:   Sat May 21 22:05:58 2016 -0600
+
+    enlace del perfil de empresa y estudiante al iniciar sesion
+
+[33mcommit 51c51838305edd8591d463e3ba4eb6a164a87560[m
+Merge: de45b21 d8672cb
+Author: victorCarranzaR94 <viccra3094@gmail.com>
+Date:   Sat May 21 21:58:09 2016 -0600
+
+    Merge origin/Silvia
+
+[33mcommit d8672cbd8929ff9a7e42481322640a7e03073dbb[m
+Author: victorCarranzaR94 <viccra3094@gmail.com>
+Date:   Sat May 21 21:49:28 2016 -0600
+
+    registros, inicios sesion con interfaz(Exder)
+    opciones cambios
+
+[33mcommit f14155362688aa5d69381c883a5c5c608b049391[m
+Author: victorCarranzaR94 <viccra3094@gmail.com>
+Date:   Sat May 21 15:42:51 2016 -0600
+
+    menus, opciones, perfil estudiante, perfil empresa
+
+[33mcommit 9f6558442fb688b16c962b1b1dfe8c04adea67ea[m
+Author: victorCarranzaR94 <viccra3094@gmail.com>
+Date:   Sat May 21 15:39:52 2016 -0600
+
+    menus, opciones, perfil estudiante, perfil empresa
+
+[33mcommit de45b21f74979d19d0569b4f802f3f320d4d3b42[m
+Merge: a2134ff 49899f5
+Author: victorCarranzaR94 <viccra3094@gmail.com>
+Date:   Sat May 21 13:04:38 2016 -0600
+
+    Merge origin/ExderProyecto
+
+[33mcommit c0966b9f02647268e634de4359d7355441f68308[m
+Merge: a2134ff 49899f5
+Author: victorCarranzaR94 <viccra3094@gmail.com>
+Date:   Sat May 21 13:03:13 2016 -0600
+
+    Merge origin/ExderProyecto into Silvia
+
+[33mcommit a2134ff4b6339814ba34fe9c880039b85d327566[m
+Author: victorCarranzaR94 <viccra3094@gmail.com>
+Date:   Sat May 21 12:49:50 2016 -0600
+
+    formulario Estudiante
+
+[33mcommit 49899f5dcefdc159c800390120f9297edb41197c[m
+Author: EXWIRTH <exderlopezg@gmail.com>
+Date:   Sat May 21 12:09:13 2016 -0600
+
+    Usuario-factory
+
+[33mcommit 2f1ead547fae61a580308404758e768d9388b94b[m
+Author: EXWIRTH <exderlopezg@gmail.com>
+Date:   Sat May 21 12:04:14 2016 -0600
+
+    Usuarios
+
+[33mcommit f4c9f60e5d3ce42a4424228623715435a07f48f9[m
+Author: victorCarranzaR94 <viccra3094@gmail.com>
+Date:   Sat May 21 09:08:52 2016 -0600
+
+    formulario Empresa
+
+[33mcommit 9337a2858bc6103ae133e781f9f7047d391bd0cb[m
+Author: victorCarranzaR94 <viccra3094@gmail.com>
+Date:   Tue May 17 00:17:47 2016 -0600
+
+    Primeras Ventanas
