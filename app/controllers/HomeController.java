@@ -72,8 +72,11 @@ public class HomeController extends Controller {
                 routes.HomeController.registroEstudiantePost()));
             }
           }
-          return ok(registroEstudiante.render("\nRecepción de registro correcto.", formUsuario,
-                routes.HomeController.registroEstudiantePost()));
+          List anios = new ArrayList();
+        for (int x = 1990; x<2017; x++){anios.add(x);}
+              Form<FormularioEstudiante> pregForm = formFactory.form(FormularioEstudiante   .class);
+          return ok(formularioEstudiante.render("\nFormularo Estudiante.", pregForm,anios,
+                routes.HomeController.crearFormularioEstudiantePost()));
     } 
     
       public Result registroEmpresaGet(){
@@ -109,9 +112,10 @@ public class HomeController extends Controller {
                   return ok(registroEmpresa.render("\n El codigo CFI  yas se encuentra registrado.", formRegistro,
                 routes.HomeController.registroEmpresaPost()));
             }
-          }
-          return ok(registroEmpresa.render("\nRecepcion de registro correcto.", formRegistro,
-                routes.HomeController.registroEmpresaPost()));
+      }
+          Form<FormularioEmpresa> pregForm = formFactory.form(FormularioEmpresa.class);
+          return ok(formularioEmpresa.render("\n Formulario Empresa.", pregForm,
+                routes.HomeController.crearFormularioEmpresaPost()));
       }
       
     public Result crearFormularioEmpresaGet() {
