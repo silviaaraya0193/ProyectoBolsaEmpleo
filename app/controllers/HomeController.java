@@ -266,7 +266,7 @@ public class HomeController extends Controller {
      public Result listarFormularioEstudiante(){
          RegistroUsuario usuario = new RegistroUsuario();
          List<FormularioEstudiante> formEstu = FormularioEstudiante.find.all();
-         System.out.println("impresion lista formulario est: "+formEstu);
+         //System.out.println("impresion lista formulario est: "+formEstu);
          return ok(perfilEstudiante.render("Formulario Estudiantes", formEstu, usuario));
      }
 

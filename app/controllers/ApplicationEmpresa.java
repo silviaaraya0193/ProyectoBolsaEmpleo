@@ -32,7 +32,7 @@ public class ApplicationEmpresa extends Controller {
         String cfi = ctx().session().get("cfi");
         if (cfi!=null) {
             RegistroEmpresa user = RegistroEmpresa.findByUsername(cfi);//busca el cfi
-            System.out.println("user"+user);
+           // System.out.println("user"+user);
             if (user != null) {
                 return  ok(perfilEmpresa.render("Hola empresa",user));//redirect("/");
             } else {
