@@ -285,8 +285,8 @@ public class HomeController extends Controller {
      }
      public Result eliminarFormularioEstudiante(Long id) {
         RegistroUsuario usuario = new UsuarioSession().getRegistroUsuario();
-        FormularioEstudiante instancia = FormularioEstudiante.find.byId(id);
-        instancia.delete();
+        List<FormularioEstudiante> instancia = FormularioEstudiante.find.where().ilike("registroUsuario",""+usuario.id).findList();
+        instancia.remove();
         return redirect(routes.HomeController.listarFormularioEstudiante());
     }    
 
