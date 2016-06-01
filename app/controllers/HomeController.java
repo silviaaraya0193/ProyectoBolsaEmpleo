@@ -13,6 +13,7 @@ import models.utils.Hash;
 import models.RegistroEmpresa;
 import models.RegistroUsuario;
 import models.utils.AppException;
+import models.utils.UsuarioSession;
 import play.data.FormFactory;
 import views.html.*;
 
@@ -20,6 +21,7 @@ import views.html.*;
  * This controller contains an action to handle HTTP requests
  * to the application's home page.
  */
+
 public class HomeController extends Controller {
     @Inject FormFactory formFactory;
     /**
@@ -152,7 +154,9 @@ public class HomeController extends Controller {
     }
     
     public Result crearFormularioEstudianteGet() {//muestrar la pantalla el post hace la operacio
-        Form<FormularioEstudiante> pregForm = formFactory.form(FormularioEstudiante.class);
+        FormularioEstudiante formEstudiante = new FormularioEstudiante();
+        formEstudiante.setRegistroUsuario(new UsuarioSession().getRegistroUsuario());
+        Form<FormularioEstudiante> pregForm = formFactory.form(FormularioEstudiante.class).fill(formEstudiante);
         List anios = new ArrayList();
         for (int x = 1990; x<2017; x++){anios.add(x);}
         
@@ -199,6 +203,7 @@ public class HomeController extends Controller {
             nuevoFormEst.anoFinalFormal = values.get("anoFinalFormal");
             nuevoFormEst.traslado = values.get("traslado");
             nuevoFormEst.genero = values.get("genero");
+            nuevoFormEst.setRegistroUsuario(new UsuarioSession().getRegistroUsuario());
             //System.out.println("informacion: "+preg);
             nuevoFormEst.save();
             formEst = formFactory.form(FormularioEstudiante.class);
@@ -268,10 +273,21 @@ public class HomeController extends Controller {
      }
      
      public Result listarFormularioEstudiante(){
-         RegistroUsuario usuario = new RegistroUsuario();
-         List<FormularioEstudiante> formEstu = FormularioEstudiante.find.all();
-         //System.out.println("impresion lista formulario est: "+formEstu);
+         RegistroUsuario usuario = new UsuarioSession().getRegistroUsuario();
+         List<FormularioEstudiante> formEstu = FormularioEstudiante.find
+                 //.all();
+                 
+                 .where()
+                 .ilike("registroUsuario", ""+usuario.id).findList();
+
+         //System.err.println("impresion lista formulario est: "+formEstu);
          return ok(perfilEstudiante.render("Formulario Estudiantes", formEstu, usuario));
      }
+     public Result eliminarFormularioEstudiante(Long id) {
+        RegistroUsuario usuario = new UsuarioSession().getRegistroUsuario();
+        FormularioEstudiante instancia = FormularioEstudiante.find.byId(id);
+        instancia.delete();
+        return redirect(routes.HomeController.listarFormularioEstudiante());
+    }    
 
 }

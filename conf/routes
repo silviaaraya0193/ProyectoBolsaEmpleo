@@ -41,7 +41,7 @@ POST    /formularioEstudiante.scala.html        controllers.HomeController.crear
 
 
 #PERFIL ESTUDIANTE
-#GET     /perfilEstudiante.scala.html            controllers.HomeController.perfilEstudiante()
+GET     /perfilEstudiante.scala.html            controllers.HomeController.perfilEstudiante()
 
 #PERFIL EMPRESA
 #GET     /perfilEmpresa.scala.html            controllers.HomeController.perfilEmpresa()
@@ -81,6 +81,6 @@ GET     /logoutEst                     controllers.ApplicationEstudiante.logout(
 
 
 #Eliminar 
-#GET     /eliminarPregunta/:id       controllers.HomeController.EliminarPregunta(id: Long)
+GET     /eliminarFormularioEstudiante/:id       controllers.HomeController.eliminarFormularioEstudiante(id: Long)
 # Map static resources from the /public folder to the /assets URL path
 #GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

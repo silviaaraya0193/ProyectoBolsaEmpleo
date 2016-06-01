@@ -87,6 +87,19 @@ public class FormularioEstudiante extends Model{
     @Constraints.Required
     public String genero;
     
+    
+    @Constraints.Required
+    @OneToOne()
+    RegistroUsuario registroUsuario;
+
+    public RegistroUsuario getRegistroUsuario() {
+        return registroUsuario;
+    }
+
+    public void setRegistroUsuario(RegistroUsuario registroUsuario) {
+        this.registroUsuario = registroUsuario;
+    }
+    
       public static Finder<Long, FormularioEstudiante> find = new Finder<Long, FormularioEstudiante>(FormularioEstudiante.class);
       
 }

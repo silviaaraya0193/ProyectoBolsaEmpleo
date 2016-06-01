@@ -47,6 +47,8 @@ create table formulario_estudiante (
   ano_final_formal              varchar(255),
   traslado                      varchar(255),
   genero                        varchar(255),
+  registro_usuario_id           bigint,
+  constraint uq_formulario_estudiante_registro_usuario_id unique (registro_usuario_id),
   constraint pk_formulario_estudiante primary key (id)
 );
 
@@ -74,8 +76,12 @@ create table registro_usuario (
   constraint pk_registro_usuario primary key (id)
 );
 
+alter table formulario_estudiante add constraint fk_formulario_estudiante_registro_usuario_id foreign key (registro_usuario_id) references registro_usuario (id) on delete restrict on update restrict;
+
 
 # --- !Downs
+
+alter table formulario_estudiante drop foreign key fk_formulario_estudiante_registro_usuario_id;
 
 drop table if exists formulario_empresa;
 
