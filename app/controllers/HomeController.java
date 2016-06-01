@@ -66,7 +66,6 @@ public class HomeController extends Controller {
             nuevoUsuario.passwordHash=Hash.createPassword(nuevoUsuario.contrasenia);
             nuevoUsuario.creationDate=new Date();
             nuevoUsuario.save();
-            
             formUsuario=formFactory.form(RegistroUsuario.class);
             }
             else{
@@ -147,10 +146,11 @@ public class HomeController extends Controller {
             nuevoFormEmpresa.save();
             
             formEmpresa = formFactory.form(FormularioEmpresa.class);
+            
         }
-        return ok(formularioEmpresa.render("Recepcion de formulario correcto.", formEmpresa,
-
-                routes.HomeController.crearFormularioEmpresaPost()));
+         String cfi = ctx().session().get("cfi");
+         RegistroEmpresa user = RegistroEmpresa.findByUsername(cfi);//busca el cfi
+        return ok(perfilEmpresa.render("La empresa.", user));
     }
     
     public Result crearFormularioEstudianteGet() {//muestrar la pantalla el post hace la operacio
