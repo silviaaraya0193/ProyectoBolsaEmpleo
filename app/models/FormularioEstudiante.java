@@ -7,8 +7,6 @@ package models;
 
 import com.avaje.ebean.Model;
 import javax.persistence.*;
-import javax.swing.JComboBox;
-import javax.swing.JRadioButton;
 import play.data.validation.*;
 import play.data.validation.Constraints.*;
 
@@ -63,25 +61,31 @@ public class FormularioEstudiante extends Model{
     public String anosExperiencia;
     //EXPERIENCIA LABORAL
    // @Constraints.Required
-    public String empresa;
+    public String empresa,empresa2,empresa3;
    // @Constraints.Required
-    public String puesto;
-    public String anosTrabajo;
+    public String puesto,puesto2,puesto3;
+    public String anosTrabajo, anosTrabajo3, anosTrabajo2;
     //EDUCACION FORMAL
     @Constraints.Required
     public String titulo;
+    public String titulo2;
     @Constraints.Required
     public String institucion;
+    public String institucion2;
+    
     //IDIOMAS
     //@Constraints.Required
     public String idiomas;
     //EDUCACION NO FORMAL
    // @Constraints.Required
     public String otrosTitulos;
+    public String otrosTitulosFormales;
+    public String otrosTrabajos;
    // @Constraints.Required
     public String estadoLaboral;
     @Constraints.Required
     public String anoIngresoFormal, anoFinalFormal;
+    public String anoIngresoFormal2, anoFinalFormal2;
     @Constraints.Required
     public String traslado;
     @Constraints.Required

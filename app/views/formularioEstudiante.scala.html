@@ -20,7 +20,7 @@
     
     @input(searchForm("registroUsuario.id"), '_label-> None) { (id, name, value, args) =>
             <input type="hidden" name="@name" id="@id" value="@value" @toHtmlArgs(args) >
-    }
+    } 
     
     <div class="tab-content">
         <div role="tabpanel" class="tab-pane active" id="datosPersonales">
@@ -33,8 +33,6 @@
                 '_help -> "Requerido",
                 'class -> "form-control"
                 )</div>
-            
-
                 
             <div class="col-md-4">
                 @inputText(searchForm("primerApellido"),
@@ -118,10 +116,12 @@
                 'class -> "form-control")
             </div>
            <div>
-                <h4>Licencia de Conducir:</h4>
-                <input name="licencia" type="radio" value="genero" />Si
+               @input(searchForm("licencia")){(id, name, value, args) =>
+                
+                <input name="licencia" type="radio" value="Si" @if(value.equals("si")){selected} />Si
                 <br>
-                <input name="licencia" type="radio" value="genero" />No
+                <input name="licencia" type="radio" value="No" @if(value.equals("No")){selected} />No
+                }
             </div><br>
     <div class="col-md-8"> @textarea(
                 searchForm("perfilPersonal"),
@@ -193,6 +193,50 @@
                 '_help -> "",
                 'class -> "form-control"
                 )</div>
+             <div class="col-md-4"> @inputText(
+                searchForm("empresa2"),
+                '_label -> "Empresa:",
+                '_help -> "",
+                'class -> "form-control"
+                )</div>
+          
+            <div class="col-md-4">
+                @inputText(searchForm("puesto2"),
+                '_label -> "Puesto: ",
+                '_help -> "",
+                'class -> "form-control")
+            </div>
+            <div class="col-md-4"> @inputText(
+                searchForm("anosTrabajo2"),
+                '_label -> "Años de Trabajo:",
+                '_help -> "",
+                'class -> "form-control"
+                )</div>
+             <div class="col-md-4"> @inputText(
+                searchForm("empresa3"),
+                '_label -> "Empresa:",
+                '_help -> "",
+                'class -> "form-control"
+                )</div>
+          
+            <div class="col-md-4">
+                @inputText(searchForm("puesto3"),
+                '_label -> "Puesto: ",
+                '_help -> "",
+                'class -> "form-control")
+            </div>
+            <div class="col-md-4"> @inputText(
+                searchForm("anosTrabajo3"),
+                '_label -> "Años de Trabajo:",
+                '_help -> "",
+                'class -> "form-control"
+                )</div>
+            <div class="col-md-4">
+                @textarea(searchForm("otrosTrabajos"),
+                '_label -> "Otros Trabajos: ",
+                '_help -> "",
+                'class -> "form-control")
+            </div>
  </fieldset>
 
         </div>
@@ -227,6 +271,41 @@
               <option value="@anyo"> @anyo </option>
             }
         </select>
+            </div>
+                <div class="col-md-4">
+                @inputText(searchForm("titulo2"),
+                '_label -> "Titulo: ",
+                '_help -> "",
+                'class -> "form-control")
+            </div>
+            <div class="col-md-4"> @inputText(
+                searchForm("institucion2"),
+                '_label -> "Institucion:",
+                '_help -> "",
+                'class -> "form-control"
+                )</div>
+                </br></br>
+            <div>
+               <h4>Año Ingreso:</h4>
+        <select name="anoIngresoFormal2" class="form-control">
+           
+            @for( anyo <- anio){
+             <option value="@anyo"> @anyo </option>
+            }
+        </select>
+               <h4>Año Finalizacion:</h4>
+        <select name="anoFinalFormal2" class="form-control">
+            
+            @for( anyo <- anio){
+              <option value="@anyo"> @anyo </option>
+            }
+        </select>
+            </div>
+                 <div class="col-md-4">
+                @textarea(searchForm("otrosTitulosFormales"),
+                '_label -> "Otros Titulos Educacion Formal: ",
+                '_help -> "",
+                'class -> "form-control")
             </div>
  </fieldset>
  <fieldset>
