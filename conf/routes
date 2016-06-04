@@ -48,9 +48,16 @@ GET     /opciones2                              controllers.HomeController.opcio
 #LISTARFORMULARIOESTUDIANTE
 GET     /listarFormularioEstudiante                controllers.ApplicationEstudiante.listarFormularioEstudiante()
 
+#LISTARFORMULARIOEMPRESA
+GET     /listaFormularioEmpresa                     controllers.ApplicationEmpresa.listarFormularioEmpresa()
+
 #EDITARFORMULARIOESTUDIANTES
 GET     /editarEstudiante/:id                       controllers.ApplicationEstudiante.editarPerfilEstudianteGet(id: Long)
 POST    /editarEstudiante/:id                       controllers.ApplicationEstudiante.editarPerfilPost(id: Long)
+
+#EDITARFORMULARIOEMPRESA
+GET     /editarEmpresa/:id                          controllers.ApplicationEmpresa.editarPerfilEmpresaGet(id: Long)
+POST    /editarEmpresa/:id                          controllers.ApplicationEmpresa.editarPerfilEmpresaPost(id: Long)
 
 # Creacion de usuarios
 GET     /SignUp                     controllers.SignUp.create()
@@ -75,7 +82,9 @@ GET     /logoutEst                     controllers.ApplicationEstudiante.logout(
 #POST    /signup                     controllers.SignupEstudiante.save()
 
 
-#Eliminar 
+#ELIMINARFORMULARIOESTUDIANTE
 GET     /eliminarFormularioEstudiante/:id       controllers.ApplicationEstudiante.eliminarFormularioEstudiante(id: Long)
-# Map static resources from the /public folder to the /assets URL path
-#GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+
+#ELIMINARFORMULARIOEMPRESA
+GET     /eliminarFormularioEmpresa/:id          controllers.ApplicationEmpresa.eliminarFormularioEmpresa(id: Long)
+

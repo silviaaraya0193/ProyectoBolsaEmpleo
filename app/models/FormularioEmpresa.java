@@ -47,6 +47,18 @@ public class FormularioEmpresa extends Model {
 
     public String estadoContrataciones;
     public String otrasContrataciones;
+    
+    @Constraints.Required
+    @OneToOne()
+    RegistroEmpresa registroEmpresa;
 
+    public RegistroEmpresa getRegistroEmpresa() {
+        return registroEmpresa;
+    }
+
+    public void setRegistroEmpresa(RegistroEmpresa registroEmpresa) {
+        this.registroEmpresa = registroEmpresa;
+    }
+     
     public static Finder<Long, FormularioEmpresa> find = new Finder<Long, FormularioEmpresa>(FormularioEmpresa.class);
 }

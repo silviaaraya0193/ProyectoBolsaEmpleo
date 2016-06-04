@@ -13,6 +13,8 @@ create table formulario_empresa (
   perfil_empresarial            varchar(255),
   estado_contrataciones         varchar(255),
   otras_contrataciones          varchar(255),
+  registro_empresa_id           bigint,
+  constraint uq_formulario_empresa_registro_empresa_id unique (registro_empresa_id),
   constraint pk_formulario_empresa primary key (id)
 );
 
@@ -88,10 +90,14 @@ create table registro_usuario (
   constraint pk_registro_usuario primary key (id)
 );
 
+alter table formulario_empresa add constraint fk_formulario_empresa_registro_empresa_id foreign key (registro_empresa_id) references registro_empresa (id) on delete restrict on update restrict;
+
 alter table formulario_estudiante add constraint fk_formulario_estudiante_registro_usuario_id foreign key (registro_usuario_id) references registro_usuario (id) on delete restrict on update restrict;
 
 
 # --- !Downs
+
+alter table formulario_empresa drop foreign key fk_formulario_empresa_registro_empresa_id;
 
 alter table formulario_estudiante drop foreign key fk_formulario_estudiante_registro_usuario_id;
 

@@ -36,7 +36,7 @@ public class ApplicationEstudiante extends Controller {
         RegistroUsuario usuario = new UsuarioSession().getRegistroUsuario();
         List<FormularioEstudiante> formEstu = FormularioEstudiante.find.where(
         ).ilike("registroUsuario", ""+usuario.id).findList();
-        System.err.println("TAM "+formEstu.size());
+        //System.err.println("TAM "+formEstu.size());
         return ok(perfilEstudiante.render("", formEstu, usuario));
     }
     public Result eliminarFormularioEstudiante(Long id) {
@@ -95,7 +95,7 @@ public class ApplicationEstudiante extends Controller {
          instancia.traslado = formEst.traslado;
          instancia.genero = formEst.genero;
          instancia.save();
-         return redirect(routes.ApplicationEstudiante.listarFormularioEstudiante());
+         return redirect(routes.HomeController.perfilEstudiante());
      }
       public Result crearFormularioEstudianteGet() {//muestrar la pantalla el post hace la operacio
         FormularioEstudiante formEstudiante = new FormularioEstudiante();
@@ -193,6 +193,7 @@ public class ApplicationEstudiante extends Controller {
           return ok(formularioEstudiante.render("", pregForm,anios,
                 routes.ApplicationEstudiante.crearFormularioEstudiantePost()));
     } 
+    
 public Result homeEst() {//controlador del home o index
  
         String correo = ctx().session().get("correo");
@@ -208,6 +209,7 @@ public Result homeEst() {//controlador del home o index
         }
         return ok(iniciarSesionEstudiante.render("Error",form(ApplicationEstudiante.Login.class)));
     }
+
 public static class Login {
         @Email
         @Constraints.Required()
@@ -224,7 +226,7 @@ public static class Login {
                 return Messages.get("error.technical");
             }
             if (user == null) {
-                return Messages.get("user es null");
+                return Messages.get("Usuario Incorrecto");
             }
             return null;
         }

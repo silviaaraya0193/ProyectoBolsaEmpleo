@@ -41,6 +41,7 @@ public class HomeController extends Controller {
     public Result opciones2(){
         return ok(opciones2.render(" "));
     }
+    
    
 //     public Result registroEstudianteGet(){
 //         Form<RegistroUsuario> formUsuario= formFactory.form(RegistroUsuario.class);
@@ -214,7 +215,8 @@ public class HomeController extends Controller {
 //    }
      public Result perfilEmpresa(){
          RegistroEmpresa registro = new RegistroEmpresa();
-        return ok(perfilEmpresa.render("", registro));
+         List<FormularioEmpresa> formEmp = FormularioEmpresa.find.all();
+        return ok(perfilEmpresa.render("", formEmp,registro));
     }
      public Result perfilEstudiante(){
          RegistroUsuario usuario = new RegistroUsuario();

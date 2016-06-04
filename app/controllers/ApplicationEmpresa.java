@@ -4,7 +4,9 @@
  * and open the template in the editor.
  */
 package controllers;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import models.FormularioEmpresa;
 import models.RegistroEmpresa;
@@ -20,6 +22,10 @@ import views.html.*;
 import play.data.FormFactory;
 import static play.data.Form.form;
 import javax.inject.Inject;
+import models.FormularioEstudiante;
+import models.RegistroUsuario;
+import models.utils.EmpresaSession;
+import models.utils.UsuarioSession;
 
 
 
@@ -101,9 +107,46 @@ public class ApplicationEmpresa extends Controller {
         }
          String cfi = ctx().session().get("cfi");
          RegistroEmpresa user = RegistroEmpresa.findByUsername(cfi);//busca el cfi
-        return ok(perfilEmpresa.render("", user));
+        return ok(formularioEmpresa.render("", formEmpresa,routes.ApplicationEmpresa.crearFormularioEmpresaPost()));
     }
-    
+     public Result listarFormularioEmpresa(){
+        RegistroEmpresa empresa = new EmpresaSession().getRegistroEmpresa();
+        List<FormularioEmpresa> formEmpr = FormularioEmpresa.find.where().ilike("registroUsuario", ""+empresa.id).findList();
+        return ok(perfilEmpresa.render("", formEmpr, empresa));
+    }
+    public Result eliminarFormularioEmpresa(Long id) {
+        RegistroEmpresa empresa = new EmpresaSession().getRegistroEmpresa();
+        List<FormularioEmpresa> instancia = FormularioEmpresa.find.where().ilike("registroUsuario",""+empresa.id).findList();
+            for(FormularioEmpresa femp: instancia){
+                femp.delete();
+            }
+        return redirect(routes.ApplicationEmpresa.listarFormularioEmpresa());
+    }
+     public Result editarPerfilEmpresaGet(Long id){
+         FormularioEmpresa instancia = FormularioEmpresa.find.byId(id);
+         Form<FormularioEmpresa> formEmp = formFactory.form(FormularioEmpresa.class).fill(instancia);
+         return ok(formularioEmpresa.render("Formulario Empresa", formEmp,
+                  routes.ApplicationEmpresa.editarPerfilEmpresaPost(id)));
+     }
+     public Result editarPerfilEmpresaPost(Long id){
+         FormularioEmpresa instancia = FormularioEmpresa.find.byId(id);
+         Form<FormularioEmpresa> formEmpresa = formFactory.form(FormularioEmpresa.class).fill(instancia).bindFromRequest();
+         if(formEmpresa.hasErrors()){
+             return badRequest(formularioEmpresa.render("Encontramos errores en el formulario", formEmpresa, 
+                     routes.ApplicationEmpresa.editarPerfilEmpresaPost(id)));
+         }
+         FormularioEmpresa formEmp = formEmpresa.get();
+         instancia.nombre = formEmp.nombre;
+         //instancia.codigoCFI = formEmp.codigoCFI;
+         instancia.direccion = formEmp.direccion;
+         instancia.telefonoContacto = formEmp.telefonoContacto;
+         instancia.correoEmpresa = formEmp.correoEmpresa;
+         instancia.perfilEmpresarial = formEmp.perfilEmpresarial;
+         instancia.estadoContrataciones = formEmp.estadoContrataciones;
+         instancia.otrasContrataciones = formEmp.otrasContrataciones;
+         instancia.save();
+         return redirect(routes.ApplicationEstudiante.listarFormularioEstudiante());
+     }
  public Result GO_HOME = redirect(
             routes.ApplicationEmpresa.home()
     );
@@ -114,7 +157,7 @@ public class ApplicationEmpresa extends Controller {
             RegistroEmpresa user = RegistroEmpresa.findByUsername(cfi);//busca el cfi
            // System.out.println("user"+user);
             if (user != null) {
-                return  ok(perfilEmpresa.render("Hola empresa",user));//redirect("/");
+                return redirect(routes.ApplicationEmpresa.listarFormularioEmpresa());
             } else {
                 session().clear();
             }
@@ -138,7 +181,7 @@ public class ApplicationEmpresa extends Controller {
                 return Messages.get("error.technical");
             }
             if (user == null) {
-                return Messages.get("user es null");
+                return Messages.get("Usuario Incorrecto");
             }
             return null;
         }
