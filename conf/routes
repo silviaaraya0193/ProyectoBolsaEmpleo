@@ -1,13 +1,8 @@
 # Routes
-# This file defines all application routes (Higher priority routes first)
-# ~~~~
+
 
 # An example controller showing a sample home page
 GET     /                                 controllers.HomeController.index()
-# An example controller showing how to use dependency injection
-GET     /count                      controllers.CountController.count
-# An example controller showing how to write asynchronous code
-GET     /message                    controllers.AsyncController.message
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
@@ -21,41 +16,41 @@ GET     /iniciarSesionEmpresa             controllers.ApplicationEmpresa.home()
 GET       /iniciarSesionEstudiante       controllers.ApplicationEstudiante.homeEst()
 
 #REGISTRO ESTUDIANTE
-GET     /registroEstudiante.scala.html          controllers.HomeController.registroEstudianteGet()
-POST     /registroEstudiante.scala.html          controllers.HomeController.registroEstudiantePost()
+GET     /registroEstudiante.scala.html          controllers.ApplicationEstudiante.registroEstudianteGet()
+POST     /registroEstudiante.scala.html          controllers.ApplicationEstudiante.registroEstudiantePost()
 
 
 
 #REGISTRO EMPRESA
-GET     /registroEmpresa.scala.html             controllers.HomeController.registroEmpresaGet()
-POST   /registroEmpresa.scala.html             controllers.HomeController.registroEmpresaPost()
+GET     /registroEmpresa.scala.html             controllers.ApplicationEmpresa.registroEmpresaGet()
+POST   /registroEmpresa.scala.html             controllers.ApplicationEmpresa.registroEmpresaPost()
 
 
 #FORMULARIO EMPRESA
-GET     /formularioEmpresa.scala.html           controllers.HomeController.crearFormularioEmpresaGet()
-POST    /formularioEmpresa.scala.html           controllers.HomeController.crearFormularioEmpresaPost()
+GET     /formularioEmpresa.scala.html           controllers.ApplicationEmpresa.crearFormularioEmpresaGet()
+POST    /formularioEmpresa.scala.html           controllers.ApplicationEmpresa.crearFormularioEmpresaPost()
 
 #FORMULARIO ESTUDIANTE
-GET     /formularioEstudiante.scala.html        controllers.HomeController.crearFormularioEstudianteGet()
-POST    /formularioEstudiante.scala.html        controllers.HomeController.crearFormularioEstudiantePost()
+GET     /formularioEstudiante.scala.html        controllers.ApplicationEstudiante.crearFormularioEstudianteGet()
+POST    /formularioEstudiante.scala.html        controllers.ApplicationEstudiante.crearFormularioEstudiantePost()
 
 
 #PERFIL ESTUDIANTE
-GET     /perfilEstudiante.scala.html            controllers.HomeController.perfilEstudiante()
+GET     /perfilEstudiante.scala.html            controllers.ApplicationEstudiante.perfilEstudiante()
 
 #PERFIL EMPRESA
-#GET     /perfilEmpresa.scala.html            controllers.HomeController.perfilEmpresa()
+GET     /perfilEmpresa.scala.html            controllers.ApplicationEmpresa.perfilEmpresa()
 
 #OPCIONES
 GET     /opciones                               controllers.HomeController.opciones()
 GET     /opciones2                              controllers.HomeController.opciones2()
 
 #LISTARFORMULARIOESTUDIANTE
-GET     /listarFormularioEstudiante                controllers.HomeController.listarFormularioEstudiante()
+GET     /listarFormularioEstudiante                controllers.ApplicationEstudiante.listarFormularioEstudiante()
 
 #EDITARFORMULARIOESTUDIANTES
-GET     /editarEstudiante/:id                       controllers.HomeController.editarPerfilEstudianteGet(id: Long)
-POST    /editarEstudiante/:id                       controllers.HomeController.editarPerfilPost(id: Long)
+GET     /editarEstudiante/:id                       controllers.ApplicationEstudiante.editarPerfilEstudianteGet(id: Long)
+POST    /editarEstudiante/:id                       controllers.ApplicationEstudiante.editarPerfilPost(id: Long)
 
 # Creacion de usuarios
 GET     /SignUp                     controllers.SignUp.create()
@@ -81,6 +76,6 @@ GET     /logoutEst                     controllers.ApplicationEstudiante.logout(
 
 
 #Eliminar 
-#GET     /eliminarFormularioEstudiante/:id       controllers.HomeController.eliminarFormularioEstudiante(id: Long)
+GET     /eliminarFormularioEstudiante/:id       controllers.ApplicationEstudiante.eliminarFormularioEstudiante(id: Long)
 # Map static resources from the /public folder to the /assets URL path
 #GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

@@ -5,9 +5,7 @@
  */
 package models.utils;
 
-import controllers.Secured;
 import models.RegistroUsuario;
-import play.mvc.Security;
 import play.mvc.*;
 /**
  *
