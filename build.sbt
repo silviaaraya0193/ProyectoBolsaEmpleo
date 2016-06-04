@@ -13,5 +13,6 @@ libraryDependencies ++= Seq(
   cache,
   javaWs,
     
-    "org.mindrot" % "jbcrypt" % "0.3m"
+    "org.mindrot" % "jbcrypt" % "0.3m",
+     "it.innove" % "play2-pdf" % "1.4.0"
 )

@@ -1,4 +1,4 @@
-/*
+    /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -53,8 +53,8 @@ public class ApplicationEmpresa extends Controller {
             nuevaEmpresa.cfi=values.get("cfi");
             nuevaEmpresa.correo= values.get("correo");
             nuevaEmpresa.telefono= Integer.parseInt(values.get("telefono"));
-            nuevaEmpresa.contrasenia= values.get("contrasenia");
-            nuevaEmpresa.passwordHash=Hash.createPassword(nuevaEmpresa.contrasenia);
+            //nuevaEmpresa.contrasenia= values.get("contrasenia");
+            nuevaEmpresa.passwordHash=Hash.createPassword(values.get("contrasenia"));
             nuevaEmpresa.creationDate=new Date();
             nuevaEmpresa.save();
             
@@ -125,10 +125,11 @@ public class ApplicationEmpresa extends Controller {
             if (user != null) {
                 return  ok(perfilEmpresa.render("Hola empresa",user));//redirect("/");
             } else {
+                System.out.println("aqui empresa");
                 session().clear();
             }
         }
-        return ok(iniciarSesionEmpresa.render("Error",form(Login.class)));
+        return ok(iniciarSesionEmpresa.render("Error",form(ApplicationEmpresa.Login.class)));
     }
     
     public static class Login {

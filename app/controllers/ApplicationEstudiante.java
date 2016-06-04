@@ -26,14 +26,16 @@ import javax.inject.Inject;
 public class ApplicationEstudiante extends Controller {
     @Inject 
      FormFactory formFactory;
-       public Result GO_HOME = redirect(
-            routes.ApplicationEstudiante.homeEst()
-    );
-       
-    public Result listarFormularioEstudiante(){
+//     @Inject 
+//     PdfGenerator pdfGenerator;
+//       
+//     public Result document() {///PDF
+//        return pdfGenerator.ok(formularioEstudiante.render("",formEstu,anios,""), "http://localhost:9000/iniciarSesionEstudiante").as("application/pdf");
+//    }
+    public Result listarFormularioEstudiante(){//verificar el cierre de seccion
         RegistroUsuario usuario = new UsuarioSession().getRegistroUsuario();
         List<FormularioEstudiante> formEstu = FormularioEstudiante.find.where(
-        ).ilike("registroUsuario", ""+usuario.id).findList();
+        ).ilike("registroUsuario", ""+usuario.id).findList();//encuentra el formulario
         System.err.println("TAM "+formEstu.size());
         return ok(perfilEstudiante.render("", formEstu, usuario));
     }
@@ -152,7 +154,7 @@ public class ApplicationEstudiante extends Controller {
             nuevoFormEst.save();
             formEst = formFactory.form(FormularioEstudiante.class);
         }
-        return redirect( routes.ApplicationEstudiante.perfilEstudiante());
+        return redirect( routes.ApplicationEstudiante.listarFormularioEstudiante());
     }
      public Result registroEstudianteGet(){
          Form<RegistroUsuario> formUsuario= formFactory.form(RegistroUsuario.class);
@@ -174,8 +176,8 @@ public class ApplicationEstudiante extends Controller {
             nuevoUsuario.nombre=values.get("nombre");
             nuevoUsuario.correo= values.get("correo");
             nuevoUsuario.telefono= Integer.parseInt(values.get("telefono"));
-            nuevoUsuario.contrasenia= values.get("contrasenia");
-            nuevoUsuario.passwordHash=Hash.createPassword(nuevoUsuario.contrasenia);
+          //  nuevoUsuario.contrasenia= values.get("contrasenia");
+            nuevoUsuario.passwordHash=Hash.createPassword(values.get("contrasenia"));
             nuevoUsuario.creationDate=new Date();
             nuevoUsuario.save();
             formUsuario=formFactory.form(RegistroUsuario.class);
@@ -185,12 +187,16 @@ public class ApplicationEstudiante extends Controller {
                 routes.ApplicationEstudiante.registroEstudiantePost()));
             }
           }
-          List anios = new ArrayList();
-        for (int x = 1990; x<2017; x++){anios.add(x);}
-              Form<FormularioEstudiante> pregForm = formFactory.form(FormularioEstudiante   .class);
-          return redirect(
-                routes.ApplicationEstudiante.crearFormularioEstudiantePost());
+          
+//          List anios = new ArrayList();
+//        for (int x = 1990; x<2017; x++){anios.add(x);}
+//              Form<FormularioEstudiante> pregForm = formFactory.form(FormularioEstudiante.class);
+          return GO_HOME;
     } 
+    
+public Result GO_HOME = redirect(
+            routes.ApplicationEstudiante.homeEst()
+    );
 public Result homeEst() {//controlador del home o index
  
         String correo = ctx().session().get("correo");
@@ -198,12 +204,16 @@ public Result homeEst() {//controlador del home o index
             RegistroUsuario user = RegistroUsuario.findByUsername(correo);//busca el coreo
             System.out.println("user"+user);
             if (user != null) {
-                return redirect(routes.ApplicationEstudiante.listarFormularioEstudiante());
-            } else {
+                System.out.println("entra user sin null");
+                return redirect(routes.ApplicationEstudiante.listarFormularioEstudiante());//esto provoca q no cierre la seccion
+            } else{
+                System.out.println(" entra a cerrar seccion cleaner");
                 session().clear();
             }
+            
         }
-        return ok(iniciarSesionEstudiante.render("Error",form(ApplicationEstudiante.Login.class)));
+        System.out.println("out-salida");
+        return ok(iniciarSesionEstudiante.render(" Out ",form(ApplicationEstudiante.Login.class)));
     }
 public static class Login {
         @Email
@@ -223,7 +233,7 @@ public static class Login {
             if (user == null) {
                 return Messages.get("Verifique la contrasenia o el correo");
             }
-            return null;
+                return null;
         }
 }
 public Result perfilEstudiante(){
@@ -232,7 +242,7 @@ public Result perfilEstudiante(){
         return ok(perfilEstudiante.render("", formEstu, usuario));
     }
  public static class CreateUser {
-
+     @Email
     @Constraints.Required
     public String correo;
 

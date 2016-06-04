@@ -35,8 +35,8 @@ public class RegistroEmpresa extends Model {
     public String correo;
     @Constraints.Required
     public int telefono;
-    @Constraints.Required
-    public String contrasenia;
+//    @Constraints.Required
+//    public String contrasenia;
     @Formats.NonEmpty
     public String passwordHash;
 @Formats.DateTime(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -68,7 +68,7 @@ public class RegistroEmpresa extends Model {
         System.out.println("cfi "+cfi);
         System.out.println("pass"+password);
         RegistroEmpresa userEmpresa = find.where().eq("cfi", cfi).findUnique();
-        System.out.println("aqui algo paso "+userEmpresa);
+        //System.out.println("aqui algo paso "+userEmpresa);
         if (userEmpresa != null) {
             if (Hash.checkPassword(password, userEmpresa.passwordHash)) {
                 return userEmpresa;

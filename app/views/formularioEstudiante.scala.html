@@ -18,6 +18,14 @@
     <li role="presentation"><a href="#educacion" aria-controls="educacion" role="tab" data-toggle="tab">Educacion</a></li>
   </ul>
     
+     <script> 
+        
+       alertl($("li.datosPersonales"));
+       
+  </script>
+        
+
+    
     @input(searchForm("registroUsuario.id"), '_label-> None) { (id, name, value, args) =>
             <input type="hidden" name="@name" id="@id" value="@value" @toHtmlArgs(args) >
     } 
@@ -309,6 +317,7 @@
                 'class -> "form-control")
             </div>
  </fieldset>
+            
  <fieldset>
           <h2>Idiomas</h2>
             <div class="col-md-4">

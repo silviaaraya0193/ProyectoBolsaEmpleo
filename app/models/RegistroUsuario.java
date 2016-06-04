@@ -28,8 +28,8 @@ public class RegistroUsuario extends Model{
     @Constraints.Required
     public String correo;
     @Constraints.Required
-    public String contrasenia;
-    @Constraints.Required
+//    public String contrasenia;
+//    @Constraints.Required
     public int telefono;
     @Formats.NonEmpty
     public String passwordHash;
@@ -62,7 +62,7 @@ public class RegistroUsuario extends Model{
         System.out.println("Correo "+correo);
         System.out.println("pass usuario"+password);
         RegistroUsuario userEstudiante = find.where().eq("correo", correo).findUnique();
-        System.out.println("aqui algo paso "+userEstudiante);
+       // System.out.println("aqui algo paso "+userEstudiante);
         if (userEstudiante != null) {
             if (Hash.checkPassword(password, userEstudiante.passwordHash)) {
                 return userEstudiante;
