@@ -14,8 +14,6 @@ import play.data.validation.Constraints.*;
 
 import static play.data.Form.form;
 
-
-
 /**
  *
  * @author Expression EXDER 
@@ -57,7 +55,7 @@ public static class Login {
                 return Messages.get("error.technical");
             }
             if (user == null) {
-                return Messages.get("user es null");
+                return Messages.get("Verifique la contrasenia o el correo");
             }
             return null;
         }

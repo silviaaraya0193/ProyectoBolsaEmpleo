@@ -58,7 +58,7 @@ public class ApplicationEmpresa extends Controller {
                 return Messages.get("error.technical");
             }
             if (user == null) {
-                return Messages.get("user es null");
+                return Messages.get("Verifique la contrasenia o el CFI");
             }
             return null;
         }

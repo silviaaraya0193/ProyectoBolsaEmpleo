@@ -283,11 +283,11 @@ public class HomeController extends Controller {
          //System.err.println("impresion lista formulario est: "+formEstu);
          return ok(perfilEstudiante.render("Formulario Estudiantes", formEstu, usuario));
      }
-     public Result eliminarFormularioEstudiante(Long id) {
-        RegistroUsuario usuario = new UsuarioSession().getRegistroUsuario();
-        List<FormularioEstudiante> instancia = FormularioEstudiante.find.where().ilike("registroUsuario",""+usuario.id).findList();
-        instancia.remove();
-        return redirect(routes.HomeController.listarFormularioEstudiante());
-    }    
+//     public Result eliminarFormularioEstudiante(Long id) {
+//        RegistroUsuario usuario = new UsuarioSession().getRegistroUsuario();
+//        List<FormularioEstudiante> instancia = FormularioEstudiante.find.where().ilike("registroUsuario",""+usuario.id).findList();
+//        instancia.remove();
+//        return redirect(routes.HomeController.listarFormularioEstudiante());
+//    }    
 
 }
