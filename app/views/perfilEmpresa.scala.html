@@ -48,7 +48,17 @@
   
 <div class="container">
   <h3>Pefil Empresa</h3>
-  <p>The .navbar-right class is used to right-align navigation bar buttons.</p>
+   @for(formulario <- formEmp) {
+   <h2>Datos Empresa</h2> 
+   <br><label>Nombre: </label> @formulario.nombre
+   <br><label>Codigo CFI: </label> @formulario.codigoCFI
+   <br><label>Direccion: </label> @formulario.direccion
+   <br><label>Telefono del Contacto: </label> @formulario.telefonoContacto
+   <br><label>Correo Electronico: </label> @formulario.correoEmpresa
+   <br><label>Perfil Empresarial: </label> @formulario.perfilEmpresarial
+   <br><label>Estado Contrataciones: </label> @formulario.estadoContrataciones
+   <br><label>Otras Contrataciones: </label> @formulario.otrasContrataciones
+   }
 </div>
 
 </body>
