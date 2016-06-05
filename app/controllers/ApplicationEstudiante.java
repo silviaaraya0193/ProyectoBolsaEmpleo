@@ -36,7 +36,8 @@ public class ApplicationEstudiante extends Controller {
         RegistroUsuario usuario = new UsuarioSession().getRegistroUsuario();
         List<FormularioEstudiante> formEstu = FormularioEstudiante.find.where(
         ).ilike("registroUsuario", ""+usuario.id).findList();
-        //System.err.println("TAM "+formEstu.size());
+       
+        System.err.println("TAM estudiante: "+formEstu.size()+"/n hola");
         return ok(perfilEstudiante.render("", formEstu, usuario));
     }
     public Result eliminarFormularioEstudiante(Long id) {
@@ -95,7 +96,7 @@ public class ApplicationEstudiante extends Controller {
          instancia.traslado = formEst.traslado;
          instancia.genero = formEst.genero;
          instancia.save();
-         return redirect(routes.HomeController.perfilEstudiante());
+         return redirect(routes.ApplicationEstudiante.listarFormularioEstudiante());
      }
       public Result crearFormularioEstudianteGet() {//muestrar la pantalla el post hace la operacio
         FormularioEstudiante formEstudiante = new FormularioEstudiante();
@@ -189,11 +190,15 @@ public class ApplicationEstudiante extends Controller {
           }
           List anios = new ArrayList();
         for (int x = 1990; x<2017; x++){anios.add(x);}
-              Form<FormularioEstudiante> pregForm = formFactory.form(FormularioEstudiante   .class);
-          return ok(formularioEstudiante.render("", pregForm,anios,
-                routes.ApplicationEstudiante.crearFormularioEstudiantePost()));
+              RegistroUsuario usuario = new RegistroUsuario();
+         List<FormularioEstudiante> formEstu = FormularioEstudiante.find.all();
+        return ok(perfilEstudiante.render("", formEstu, usuario));
     } 
-    
+     public Result perfilEstudiante(){
+         RegistroUsuario usuario = new RegistroUsuario();
+         List<FormularioEstudiante> formEstu = FormularioEstudiante.find.all();
+        return ok(perfilEstudiante.render("", formEstu, usuario));
+    }
 public Result homeEst() {//controlador del home o index
  
         String correo = ctx().session().get("correo");
@@ -209,7 +214,6 @@ public Result homeEst() {//controlador del home o index
         }
         return ok(iniciarSesionEstudiante.render("Error",form(ApplicationEstudiante.Login.class)));
     }
-
 public static class Login {
         @Email
         @Constraints.Required()
@@ -226,7 +230,7 @@ public static class Login {
                 return Messages.get("error.technical");
             }
             if (user == null) {
-                return Messages.get("Usuario Incorrecto");
+                return Messages.get("user es null");
             }
             return null;
         }
@@ -239,12 +243,6 @@ public static class Login {
     @Constraints.Required
     public String contrasenia;
 
-    /**
-     * Comprueba que los datos ingresados en un input dado no estén en blanco
-     *
-     * @param input el string con el contenido del input que se desea verificar
-     * @return un booleano indicando si el input de entrada está vacío o no
-     **/
     private boolean isBlank(String input) {
         return input == null || input.isEmpty() || input.trim().isEmpty();
     }
@@ -262,7 +260,7 @@ public static class Login {
     }
     public Result logout() {
         session().clear();
-        flash("success",  "Usted ha cerrado sesión correctamente");
+        flash("success",  "Usted ha cerrado sesion correctamente");
         return GO_HOME;
     }
      

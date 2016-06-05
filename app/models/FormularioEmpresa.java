@@ -59,6 +59,7 @@ public class FormularioEmpresa extends Model {
     public void setRegistroEmpresa(RegistroEmpresa registroEmpresa) {
         this.registroEmpresa = registroEmpresa;
     }
-     
+    
+    
     public static Finder<Long, FormularioEmpresa> find = new Finder<Long, FormularioEmpresa>(FormularioEmpresa.class);
 }

@@ -36,10 +36,10 @@ POST    /formularioEstudiante.scala.html        controllers.ApplicationEstudiant
 
 
 #PERFIL ESTUDIANTE
-GET     /perfilEstudiante.scala.html            controllers.HomeController.perfilEstudiante()
+GET     /perfilEstudiante              controllers.ApplicationEstudiante.perfilEstudiante()
 
 #PERFIL EMPRESA
-#GET     /perfilEmpresa.scala.html            controllers.HomeController.perfilEmpresa()
+GET     /perfilEmpresa                controllers.ApplicationEmpresa.perfilEmpresa()
 
 #OPCIONES
 GET     /opciones                               controllers.HomeController.opciones()
@@ -49,7 +49,7 @@ GET     /opciones2                              controllers.HomeController.opcio
 GET     /listarFormularioEstudiante                controllers.ApplicationEstudiante.listarFormularioEstudiante()
 
 #LISTARFORMULARIOEMPRESA
-GET     /listaFormularioEmpresa                     controllers.ApplicationEmpresa.listarFormularioEmpresa()
+GET     /listarFormularioEmpresa                controllers.ApplicationEmpresa.listarFormularioEmpresa()
 
 #EDITARFORMULARIOESTUDIANTES
 GET     /editarEstudiante/:id                       controllers.ApplicationEstudiante.editarPerfilEstudianteGet(id: Long)
@@ -82,9 +82,8 @@ GET     /logoutEst                     controllers.ApplicationEstudiante.logout(
 #POST    /signup                     controllers.SignupEstudiante.save()
 
 
-#ELIMINARFORMULARIOESTUDIANTE
+#ELIMARESTUDIANTE
 GET     /eliminarFormularioEstudiante/:id       controllers.ApplicationEstudiante.eliminarFormularioEstudiante(id: Long)
 
-#ELIMINARFORMULARIOEMPRESA
+#ELIMINAREMPRESA    
 GET     /eliminarFormularioEmpresa/:id          controllers.ApplicationEmpresa.eliminarFormularioEmpresa(id: Long)
-

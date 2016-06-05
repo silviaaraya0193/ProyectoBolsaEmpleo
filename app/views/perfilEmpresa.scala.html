@@ -1,4 +1,4 @@
-@(message: String, formEmp: List[FormularioEmpresa],registroEmpresa:RegistroEmpresa)
+@(message: String,formEmp: List[FormularioEmpresa],registroEmpresa:RegistroEmpresa)
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,26 +16,31 @@
     <div class="navbar-header">
       <a class="navbar-brand" href="#">Bolsa de Empleo UCR</a>
     </div>
-    <ul class="nav navbar-nav">
-      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Perfil <span class="caret"></span></a>
-      <ul class="dropdown-menu">
-          if(!formEmp.isEmpty()){
-          @for(formularioEmpresa <- formEmp){
-          <li class="list-group-item">@formularioEmpresa.nombre
-          <li><a href="@routes.ApplicationEmpresa.editarPerfilEmpresaPost(formularioEmpresa.id)">Modificar Perfil</a></li>
-          <li><a href="@routes.ApplicationEmpresa.eliminarFormularioEmpresa(formularioEmpresa.id)">Eliminar Perfil</a></li> 
-      </li>
-      }
-      }else{
-      <li><a href="@routes.ApplicationEmpresa.crearFormularioEmpresaGet()">Crear Formulario</a></li>
-      }
-      </ul>
-      </li>
+      <ul class="nav navbar-nav">
+            <li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="#">Perfil<span class="caret"></span></a>  
+                <ul class="dropdown-menu">
+                    <script type="text/javascript">
+                        alert(@formEmp+"alerta");
+                    </script>
+                    @if(!formEmp.isEmpty()){
+                        @for(formulario <- formEmp) {
+                        <li class="list-group-item" >@formulario.nombre
+                            <li><a href="@routes.ApplicationEmpresa.editarPerfilEmpresaPost(formulario.id)">Modificar Formulario</a></li>
+                            <li><a href="@routes.ApplicationEmpresa.eliminarFormularioEmpresa(formulario.id)">Eliminar Formulario</a></li>
+                            
+                        </li>
+                        }
+                    }else{
+                    <li> <a href="@routes.ApplicationEmpresa.crearFormularioEmpresaGet()">Crear Formulario</a> </li>
+                     }
+                </ul>
+                
+            
       <li><a href="#">Convertir en PDF</a></li>
       <li><a href="#">Traducir a Ingles</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
-      <li><a href="@routes.ApplicationEmpresa.logout()"><span class="glyphicon glyphicon-exit"></span> Salir</a></li>
+      <li><a href="@routes.ApplicationEmpresa.logout()"><span class="glyphicon glyphicon-user"></span> Salir</a></li>
       <!--<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>-->
     </ul>
   </div>

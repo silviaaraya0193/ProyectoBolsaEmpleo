@@ -10,12 +10,16 @@
             @searchForm.globalError.message
         </div>
     }
-     @input(searchForm("registroEmpresa.id"), '_label-> None) { (id, name, value, args) =>
+    
+    <fieldset>
+         @input(searchForm("registroEmpresa.id"), '_label-> None) { (id, name, value, args) =>
             <input type="hidden" name="@name" id="@id" value="@value" @toHtmlArgs(args) >
     } 
-    <fieldset>
-        
+         @input(searchForm("registroEmpresa.cfi"), '_label-> None) { (cfi, name, value, args) =>
+            <input  name="@name" id="@cfi" value="@value" @toHtmlArgs(args) >
+    } 
         <div class="row">
+            
             <div class="col-md-4"> @inputText(
 
                 searchForm("nombre"),
