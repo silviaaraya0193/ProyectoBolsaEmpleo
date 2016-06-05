@@ -23,13 +23,13 @@
                     @if(!formEst.isEmpty()){
                         @for(formulario <- formEst) {
                         <li class="list-group-item" >@formulario.nombre
-                            <li><a href="@routes.ApplicationEstudiante.editarPerfilPost(formulario.id)">Modificar Formulario</a></li>
-                            <li><a href="@routes.ApplicationEstudiante.eliminarFormularioEstudiante(formulario.id)">Eliminar Formulario</a></li>
+                            <li><a href="@routes.ControllerEstudiante.editarPerfilPost(formulario.id)">Modificar Formulario</a></li>
+                            <li><a href="@routes.ControllerEstudiante.eliminarFormularioEstudiante(formulario.id)">Eliminar Formulario</a></li>
                             
                         </li>
                         }
                     }else{
-                    <li> <a href="@routes.ApplicationEstudiante.crearFormularioEstudianteGet()">Crear Formulario</a> </li>
+                    <li> <a href="@routes.ControllerEstudiante.crearFormularioEstudianteGet()">Crear Formulario</a> </li>
                      }
                 </ul>
                 

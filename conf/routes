@@ -16,48 +16,50 @@ GET     /iniciarSesionEmpresa             controllers.ApplicationEmpresa.home()
 GET       /iniciarSesionEstudiante       controllers.ApplicationEstudiante.homeEst()
 
 #REGISTRO ESTUDIANTE
-GET     /registroEstudiante.scala.html          controllers.ApplicationEstudiante.registroEstudianteGet()
-POST     /registroEstudiante.scala.html          controllers.ApplicationEstudiante.registroEstudiantePost()
+GET     /registroEstudiante.scala.html          controllers.ControllerEstudiante.registroEstudianteGet()
+POST     /registroEstudiante.scala.html          controllers.ControllerEstudiante.registroEstudiantePost()
 
 
 
 #REGISTRO EMPRESA
-GET     /registroEmpresa.scala.html             controllers.ApplicationEmpresa.registroEmpresaGet()
-POST   /registroEmpresa.scala.html             controllers.ApplicationEmpresa.registroEmpresaPost()
+GET     /registroEmpresa.scala.html             controllers.ControllerEmpresa.registroEmpresaGet()
+POST   /registroEmpresa.scala.html             controllers.ControllerEmpresa.registroEmpresaPost()
 
 
 #FORMULARIO EMPRESA
-GET     /formularioEmpresa.scala.html           controllers.ApplicationEmpresa.crearFormularioEmpresaGet()
-POST    /formularioEmpresa.scala.html           controllers.ApplicationEmpresa.crearFormularioEmpresaPost()
+GET     /formularioEmpresa.scala.html           controllers.ControllerEmpresa.crearFormularioEmpresaGet()
+POST    /formularioEmpresa.scala.html           controllers.ControllerEmpresa.crearFormularioEmpresaPost()
 
 #FORMULARIO ESTUDIANTE
-GET     /formularioEstudiante.scala.html        controllers.ApplicationEstudiante.crearFormularioEstudianteGet()
-POST    /formularioEstudiante.scala.html        controllers.ApplicationEstudiante.crearFormularioEstudiantePost()
+GET     /formularioEstudiante.scala.html        controllers.ControllerEstudiante.crearFormularioEstudianteGet()
+POST    /formularioEstudiante.scala.html        controllers.ControllerEstudiante.crearFormularioEstudiantePost()
 
 
 #PERFIL ESTUDIANTE
-GET     /perfilEstudiante              controllers.ApplicationEstudiante.perfilEstudiante()
+GET     /perfilEstudiante              controllers.ControllerEstudiante.perfilEstudiante()
 
 #PERFIL EMPRESA
-GET     /perfilEmpresa                controllers.ApplicationEmpresa.perfilEmpresa()
+GET     /perfilEmpresa                controllers.ControllerEmpresa.perfilEmpresa()
 
-#OPCIONES
-GET     /opciones                               controllers.HomeController.opciones()
-GET     /opciones2                              controllers.HomeController.opciones2()
+#OPCIONESESTUDIANTE 
+GET     /opciones                               controllers.ControllerEstudiante.opciones()
+
+#OPCIONESEMPRESAS
+GET     /opciones2                              controllers.ControllerEmpresa.opciones2()
 
 #LISTARFORMULARIOESTUDIANTE
-GET     /listarFormularioEstudiante                controllers.ApplicationEstudiante.listarFormularioEstudiante()
+GET     /listarFormularioEstudiante                controllers.ControllerEstudiante.listarFormularioEstudiante()
 
 #LISTARFORMULARIOEMPRESA
-GET     /listarFormularioEmpresa                controllers.ApplicationEmpresa.listarFormularioEmpresa()
+GET     /listarFormularioEmpresa                controllers.ControllerEmpresa.listarFormularioEmpresa()
 
 #EDITARFORMULARIOESTUDIANTES
-GET     /editarEstudiante/:id                       controllers.ApplicationEstudiante.editarPerfilEstudianteGet(id: Long)
-POST    /editarEstudiante/:id                       controllers.ApplicationEstudiante.editarPerfilPost(id: Long)
+GET     /editarEstudiante/:id                       controllers.ControllerEstudiante.editarPerfilEstudianteGet(id: Long)
+POST    /editarEstudiante/:id                       controllers.ControllerEstudiante.editarPerfilPost(id: Long)
 
 #EDITARFORMULARIOEMPRESA
-GET     /editarEmpresa/:id                          controllers.ApplicationEmpresa.editarPerfilEmpresaGet(id: Long)
-POST    /editarEmpresa/:id                          controllers.ApplicationEmpresa.editarPerfilEmpresaPost(id: Long)
+GET     /editarEmpresa/:id                          controllers.ControllerEmpresa.editarPerfilEmpresaGet(id: Long)
+POST    /editarEmpresa/:id                          controllers.ControllerEmpresa.editarPerfilEmpresaPost(id: Long)
 
 # Creacion de usuarios
 GET     /SignUp                     controllers.SignUp.create()
@@ -83,7 +85,7 @@ GET     /logoutEst                     controllers.ApplicationEstudiante.logout(
 
 
 #ELIMARESTUDIANTE
-GET     /eliminarFormularioEstudiante/:id       controllers.ApplicationEstudiante.eliminarFormularioEstudiante(id: Long)
+GET     /eliminarFormularioEstudiante/:id       controllers.ControllerEstudiante.eliminarFormularioEstudiante(id: Long)
 
 #ELIMINAREMPRESA    
-GET     /eliminarFormularioEmpresa/:id          controllers.ApplicationEmpresa.eliminarFormularioEmpresa(id: Long)
+GET     /eliminarFormularioEmpresa/:id          controllers.ControllerEmpresa.eliminarFormularioEmpresa(id: Long)
