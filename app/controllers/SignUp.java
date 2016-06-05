@@ -16,11 +16,6 @@ import play.i18n.Messages;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.*;
-//import views.html.userhome;
-
-import java.net.URL;
-import java.util.UUID;
-import java.util.Date;
 import play.mvc.Security;
 
 import static play.data.Form.form;

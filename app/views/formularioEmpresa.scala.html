@@ -59,12 +59,12 @@
 </fieldset>
 <fieldset>
             <div>
-                <h4>Seleccione sus intereses:</h4>
-                <input name="estadoContrataciones" type="radio"  checked="" value="1"/>Practicantes
-                <br/>
-                <input name="estadoContrataciones" type="radio" value="2"/>Profesionales
-                 <br/>
-                 <input name="estadoContrataciones" type="radio" value="3"/>Pasantias
+                 @inputRadioGroup(
+                searchForm("estadoContrataciones"),
+                options = Seq("P"->"Practicantes","PR"->"Profesionales","PA"->"Pasantias"),
+                '_label -> "Seleccione sus intereses:",
+                '_error -> searchForm("estadoContrataciones").error.map(_.withMessage("select estadoContrataciones")))
+                
                 <br/>
             </div><br><br>
 </fieldset>

@@ -80,6 +80,7 @@ public class ControllerEmpresa extends Controller{
         return ok(registroEmpresa.render(" Registro Empresa",pregForm,routes.ControllerEmpresa.registroEmpresaPost()));
         
     }
+     //METODO POST PARA EL REGISTRO DE EMPRESAS
        public Result registroEmpresaPost() throws AppException{//error por e hashpassword que se crea como variable
           Form<RegistroEmpresa> formRegistro=formFactory.form(RegistroEmpresa.class).fill(new RegistroEmpresa("ABC123", new Date())).bindFromRequest();
           if(formRegistro.hasErrors()){
@@ -109,21 +110,16 @@ public class ControllerEmpresa extends Controller{
                 routes.ControllerEmpresa.registroEmpresaPost()));
             }
       }
-          Form<FormularioEmpresa> pregForm = formFactory.form(FormularioEmpresa.class);
-          RegistroEmpresa empresa = new RegistroEmpresa();
-          List<FormularioEmpresa> formEmp = FormularioEmpresa.find.all();
-          return ok(perfilEmpresa.render("",formEmp,empresa));//ir a opciones2 para iniciar sesion
+          return ok(opciones2.render(""));//ir a opciones2 para iniciar sesion
       }
-    
+    //METODO GET PARA CREAR FORMULARIO DE EMPRESAS
      public Result crearFormularioEmpresaGet() {
         Form<FormularioEmpresa> pregForm = formFactory.form(FormularioEmpresa.class);
         return ok(formularioEmpresa.render(" ",
                 pregForm, routes.ControllerEmpresa.crearFormularioEmpresaPost()));
     }
-    public Result crearFormularioEmpresaPost() {//creacion del formulario sin errores
-        //verificacion y recepciones de requierds and data view//
-        //datas- que son los datos de la vista, values obtenidos por la key q se obtiene de el preform que fuarda la vista
-        // List<FormularioEmpresa> instancia = FormularioEmpresa.find.all();
+     //METODO POST PARA LA CREACION DE FORMULARIO DE EMPRESAS
+    public Result crearFormularioEmpresaPost() {
         Form<FormularioEmpresa> formEmpresa = formFactory.form(FormularioEmpresa.class).bindFromRequest();//captura los datos de la vista
         if (formEmpresa.hasErrors()) {
             
@@ -144,16 +140,20 @@ public class ControllerEmpresa extends Controller{
             formEmpresa = formFactory.form(FormularioEmpresa.class);
             
         }
-         String cfi = ctx().session().get("cfi");
+        RegistroEmpresa empresa = new EmpresaSession().getRegistroEmpresa();
+        List<FormularioEmpresa> formEmp= FormularioEmpresa.find.where().ilike("registroEmpresa", ""+empresa.id).findList();
+        
+        String cfi = ctx().session().get("cfi");
          RegistroEmpresa user = RegistroEmpresa.findByUsername(cfi);//busca el cfi
-        return ok(formularioEmpresa.render("Recepcion de formulario correcto.", formEmpresa,
-                routes.ControllerEmpresa.perfilEmpresa()));
+        return ok(perfilEmpresa.render("",formEmp,empresa));
     }
+    //METODO QUE CARGA EL PERFIL DE LAS EMPRESAS
     public Result perfilEmpresa(){
          List<FormularioEmpresa> formEmp = FormularioEmpresa.find.all();
          RegistroEmpresa registro = new RegistroEmpresa();
         return ok(perfilEmpresa.render("", formEmp,registro));
     }
+    //METODO QUE MUESTRA LAS OPCIONES DE INICIAR SESION, O REGISTRARSE DE LAS EMPRESAS
     public Result opciones2(){
         return ok(opciones2.render(" "));
     }

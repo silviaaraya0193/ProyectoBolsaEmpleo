@@ -28,7 +28,7 @@ import javax.inject.Inject;
 public class ControllerEstudiante extends Controller{
      @Inject 
      FormFactory formFactory;
-     
+     //METODO PARA LISTAR LOS ESTUDIANTES
       public Result listarFormularioEstudiante(){
         RegistroUsuario usuario = new UsuarioSession().getRegistroUsuario();
         List<FormularioEstudiante> formEstu = FormularioEstudiante.find.where(
@@ -37,6 +37,7 @@ public class ControllerEstudiante extends Controller{
         System.err.println("TAM estudiante: "+formEstu.size()+"/n hola");
         return ok(perfilEstudiante.render("", formEstu, usuario));
     }
+      //METODO PARA ELIMINAR LOS FORMULARIOS DE LOS ESTUDIANTES
     public Result eliminarFormularioEstudiante(Long id) {
         RegistroUsuario usuario = new UsuarioSession().getRegistroUsuario();
         List<FormularioEstudiante> instancia = FormularioEstudiante.find.where().ilike("registroUsuario",""+usuario.id).findList();
@@ -45,6 +46,7 @@ public class ControllerEstudiante extends Controller{
             }
         return redirect(routes.ControllerEstudiante.listarFormularioEstudiante());
     } 
+    //METODO GET PARA EDITAR EL FORMULARIO DE UN ESTUDIANTE
     public Result editarPerfilEstudianteGet(Long id){
          List anios = new ArrayList();
         for (int x = 1990; x<2017; x++){anios.add(x);}
@@ -53,6 +55,7 @@ public class ControllerEstudiante extends Controller{
          return ok(formularioEstudiante.render("Formulario Estudiante", formEst,
                  anios, routes.ControllerEstudiante.editarPerfilPost(id)));
      }
+    //METODO POST PARA EDITAR UN FORMULARIO DE ESTUDIANTE
      public Result editarPerfilPost(Long id){
          List anios = new ArrayList();
         for (int x = 1990; x<2017; x++){anios.add(x);}
@@ -95,6 +98,7 @@ public class ControllerEstudiante extends Controller{
          instancia.save();
          return redirect(routes.ControllerEstudiante.listarFormularioEstudiante());
      }
+     //METODO GET PARA CREAR UN FORMULARIO DE ESTUDIANTE
       public Result crearFormularioEstudianteGet() {//muestrar la pantalla el post hace la operacio
         FormularioEstudiante formEstudiante = new FormularioEstudiante();
         formEstudiante.setRegistroUsuario(new UsuarioSession().getRegistroUsuario());
@@ -105,6 +109,7 @@ public class ControllerEstudiante extends Controller{
         return ok(formularioEstudiante.render(" ",
                 pregForm, anios, routes.ControllerEstudiante.crearFormularioEstudiantePost()));
     }
+      //METODO POST PARA CREAR UN FORMULARIO DE ESTUDIANTE
     public Result crearFormularioEstudiantePost() {
         List anios = new ArrayList();
         for (int x = 1990; x<2017; x++){anios.add(x);}
@@ -150,14 +155,17 @@ public class ControllerEstudiante extends Controller{
             nuevoFormEst.save();
             formEst = formFactory.form(FormularioEstudiante.class);
         }
-        return ok(formularioEstudiante.render("Recepcion de formulario correcto.", formEst,
-                anios,
-                routes.ControllerEstudiante.crearFormularioEstudiantePost()));
+        RegistroUsuario usuario = new UsuarioSession().getRegistroUsuario();
+        List<FormularioEstudiante> formEstu = FormularioEstudiante.find.where(
+        ).ilike("registroUsuario", ""+usuario.id).findList();
+        return ok(perfilEstudiante.render("",formEstu,usuario ));
     }
+    //METODO GET PARA REGISTAR ESTUDIANTES
      public Result registroEstudianteGet(){
          Form<RegistroUsuario> formUsuario= formFactory.form(RegistroUsuario.class);
         return ok(registroEstudiante.render("",formUsuario,routes.ControllerEstudiante.registroEstudiantePost())); 
     }
+     //METODO POST PARA REGISTRAR ESTUDIANTES
     public Result registroEstudiantePost() throws AppException{
          Form<RegistroUsuario> formUsuario=formFactory.form(RegistroUsuario.class).fill(new RegistroUsuario("ABC123", new Date())).bindFromRequest();
           if(formUsuario.hasErrors()){
@@ -185,18 +193,30 @@ public class ControllerEstudiante extends Controller{
                 routes.ControllerEstudiante.registroEstudiantePost()));
             }
           }
-          List anios = new ArrayList();
-        for (int x = 1990; x<2017; x++){anios.add(x);}
-              RegistroUsuario usuario = new RegistroUsuario();
-         List<FormularioEstudiante> formEstu = FormularioEstudiante.find.all();
-        return ok(perfilEstudiante.render("", formEstu, usuario));
+        return ok(opciones.render(""));
     } 
+    //METODO PARA CARGAR EL PERFIL DE ESTUDIANTES
      public Result perfilEstudiante(){
          RegistroUsuario usuario = new RegistroUsuario();
          List<FormularioEstudiante> formEstu = FormularioEstudiante.find.all();
         return ok(perfilEstudiante.render("", formEstu, usuario));
     }
+     //METODO QUE CARGA LAS OPCIONES DE INICIAR SESION Y REGISTRARSE PARA LOS ESTUDIANTES
      public Result opciones(){
         return ok(opciones.render(" "));
     }
+     //METODO POST PARA VER EL FORMULARIO DE LOS ESTUDIANTES
+     public Result VerPerfilEstudiantePost(Long id){
+        RegistroUsuario usuario = new UsuarioSession().getRegistroUsuario();
+        
+        List<FormularioEstudiante> formEstud = FormularioEstudiante.find.where(
+        ).ilike("registroUsuario", ""+usuario.id).findList();
+        
+         FormularioEstudiante instancia = FormularioEstudiante.find.byId(id);
+         
+         Form<FormularioEstudiante> formEstu = formFactory.form(FormularioEstudiante.class).fill(instancia).bindFromRequest();
+    
+         
+         return redirect(routes.ControllerEstudiante.listarFormularioEstudiante());
+     }
 }

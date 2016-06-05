@@ -47,7 +47,55 @@
   
 <div class="container">
   <h3>Perfil Estudiante</h3>
-  
+     @for(formulario <- formEst) {
+     <h2>Datos Personales</h2>
+     <label>Nombre: </label> @formulario.nombre
+     <br><label>Primer Apellido: </label> @formulario.primerApellido
+     <br><label>Segundo Apellido: </label> @formulario.segundoApellido
+     <br><label>Fecha Nacimiento: </label> @formulario.fechaNacimiento
+     <br><label>Cedula: </label> @formulario.cedula
+     <br><label>Correo Electronico: </label> @formulario.correo
+     <br><label>Estado Civil: </label> @formulario.estadoCivil
+     <br><label>Genero: </label> @formulario.genero
+     <br><label>Pais Nacimiento: </label> @formulario.paisNacimiento
+     <br><label>Lugar Residencia: </label> @formulario.lugarResidencia
+     <br><label>Direccion: </label> @formulario.direccion
+     <br><label>Telefono Casa: </label> @formulario.telefonoCasa
+     <br><label>Telefono Movil: </label> @formulario.telefonoMovil
+     <br><label>Licencia: </label> @formulario.licencia
+     <br><label>Perfil Personal: </label> @formulario.perfilPersonal
+     <br><h2>Datos Laborales</h2>
+     <br><label>Profesion: </label> @formulario.profesion
+     <br><label>Perfil Profesional: </label> @formulario.perfilProfesional
+     <br><label>Años Experiencia: </label> @formulario.anosExperiencia
+     <br><h2>Experiencia Laboral</h2>
+     <br><label>Empresa: </label> @formulario.empresa
+     <br><label>Puesto: </label> @formulario.puesto
+     <br><label>Años de Trabajo:</label> @formulario.anosTrabajo
+     <br><label>Empresa: </label> @formulario.empresa2
+     <br><label>Puesto: </label> @formulario.puesto2
+     <br><label>Años de Trabajo:</label> @formulario.anosTrabajo2
+     <br><label>Empresa: </label> @formulario.empresa3
+     <br><label>Puesto: </label> @formulario.puesto3
+     <br><label>Años de Trabajo:</label> @formulario.anosTrabajo3
+     <br><label>Otros Trabajos: </label> @formulario.otrosTrabajos
+     <br><label>Estado Laboral: </label> @formulario.estadoLaboral
+     <br><label>Posibilidad de Trasladarse: </label> @formulario.traslado
+     <br><h2>Educacion </h2>
+     <br><label>Titulo: </label> @formulario.titulo
+    <br><label>Institucion: </label> @formulario.institucion
+     <br><label>Años Ingreso: </label> @formulario.anoIngresoFormal
+     <br><label>Año Finalizacion: </label> @formulario.anoFinalFormal
+     <br><label>Titulo: </label> @formulario.titulo2
+     <br><label>Institucion: </label> @formulario.institucion2
+     <br><label>Años Ingreso: </label> @formulario.anoIngresoFormal2
+     <br><label>Año Finalizacion: </label> @formulario.anoFinalFormal2
+     <br><label>Otros Titulos: </label> @formulario.otrosTitulos
+     <br><label>Otros Titulos Educacion Formal: </label> @formulario.otrosTitulosFormales
+     <br><label>Idiomas: </label> @formulario.idiomas
+     <br><br>
+     
+     }
 </div>
 
 </body>

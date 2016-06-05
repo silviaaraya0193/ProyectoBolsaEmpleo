@@ -68,10 +68,12 @@
                 'class -> "form-control")
             </div>
             <div>
-                <h4>Genero:</h4>
-                <input name="genero" type="radio" value="genero" />Masculino
-                <br>
-                <input name="genero" type="radio" value="genero" />Femenino
+                @inputRadioGroup(
+                searchForm("genero"),
+                options = Seq("Masculino"->"Masculino","Femenino"->"Femenino"),
+                '_label -> "Genero:",
+                '_error -> searchForm("genero").error.map(_.withMessage("select genero")))
+                
             </div><br>
     
                 <select name="estadoCivil" class="form-control">
@@ -116,12 +118,11 @@
                 'class -> "form-control")
             </div>
            <div>
-               @input(searchForm("licencia")){(id, name, value, args) =>
-                
-                <input name="licencia" type="radio" value="Si" @if(value.equals("si")){selected} />Si
-                <br>
-                <input name="licencia" type="radio" value="No" @if(value.equals("No")){selected} />No
-                }
+               @inputRadioGroup(
+                searchForm("licencia"),
+                options = Seq("Si"->"Si","No"->"No"),
+                '_label -> "Licencia",
+                '_error -> searchForm("licencia").error.map(_.withMessage("select licencia")))
             </div><br>
     <div class="col-md-8"> @textarea(
                 searchForm("perfilPersonal"),
@@ -157,17 +158,18 @@
             </div>
              <div>
              <br>
-                 <h4> Estado Laboral:</h4>
-                <input name="estadoLaboral" type="radio" value="estadoLaboral" />Empleado
+  
+                 @inputRadioGroup(
+                searchForm("estadoLaboral"),
+                options = Seq("Empleado"->"Empleado","Desempleado"->"Desempleado","Practica"->"Practica Profesional"),
+                '_label -> "Estado Laboral: ",
+                '_error -> searchForm("estadoLaboral").error.map(_.withMessage("select estadoLaboral")))
                 <br>
-                <input name="estadoLaboral" type="radio" value="estadoLaboral" />Desempleado
-                <br>
-                <input name="estadoLaboral" type="radio" value="estadoLaboral" />Practica Profesional
-                <br>
-                <h4>Posibilidad Trasladarse:</h4>
-                <input name="traslado" type="radio" value="traslado" />Si
-                <br>
-                <input name="traslado" type="radio" value="traslado" />No
+                 @inputRadioGroup(
+                searchForm("traslado"),
+                options = Seq("Si"->"Si","No"->"No"),
+                '_label -> "Posibilidad de Trasladarse: ",
+                '_error -> searchForm("traslado").error.map(_.withMessage("select traslado")))
             </div>
  </fieldset>
         </div>
