@@ -52,7 +52,7 @@ public class RegistroEmpresa extends Model {
     public static Finder<Long, RegistroEmpresa> find = new Finder<Long, RegistroEmpresa>(RegistroEmpresa.class);
     
      public static RegistroEmpresa findByUsername(String cfi) {
-         System.out.println("find cfi "+cfi);
+         System.out.println("ccfi registro empresa  "+ cfi);
         return find.where().eq("cfi", cfi).findUnique();
     }
      
@@ -65,8 +65,8 @@ public class RegistroEmpresa extends Model {
      * @throws AppException en caso de error
      */
     public static RegistroEmpresa authenticate(String cfi, String password) throws AppException {
-        System.out.println("cfi "+cfi);
-        System.out.println("pass"+password);
+        System.out.println("cfi autenticate "+cfi);
+        System.out.println("pass autenticate "+password);
         RegistroEmpresa userEmpresa = find.where().eq("cfi", cfi).findUnique();
         System.out.println("aqui algo paso "+userEmpresa);
         if (userEmpresa != null) {

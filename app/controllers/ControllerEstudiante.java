@@ -205,18 +205,5 @@ public class ControllerEstudiante extends Controller{
      public Result opciones(){
         return ok(opciones.render(" "));
     }
-     //METODO POST PARA VER EL FORMULARIO DE LOS ESTUDIANTES
-     public Result VerPerfilEstudiantePost(Long id){
-        RegistroUsuario usuario = new UsuarioSession().getRegistroUsuario();
-        
-        List<FormularioEstudiante> formEstud = FormularioEstudiante.find.where(
-        ).ilike("registroUsuario", ""+usuario.id).findList();
-        
-         FormularioEstudiante instancia = FormularioEstudiante.find.byId(id);
-         
-         Form<FormularioEstudiante> formEstu = formFactory.form(FormularioEstudiante.class).fill(instancia).bindFromRequest();
-    
-         
-         return redirect(routes.ControllerEstudiante.listarFormularioEstudiante());
-     }
+     
 }

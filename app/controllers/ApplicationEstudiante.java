@@ -28,7 +28,7 @@ public Result homeEst() {//controlador del home o index
         String correo = ctx().session().get("correo");
         if (correo!=null) {
             RegistroUsuario user = RegistroUsuario.findByUsername(correo);//busca el coreo
-            System.out.println("user"+user);
+           // System.out.println("user"+user);
             if (user != null) {
                 return redirect(routes.ControllerEstudiante.listarFormularioEstudiante());
                 //linea 34 error de anios silvia ya lo arreglo :v

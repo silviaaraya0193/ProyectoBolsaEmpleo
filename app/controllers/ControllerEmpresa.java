@@ -122,12 +122,11 @@ public class ControllerEmpresa extends Controller{
     public Result crearFormularioEmpresaPost() {
         Form<FormularioEmpresa> formEmpresa = formFactory.form(FormularioEmpresa.class).bindFromRequest();//captura los datos de la vista
         if (formEmpresa.hasErrors()) {
-            
             return badRequest(formularioEmpresa.render("Encontramos errores",
                     formEmpresa, routes.ControllerEmpresa.crearFormularioEmpresaPost()));
         } else {
             Map<String ,String> values=formEmpresa.data();//optiene los datos como un map
-            System.out.println(values);
+            //System.out.println(values);
             FormularioEmpresa nuevoFormEmpresa= new FormularioEmpresa();            
             nuevoFormEmpresa.nombre=values.get("nombre");
             nuevoFormEmpresa.direccion=values.get("direccion");
@@ -140,11 +139,10 @@ public class ControllerEmpresa extends Controller{
             formEmpresa = formFactory.form(FormularioEmpresa.class);
             
         }
+        System.out.println("evento perfil");
         RegistroEmpresa empresa = new EmpresaSession().getRegistroEmpresa();
         List<FormularioEmpresa> formEmp= FormularioEmpresa.find.where().ilike("registroEmpresa", ""+empresa.id).findList();
         
-        String cfi = ctx().session().get("cfi");
-         RegistroEmpresa user = RegistroEmpresa.findByUsername(cfi);//busca el cfi
         return ok(perfilEmpresa.render("",formEmp,empresa));
     }
     //METODO QUE CARGA EL PERFIL DE LAS EMPRESAS

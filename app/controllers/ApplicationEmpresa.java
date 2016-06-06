@@ -32,8 +32,10 @@ public class ApplicationEmpresa extends Controller {
  public Result home() {//controlador del home o index
      List<FormularioEmpresa> instancia = FormularioEmpresa.find.all();
         String cfi = ctx().session().get("cfi");
+        System.out.println("cfi home "+ cfi);
         if (cfi!=null) {
             RegistroEmpresa user = RegistroEmpresa.findByUsername(cfi);//busca el cfi
+            System.out.println("paso el cfi registro empresa");
            // System.out.println("user"+user);
             if (user != null) {
                 return  redirect(routes.ControllerEmpresa.listarFormularioEmpresa());
@@ -41,7 +43,7 @@ public class ApplicationEmpresa extends Controller {
                 session().clear();
             }
         }
-        return ok(iniciarSesionEmpresa.render("Error",form(Login.class)));
+        return ok(iniciarSesionEmpresa.render("Error",form(ApplicationEmpresa.Login.class)));
     }
     
     public static class Login {
