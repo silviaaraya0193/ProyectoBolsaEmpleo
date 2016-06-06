@@ -23,7 +23,7 @@ import static play.data.Form.form;
 
 
 /**
- *
+ * Empresa
  * @authorEXDER 
  */
 @Security.Authenticated(Secured.class)

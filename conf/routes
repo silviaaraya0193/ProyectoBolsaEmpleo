@@ -61,8 +61,6 @@ POST    /editarEstudiante/:id                       controllers.ControllerEstudi
 GET     /editarEmpresa/:id                          controllers.ControllerEmpresa.editarPerfilEmpresaGet(id: Long)
 POST    /editarEmpresa/:id                          controllers.ControllerEmpresa.editarPerfilEmpresaPost(id: Long)
 
-#VERDATOSESTUDIANTE
-#GET     /verDatosEstudiante/:id                     controllers.ControllerEstudiante.VerPerfilEstudiantePost(id: Long)
 
 # Creacion de usuarios
 GET     /SignUp                     controllers.SignUp.create()

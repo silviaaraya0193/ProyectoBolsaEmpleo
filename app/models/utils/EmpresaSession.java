@@ -14,6 +14,7 @@ import play.mvc.*;
 public class EmpresaSession extends Controller{
     public RegistroEmpresa getRegistroEmpresa(){
          String cfi = ctx().session().get("cfi");
+        // System.out.println("empresa sseccion cfi " +cfi);
          return RegistroEmpresa.findByUsername(cfi);
     }
     

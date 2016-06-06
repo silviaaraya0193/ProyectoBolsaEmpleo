@@ -10,14 +10,12 @@
             @searchForm.globalError.message
         </div>
     }
-    
-    <fieldset>
-         @input(searchForm("registroEmpresa.id"), '_label-> None) { (id, name, value, args) =>
+          @input(searchForm("registroEmpresa.id"), '_label-> None) { (id, name, value, args) =>
             <input type="hidden" name="@name" id="@id" value="@value" @toHtmlArgs(args) >
     } 
-         @input(searchForm("registroEmpresa.cfi"), '_label-> None) { (cfi, name, value, args) =>
-            <input  name="@name" id="@cfi" value="@value" @toHtmlArgs(args) >
-    } 
+        
+    <fieldset>
+   
         <div class="row">
             
             <div class="col-md-4"> @inputText(
@@ -77,7 +75,10 @@
             </div>
     </fieldset>
         
-
+        <form enctype="multipart/form-data" action="uploader.php" method="POST">
+                <input name="uploadedfile" type="file" /><br>
+                <input type="submit" value="Subir archivo" />
+            </form>
 
 
     <div class="form-actions text-center">
