@@ -94,6 +94,7 @@ public class ApplicationEmpresa extends Controller {
         if (loginForm.hasErrors()) {
             return badRequest(iniciarSesionEmpresa.render("Error Autentificacion",loginForm));
         } else {
+            System.out.println("SESSION:   "+loginForm.get().cfi);
             session("cfi", loginForm.get().cfi);
             return GO_HOME;
         }

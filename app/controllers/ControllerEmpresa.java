@@ -114,17 +114,21 @@ public class ControllerEmpresa extends Controller{
       }
     //METODO GET PARA CREAR FORMULARIO DE EMPRESAS
      public Result crearFormularioEmpresaGet() {
-        Form<FormularioEmpresa> pregForm = formFactory.form(FormularioEmpresa.class);
+        FormularioEmpresa forEmpresa = new FormularioEmpresa();
+        forEmpresa.setRegistroEmpresa(new EmpresaSession().getRegistroEmpresa());
+        Form<FormularioEmpresa> pregForm = formFactory.form(FormularioEmpresa.class).fill(forEmpresa);
         return ok(formularioEmpresa.render(" ",
                 pregForm, routes.ControllerEmpresa.crearFormularioEmpresaPost()));
     }
      //METODO POST PARA LA CREACION DE FORMULARIO DE EMPRESAS
     public Result crearFormularioEmpresaPost() {
+        System.out.println("ENTRA AL FORMULARIO EMPRESA GET");
         Form<FormularioEmpresa> formEmpresa = formFactory.form(FormularioEmpresa.class).bindFromRequest();//captura los datos de la vista
         if (formEmpresa.hasErrors()) {
             return badRequest(formularioEmpresa.render("Encontramos errores",
                     formEmpresa, routes.ControllerEmpresa.crearFormularioEmpresaPost()));
         } else {
+            System.out.println("va crear el map");
             Map<String ,String> values=formEmpresa.data();//optiene los datos como un map
             //System.out.println(values);
             FormularioEmpresa nuevoFormEmpresa= new FormularioEmpresa();            
@@ -135,13 +139,15 @@ public class ControllerEmpresa extends Controller{
             nuevoFormEmpresa.perfilEmpresarial=values.get("perfilEmpresarial");//
             nuevoFormEmpresa.estadoContrataciones=values.get("estadoContrataciones");
             nuevoFormEmpresa.otrasContrataciones=values.get("otrasContrataciones");
+            nuevoFormEmpresa.setRegistroEmpresa(new EmpresaSession().getRegistroEmpresa());
             nuevoFormEmpresa.save();
             formEmpresa = formFactory.form(FormularioEmpresa.class);
             
         }
         System.out.println("evento perfil");
         RegistroEmpresa empresa = new EmpresaSession().getRegistroEmpresa();
-        List<FormularioEmpresa> formEmp= FormularioEmpresa.find.where().ilike("registroEmpresa", ""+empresa.id).findList();
+        List<FormularioEmpresa> formEmp= FormularioEmpresa.find.where(
+        ).ilike("registroEmpresa", ""+empresa.id).findList();
         
         return ok(perfilEmpresa.render("",formEmp,empresa));
     }

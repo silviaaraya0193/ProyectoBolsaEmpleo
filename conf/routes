@@ -16,27 +16,27 @@ GET     /iniciarSesionEmpresa             controllers.ApplicationEmpresa.home()
 GET       /iniciarSesionEstudiante       controllers.ApplicationEstudiante.homeEst()
 
 #REGISTRO ESTUDIANTE
-GET     /registroEstudiante.scala.html          controllers.ControllerEstudiante.registroEstudianteGet()
-POST     /registroEstudiante.scala.html          controllers.ControllerEstudiante.registroEstudiantePost()
+GET     /registroEstudiante                     controllers.ControllerEstudiante.registroEstudianteGet()
+POST     /registroEstudiante                    controllers.ControllerEstudiante.registroEstudiantePost()
 
 
 
 #REGISTRO EMPRESA
-GET     /registroEmpresa.scala.html             controllers.ControllerEmpresa.registroEmpresaGet()
-POST   /registroEmpresa.scala.html             controllers.ControllerEmpresa.registroEmpresaPost()
+GET     /registroEmpresa                       controllers.ControllerEmpresa.registroEmpresaGet()
+POST   /registroEmpresa                          controllers.ControllerEmpresa.registroEmpresaPost()
 
 
 #FORMULARIO EMPRESA
-GET     /formularioEmpresa.scala.html           controllers.ControllerEmpresa.crearFormularioEmpresaGet()
-POST    /formularioEmpresa.scala.html           controllers.ControllerEmpresa.crearFormularioEmpresaPost()
+GET     /formularioEmpresa                  controllers.ControllerEmpresa.crearFormularioEmpresaGet()
+POST    /formularioEmpresa                  controllers.ControllerEmpresa.crearFormularioEmpresaPost()
 
 #FORMULARIO ESTUDIANTE
-GET     /formularioEstudiante.scala.html        controllers.ControllerEstudiante.crearFormularioEstudianteGet()
-POST    /formularioEstudiante.scala.html        controllers.ControllerEstudiante.crearFormularioEstudiantePost()
+GET     /formularioEstudiante                controllers.ControllerEstudiante.crearFormularioEstudianteGet()
+POST    /formularioEstudiante               controllers.ControllerEstudiante.crearFormularioEstudiantePost()
 
 
 #PERFIL ESTUDIANTE
-GET     /perfilEstudiante              controllers.ControllerEstudiante.perfilEstudiante()
+GET     /perfilEstudiante                        controllers.ControllerEstudiante.perfilEstudiante()
 
 #PERFIL EMPRESA
 GET     /perfilEmpresa                controllers.ControllerEmpresa.perfilEmpresa()
