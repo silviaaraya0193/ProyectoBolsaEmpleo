@@ -12,5 +12,5 @@ libraryDependencies ++= Seq(
   javaJdbc,
   cache,
   javaWs,
- [y    "org.mindrot" % "jbcrypt" % "0.3m"
+    "org.mindrot" % "jbcrypt" % "0.3m"
 )
