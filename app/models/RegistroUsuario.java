@@ -27,17 +27,18 @@ public class RegistroUsuario extends Model{
      @Email
     @Constraints.Required
     public String correo;
+    @Formats.NonEmpty
     @Constraints.Required
     public String contrasenia;
     @Constraints.Required
     public int telefono;
-    @Formats.NonEmpty
-    public String passwordHash;
+   
+    //public String passwordHash;
     @Formats.DateTime(pattern = "yyyy-MM-dd HH:mm:ss")
     public Date creationDate;
 
-    public RegistroUsuario(String passwordHash, Date creationDate) {
-        this.passwordHash = passwordHash;
+    public RegistroUsuario(Date creationDate) {
+        //this.passwordHash = passwordHash;
         this.creationDate = creationDate;
     }
     public RegistroUsuario() {
@@ -64,7 +65,7 @@ public class RegistroUsuario extends Model{
         RegistroUsuario userEstudiante = find.where().eq("correo", correo).findUnique();
         System.out.println("aqui algo paso "+userEstudiante);
         if (userEstudiante != null) {
-            if (Hash.checkPassword(password, userEstudiante.passwordHash)) {
+            if (Hash.checkPassword(password, userEstudiante.contrasenia)) {
                 return userEstudiante;
             }
         }

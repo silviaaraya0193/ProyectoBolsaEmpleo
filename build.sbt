@@ -12,5 +12,11 @@ libraryDependencies ++= Seq(
   javaJdbc,
   cache,
   javaWs,
-    "org.mindrot" % "jbcrypt" % "0.3m"
+    "org.mindrot" % "jbcrypt" % "0.3m",
+"com.typesafe.play" % "play-java_2.11" % "2.5.3",
+        "it.innove" % "play2-pdf" % "1.5.1"
+
+)
+resolvers ++= Seq(
+  "Maven Central" at "http://http://repo1.maven.org/maven2/"
 )

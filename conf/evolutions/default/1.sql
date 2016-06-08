@@ -73,7 +73,6 @@ create table registro_empresa (
   correo                        varchar(255),
   telefono                      integer,
   contrasenia                   varchar(255),
-  password_hash                 varchar(255),
   creation_date                 datetime(6),
   constraint uq_registro_empresa_cfi unique (cfi),
   constraint pk_registro_empresa primary key (id)
@@ -85,7 +84,6 @@ create table registro_usuario (
   correo                        varchar(255),
   contrasenia                   varchar(255),
   telefono                      integer,
-  password_hash                 varchar(255),
   creation_date                 datetime(6),
   constraint pk_registro_usuario primary key (id)
 );

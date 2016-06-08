@@ -2,7 +2,7 @@
 addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.5.2")
 addSbtPlugin("com.typesafe.sbt" % "sbt-play-ebean" % "3.0.0")
 addSbtPlugin("org.netbeans.nbsbt" % "nbsbt-plugin" % "1.1.4")
-
+resolvers += "Typesafe repository" at "http://repo.typesafe.com/typesafe/releases/"
 // Web plugins
 addSbtPlugin("com.typesafe.sbt" % "sbt-coffeescript" % "1.0.0")
 addSbtPlugin("com.typesafe.sbt" % "sbt-less" % "1.1.0")

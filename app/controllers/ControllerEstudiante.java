@@ -23,11 +23,20 @@ import static play.data.Form.form;
 import javax.inject.Inject;
 /**
  *
- * @author viccr
+ * @author Silvia
  */
 public class ControllerEstudiante extends Controller{
      @Inject 
      FormFactory formFactory;
+      @Inject 
+     PdfGenerator pdfGenerator;
+     
+      public Result document() {
+          RegistroUsuario usuario = new UsuarioSession().getRegistroUsuario();
+        List<FormularioEstudiante> formEstu = FormularioEstudiante.find.where(
+        ).ilike("registroUsuario", ""+usuario.id).findList();
+        return pdfGenerator.ok(perfilEstudiante.render("",formEstu,usuario), "http://localhost:9000").as("application/pdf");
+    }
      //METODO PARA LISTAR LOS ESTUDIANTES
       public Result listarFormularioEstudiante(){
         RegistroUsuario usuario = new UsuarioSession().getRegistroUsuario();
@@ -167,7 +176,7 @@ public class ControllerEstudiante extends Controller{
     }
      //METODO POST PARA REGISTRAR ESTUDIANTES
     public Result registroEstudiantePost() throws AppException{
-         Form<RegistroUsuario> formUsuario=formFactory.form(RegistroUsuario.class).fill(new RegistroUsuario("ABC123", new Date())).bindFromRequest();
+         Form<RegistroUsuario> formUsuario=formFactory.form(RegistroUsuario.class).fill(new RegistroUsuario( new Date())).bindFromRequest();
           if(formUsuario.hasErrors()){
               //formRegistro.
               System.out.println("error form registro ");
@@ -182,8 +191,8 @@ public class ControllerEstudiante extends Controller{
             nuevoUsuario.nombre=values.get("nombre");
             nuevoUsuario.correo= values.get("correo");
             nuevoUsuario.telefono= Integer.parseInt(values.get("telefono"));
-            nuevoUsuario.contrasenia= values.get("contrasenia");
-            nuevoUsuario.passwordHash=Hash.createPassword(nuevoUsuario.contrasenia);
+           nuevoUsuario.contrasenia= Hash.createPassword(values.get("contrasenia"));
+            //nuevoUsuario.passwordHash=Hash.createPassword(values.get("contrasenia"));
             nuevoUsuario.creationDate=new Date();
             nuevoUsuario.save();
             formUsuario=formFactory.form(RegistroUsuario.class);

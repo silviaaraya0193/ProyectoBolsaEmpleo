@@ -81,7 +81,7 @@ public Result create() {
         try {
             RegistroUsuario user = new RegistroUsuario();
             user.correo = register.correo;
-            user.passwordHash = Hash.createPassword(register.contrasenia);
+            user.contrasenia = Hash.createPassword(register.contrasenia);
             //user.creationDate = new Date();
             user.save();
             String correo = ctx().session().get("correo");

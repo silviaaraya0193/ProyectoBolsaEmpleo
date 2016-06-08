@@ -35,15 +35,18 @@ public class RegistroEmpresa extends Model {
     public String correo;
     @Constraints.Required
     public int telefono;
+    @Formats.NonEmpty
     @Constraints.Required
     public String contrasenia;
-    @Formats.NonEmpty
-    public String passwordHash;
+    
+//    @Constraints.Required
+//    @Formats.NonEmpty
+//    public String passwordHash;
 @Formats.DateTime(pattern = "yyyy-MM-dd HH:mm:ss")
     public Date creationDate;
 
-    public RegistroEmpresa(String passwordHash,Date date) {
-        this.passwordHash = passwordHash;
+    public RegistroEmpresa(Date date) {
+        //this.passwordHash = passwordHash;
         this.creationDate=date;
     }
 
@@ -70,7 +73,7 @@ public class RegistroEmpresa extends Model {
         RegistroEmpresa userEmpresa = find.where().eq("cfi", cfi).findUnique();
         System.out.println("aqui algo paso "+userEmpresa);
         if (userEmpresa != null) {
-            if (Hash.checkPassword(password, userEmpresa.passwordHash)) {
+            if (Hash.checkPassword(password, userEmpresa.contrasenia)) {
                 return userEmpresa;
             }
         }

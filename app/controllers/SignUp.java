@@ -75,7 +75,7 @@ public Result create() {
         try {
             RegistroEmpresa user = new RegistroEmpresa();
             user.cfi = register.cfi;
-            user.passwordHash = Hash.createPassword(register.password);
+            user.contrasenia = Hash.createPassword(register.contraseniaEmpresa);//que es el password verificiar
             //user.creationDate = new Date();
             user.save();
             String cfi = ctx().session().get("cfi");

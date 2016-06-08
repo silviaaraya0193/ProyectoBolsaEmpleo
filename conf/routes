@@ -90,3 +90,7 @@ GET     /eliminarFormularioEstudiante/:id       controllers.ControllerEstudiante
 
 #ELIMINAREMPRESA    
 GET     /eliminarFormularioEmpresa/:id          controllers.ControllerEmpresa.eliminarFormularioEmpresa(id: Long)
+#PDF  estudiante  
+GET /pdfEstudiante                                  controllers.ControllerEstudiante.document()
+#PDF EMPRESA
+GET /pdfEmpresa                                     controllers.ControllerEmpresa.document()

@@ -26,7 +26,14 @@ import models.utils.EmpresaSession;
 public class ControllerEmpresa extends Controller{
      @Inject
     FormFactory formFactory;
+      @Inject 
+     PdfGenerator pdfGenerator;
      
+      public Result document() {
+         List<FormularioEmpresa> formEmp = FormularioEmpresa.find.all();
+         RegistroEmpresa registro = new RegistroEmpresa();
+        return pdfGenerator.ok(perfilEmpresa.render("Pdf empresa",formEmp,registro), "http://localhost:9000").as("application/pdf");
+    }
      //METODO PARA LISTAR FORMULARIO EMPRESAS
     public Result listarFormularioEmpresa(){
         RegistroEmpresa empresa = new EmpresaSession().getRegistroEmpresa();
@@ -82,7 +89,7 @@ public class ControllerEmpresa extends Controller{
     }
      //METODO POST PARA EL REGISTRO DE EMPRESAS
        public Result registroEmpresaPost() throws AppException{//error por e hashpassword que se crea como variable
-          Form<RegistroEmpresa> formRegistro=formFactory.form(RegistroEmpresa.class).fill(new RegistroEmpresa("ABC123", new Date())).bindFromRequest();
+          Form<RegistroEmpresa> formRegistro=formFactory.form(RegistroEmpresa.class).fill(new RegistroEmpresa( new Date())).bindFromRequest();
           if(formRegistro.hasErrors()){
               //formRegistro.
               //System.out.println("error form registro ");
@@ -98,8 +105,8 @@ public class ControllerEmpresa extends Controller{
             nuevaEmpresa.cfi=values.get("cfi");
             nuevaEmpresa.correo= values.get("correo");
             nuevaEmpresa.telefono= Integer.parseInt(values.get("telefono"));
-            nuevaEmpresa.contrasenia= values.get("contrasenia");
-            nuevaEmpresa.passwordHash=Hash.createPassword(nuevaEmpresa.contrasenia);
+            nuevaEmpresa.contrasenia= Hash.createPassword(values.get("contrasenia"));
+           // nuevaEmpresa.passwordHash=Hash.createPassword(values.get("contrasenia"));
             nuevaEmpresa.creationDate=new Date();
             nuevaEmpresa.save();
             

@@ -75,7 +75,7 @@ public class ApplicationEmpresa extends Controller {
     public String cfi;
 
     @Constraints.Required
-    public String password;
+    public String contraseniaEmpresa;
 
     /**
      * Comprueba que los datos ingresados en un input dado no estén en blanco
