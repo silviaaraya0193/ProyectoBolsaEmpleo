@@ -28,7 +28,7 @@ POST   /registroEmpresa                          controllers.ControllerEmpresa.r
 
 #FORMULARIO EMPRESA
 GET     /formularioEmpresa                  controllers.ControllerEmpresa.crearFormularioEmpresaGet()
-POST    /formularioEmpresa                  controllers.ControllerEmpresa.crearFormularioEmpresaPost()
+POST    /formularioEmpresa                  controllers.ControllerEmpresa.creacionFormularioEmpresaPost()
 
 #FORMULARIO ESTUDIANTE
 GET     /formularioEstudiante                controllers.ControllerEstudiante.crearFormularioEstudianteGet()

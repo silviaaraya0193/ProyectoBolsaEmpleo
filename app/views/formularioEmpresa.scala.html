@@ -10,12 +10,13 @@
             @searchForm.globalError.message
         </div>
     }
+    <div>
           @input(searchForm("registroEmpresa.id"), '_label-> None) { (id, name, value, args) =>
             <input type="hidden" name="@name" id="@id" value="@value" @toHtmlArgs(args) >
     } 
-        
+    
     <fieldset>
-   
+    <div class="tab-content">
         <div class="row">
             
             <div class="col-md-4"> @inputText(
@@ -26,6 +27,7 @@
                 'class -> "form-control"
                 )
             </div>
+            
             <div class="col-md-4">
                 @inputText(
                 searchForm("direccion"),
@@ -59,7 +61,7 @@
             <div>
                  @inputRadioGroup(
                 searchForm("estadoContrataciones"),
-                options = Seq("P"->"Practicantes","PR"->"Profesionales","PA"->"Pasantias"),
+                options = Seq("Practicante"->"Practicantes","Profesional"->"Profesionales","Pasantia"->"Pasantias"),
                 '_label -> "Seleccione sus intereses:",
                 '_error -> searchForm("estadoContrataciones").error.map(_.withMessage("select estadoContrataciones")))
                 
@@ -75,14 +77,10 @@
             </div>
     </fieldset>
         
-        <form enctype="multipart/form-data" action="uploader.php" method="POST">
-                <input name="uploadedfile" type="file" /><br>
-                <input type="submit" value="Subir archivo" />
-            </form>
-
-
-    <div class="form-actions text-center">
-        <input type="submit" class="btn btn-success" value="Guardar formulario">
+     <div class="form-actions text-center">
+        <input type="submit" class="btn btn-success" value="Guardar Formulario">
+        </div>
+</div>
     </div>
     }
 }
