@@ -9,7 +9,7 @@ import play.mvc.Result;
 import views.html.*;
 import play.data.validation.Constraints.*;
 import static play.data.Form.form;
-
+import it.innove.PdfGenerator;
 
 
 
@@ -18,10 +18,12 @@ import static play.data.Form.form;
  * @author Expression EXDER 
  */
 public class ApplicationEstudiante extends Controller {
-   
+    @Inject 
+     PdfGenerator pdfGenerator;
        public Result GO_HOME = redirect(
             routes.ApplicationEstudiante.homeEst()
     );
+       
  
 public Result homeEst() {//controlador del home o index
  
