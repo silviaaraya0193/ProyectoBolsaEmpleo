@@ -11,7 +11,6 @@
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <label>Perfil Estudiante</label>
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -35,7 +34,15 @@
                 
             
       <li><a href="@routes.ControllerEstudiante.document()">Convertir en PDF</a></li>
-      <li><a href="#">Traducir a Ingles</a></li>
+      <li>
+          <div id="google_translate_element"></div>
+          <script type="text/javascript">
+                function googleTranslateElementInit() {
+                  new google.translate.TranslateElement({pageLanguage: 'es', includedLanguages: 'en,es'}, 'google_translate_element');
+                }
+          </script>
+          <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+      </li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li><a href="@routes.ApplicationEstudiante.logout()"><span class="glyphicon glyphicon-user"></span> Salir</a></li>

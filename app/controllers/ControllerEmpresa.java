@@ -57,7 +57,7 @@ public class ControllerEmpresa extends Controller{
     public Result editarPerfilEmpresaGet(Long id){
          FormularioEmpresa instancia = FormularioEmpresa.find.byId(id);
          Form<FormularioEmpresa> formEmp = formFactory.form(FormularioEmpresa.class).fill(instancia);
-         return ok(formularioEmpresa.render("Formulario Empresa", formEmp,
+         return ok(formularioEmpresa.render("Formulario Empresa/n", formEmp,
                   routes.ControllerEmpresa.editarPerfilEmpresaPost(id)));
      }
     //METODO POST PARA EDITAR EL FORMULARIO DE UN ESTUDIANTE

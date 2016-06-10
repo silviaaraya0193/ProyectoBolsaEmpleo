@@ -43,7 +43,7 @@ public class ControllerEstudiante extends Controller{
         List<FormularioEstudiante> formEstu = FormularioEstudiante.find.where(
         ).ilike("registroUsuario", ""+usuario.id).findList();
        
-        System.err.println("TAM estudiante: "+formEstu.size()+"/n hola");
+        //System.err.println("TAM estudiante: "+formEstu.size()+"/n hola");
         return ok(perfilEstudiante.render("", formEstu, usuario));
     }
       //METODO PARA ELIMINAR LOS FORMULARIOS DE LOS ESTUDIANTES
@@ -61,7 +61,7 @@ public class ControllerEstudiante extends Controller{
         for (int x = 1990; x<2017; x++){anios.add(x);}
          FormularioEstudiante instancia = FormularioEstudiante.find.byId(id);
          Form<FormularioEstudiante> formEst = formFactory.form(FormularioEstudiante.class).fill(instancia);
-         return ok(formularioEstudiante.render("Formulario Estudiante", formEst,
+         return ok(formularioEstudiante.render("Formulario Estudiante/n", formEst,
                  anios, routes.ControllerEstudiante.editarPerfilPost(id)));
      }
     //METODO POST PARA EDITAR UN FORMULARIO DE ESTUDIANTE
@@ -93,15 +93,27 @@ public class ControllerEstudiante extends Controller{
          instancia.perfilProfesional = formEst.perfilProfesional;
          instancia.anosExperiencia = formEst.anosExperiencia;
          instancia.empresa = formEst.empresa;
+         instancia.empresa2 = formEst.empresa2;
+         instancia.empresa3 = formEst.empresa3;
          instancia.puesto = formEst.puesto;
+         instancia.puesto2 = formEst.puesto2;
+         instancia.puesto3 = formEst.puesto3;
          instancia.anosTrabajo = formEst.anosTrabajo;
+         instancia.anosTrabajo2 = formEst.anosTrabajo2;
+         instancia.anosTrabajo3 = formEst.anosTrabajo3;
          instancia.titulo = formEst.titulo;
+         instancia.titulo2 = formEst.titulo2;
          instancia.institucion = formEst.institucion;
+         instancia.institucion2 = formEst.institucion2;
          instancia.idiomas = formEst.idiomas;
          instancia.otrosTitulos = formEst.otrosTitulos;
+         instancia.otrosTrabajos = formEst.otrosTrabajos;
+         instancia.otrosTitulosFormales = formEst.otrosTitulosFormales;
          instancia.estadoLaboral = formEst.estadoLaboral;
          instancia.anoIngresoFormal= formEst.anoIngresoFormal;
+         instancia.anoIngresoFormal2= formEst.anoIngresoFormal2;
          instancia.anoFinalFormal = formEst.anoFinalFormal;
+         instancia.anoFinalFormal2 = formEst.anoFinalFormal2;
          instancia.traslado = formEst.traslado;
          instancia.genero = formEst.genero;
          instancia.save();
@@ -148,15 +160,27 @@ public class ControllerEstudiante extends Controller{
             nuevoFormEst.perfilProfesional = values.get("perfilProfesional");
             nuevoFormEst.anosExperiencia = values.get("anosExperiencia");
             nuevoFormEst.empresa = values.get("empresa");
+            nuevoFormEst.empresa2 = values.get("empresa2");
+            nuevoFormEst.empresa3 = values.get("empresa3");
             nuevoFormEst.puesto = values.get("puesto");
+            nuevoFormEst.puesto2 = values.get("puesto2");
+            nuevoFormEst.puesto3 = values.get("puesto3");
             nuevoFormEst.anosTrabajo = values.get("anosTrabajo");
+            nuevoFormEst.anosTrabajo2 = values.get("anosTrabajo2");
+            nuevoFormEst.anosTrabajo3 = values.get("anosTrabajo3");
             nuevoFormEst.titulo = values.get("titulo");
+            nuevoFormEst.titulo2 = values.get("titulo2");
             nuevoFormEst.institucion = values.get("institucion");
+            nuevoFormEst.institucion2 = values.get("institucion2");
             nuevoFormEst.idiomas = values.get("idiomas");
             nuevoFormEst.otrosTitulos = values.get("otrosTitulos");
+            nuevoFormEst.otrosTrabajos = values.get("otrosTrabajos");
+            nuevoFormEst.otrosTitulosFormales = values.get("otrosTitulosFormales");
             nuevoFormEst.estadoLaboral = values.get("estadoLaboral");
             nuevoFormEst.anoIngresoFormal = values.get("anoIngresoFormal");
             nuevoFormEst.anoFinalFormal = values.get("anoFinalFormal");
+            nuevoFormEst.anoIngresoFormal2 = values.get("anoIngresoFormal2");
+            nuevoFormEst.anoFinalFormal2 = values.get("anoFinalFormal2");
             nuevoFormEst.traslado = values.get("traslado");
             nuevoFormEst.genero = values.get("genero");
             nuevoFormEst.setRegistroUsuario(new UsuarioSession().getRegistroUsuario());
