@@ -81,8 +81,8 @@ GET     /logoutEst                     controllers.ApplicationEstudiante.logout(
 
 # Creacion de usuarios
 
-#GET     /signup                     controllers.SignupEstudiante.create()
-#POST    /signup                     controllers.SignupEstudiante.save()
+#GET     /SignUpEstudiante                      controllers.SignUpEstudiante.create()
+#POST    /SignUpEstudiante                    controllers.SignUpEstudiante.saveEst()
 
 
 #ELIMARESTUDIANTE

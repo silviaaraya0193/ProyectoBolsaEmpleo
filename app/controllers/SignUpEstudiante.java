@@ -63,7 +63,7 @@ public Result create() {
      * @return el render de la plantilla de creación correcta de usuario si la información proporcionada es correcta,
                en otro caso retorna badRequest con la información de los errores encontrados en el formulario
      **/
-    public Result save() {
+    public Result saveEst() {
         Form<ApplicationEstudiante.CreateUser> registerForm = form(ApplicationEstudiante.CreateUser.class).bindFromRequest();
 
         if (registerForm.hasErrors()) {
@@ -90,7 +90,7 @@ public Result create() {
             Logger.error("Error salvando usuario", e);
             flash("danger", "Error guardando los datos"); // error al guardar el usuario en la bd
         }
-        String correo = ctx().session().get("cfi");
+        String correo = ctx().session().get("correo");
         return badRequest(createEstudiante.render(RegistroUsuario.findByUsername(correo), registerForm));
     }
 

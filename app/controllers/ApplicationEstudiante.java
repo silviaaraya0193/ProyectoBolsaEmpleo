@@ -25,18 +25,24 @@ public class ApplicationEstudiante extends Controller {
       
  
 public Result homeEst() {//controlador del home o index
- 
+            System.out.println("entra aqui");
         String correo = ctx().session().get("correo");
+        System.out.println("correo" + correo);
         if (correo!=null) {
+             System.out.println("entra aqui 2");
             RegistroUsuario user = RegistroUsuario.findByUsername(correo);//busca el coreo
            // System.out.println("user"+user);
             if (user != null) {
-                return redirect(routes.ControllerEstudiante.listarFormularioEstudiante());
+                System.out.println("entra aqui 3");
+                return redirect(routes.ControllerEstudiante.listarFormularioEstudiante());//revisar este render
                 //linea 34 error de anios silvia ya lo arreglo :v
             } else {
+                System.out.println("entra aqui 4");
                 session().clear();
             }
         }
+        // session().clear();
+        System.out.println("entra aqui 5");
         return ok(iniciarSesionEstudiante.render("Error",form(ApplicationEstudiante.Login.class)));
     }
      
@@ -75,7 +81,7 @@ public static class Login {
 }
 
      public Result authenticate() {
-        Form<Login> loginForm = form(Login.class).bindFromRequest();
+        Form<Login> loginForm = form(ApplicationEstudiante.Login.class).bindFromRequest();
 
         if (loginForm.hasErrors()) {
             return badRequest(iniciarSesionEstudiante.render("Error Autentificacion",loginForm));
@@ -85,8 +91,12 @@ public static class Login {
         }
     }
     public Result logout() {
+        
         session().clear();
+        
         flash("success",  "Usted ha cerrado sesion correctamente");
+        //delete(ctx().session().get("correo"));
+       // session().clear();
         return GO_HOME;
     }
      

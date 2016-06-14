@@ -40,20 +40,27 @@ public class ControllerEstudiante extends Controller{
      //METODO PARA LISTAR LOS ESTUDIANTES
       public Result listarFormularioEstudiante(){
         RegistroUsuario usuario = new UsuarioSession().getRegistroUsuario();
-        List<FormularioEstudiante> formEstu = FormularioEstudiante.find.where(
-        ).ilike("registroUsuario", ""+usuario.id).findList();
-       
-        System.err.println("TAM estudiante: "+formEstu.size()+"/n hola");
-        return ok(perfilEstudiante.render("", formEstu, usuario));
+        if(usuario!=null){
+            List<FormularioEstudiante> formEstu = FormularioEstudiante.find.where(
+            ).ilike("registroUsuario", ""+usuario.id).findList();
+
+            System.err.println("TAM estudiante: "+formEstu.size()+"/n hola");
+            return ok(perfilEstudiante.render("", formEstu, usuario));
+        }
+         
+        return redirect(routes.ApplicationEstudiante.homeEst());
     }
       //METODO PARA ELIMINAR LOS FORMULARIOS DE LOS ESTUDIANTES
     public Result eliminarFormularioEstudiante(Long id) {
         RegistroUsuario usuario = new UsuarioSession().getRegistroUsuario();
-        List<FormularioEstudiante> instancia = FormularioEstudiante.find.where().ilike("registroUsuario",""+usuario.id).findList();
+        if(usuario!=null){
+             List<FormularioEstudiante> instancia = FormularioEstudiante.find.where().ilike("registroUsuario",""+usuario.id).findList();
             for(FormularioEstudiante fest: instancia){
                 fest.delete();
             }
-        return redirect(routes.ControllerEstudiante.listarFormularioEstudiante());
+                 return redirect(routes.ControllerEstudiante.listarFormularioEstudiante());
+        }
+          return redirect(routes.ApplicationEstudiante.homeEst());
     } 
     //METODO GET PARA EDITAR EL FORMULARIO DE UN ESTUDIANTE
     public Result editarPerfilEstudianteGet(Long id){
@@ -70,42 +77,47 @@ public class ControllerEstudiante extends Controller{
         for (int x = 1990; x<2017; x++){anios.add(x);}
          FormularioEstudiante instancia = FormularioEstudiante.find.byId(id);
          Form<FormularioEstudiante> formEstu = formFactory.form(FormularioEstudiante.class).fill(instancia).bindFromRequest();
-         if(formEstu.hasErrors()){
-             return badRequest(formularioEstudiante.render("Encontramos errores en el formulario", formEstu, 
-                     anios, routes.ControllerEstudiante.editarPerfilPost(id)));
-         }
-         FormularioEstudiante formEst = formEstu.get();
-         instancia.nombre = formEst.nombre;
-         instancia.primerApellido = formEst.primerApellido;
-         instancia.segundoApellido = formEst.segundoApellido;
-         instancia.fechaNacimiento = formEst.fechaNacimiento;
-         instancia.cedula = formEst.cedula;
-         instancia.correo = formEst.correo;
-         instancia.estadoCivil = formEst.estadoCivil;
-         instancia.paisNacimiento = formEst.paisNacimiento;
-         instancia.lugarResidencia = formEst.lugarResidencia;
-         instancia.direccion = formEst.direccion;
-         instancia.telefonoCasa = formEst.telefonoCasa;
-         instancia.telefonoMovil = formEst.telefonoMovil;
-         instancia.licencia = formEst.licencia;
-         instancia.perfilPersonal = formEst.perfilPersonal;
-         instancia.profesion = formEst.profesion;
-         instancia.perfilProfesional = formEst.perfilProfesional;
-         instancia.anosExperiencia = formEst.anosExperiencia;
-         instancia.empresa = formEst.empresa;
-         instancia.puesto = formEst.puesto;
-         instancia.anosTrabajo = formEst.anosTrabajo;
-         instancia.titulo = formEst.titulo;
-         instancia.institucion = formEst.institucion;
-         instancia.idiomas = formEst.idiomas;
-         instancia.otrosTitulos = formEst.otrosTitulos;
-         instancia.estadoLaboral = formEst.estadoLaboral;
-         instancia.anoIngresoFormal= formEst.anoIngresoFormal;
-         instancia.anoFinalFormal = formEst.anoFinalFormal;
-         instancia.traslado = formEst.traslado;
-         instancia.genero = formEst.genero;
-         instancia.save();
-         return redirect(routes.ControllerEstudiante.listarFormularioEstudiante());
+          RegistroUsuario usuario = new UsuarioSession().getRegistroUsuario();
+        if(usuario!=null){
+            if(formEstu.hasErrors()){
+                return badRequest(formularioEstudiante.render("Encontramos errores en el formulario", formEstu, 
+                        anios, routes.ControllerEstudiante.editarPerfilPost(id)));
+            }
+            FormularioEstudiante formEst = formEstu.get();
+            instancia.nombre = formEst.nombre;
+            instancia.primerApellido = formEst.primerApellido;
+            instancia.segundoApellido = formEst.segundoApellido;
+            instancia.fechaNacimiento = formEst.fechaNacimiento;
+            instancia.cedula = formEst.cedula;
+            instancia.correo = formEst.correo;
+            instancia.estadoCivil = formEst.estadoCivil;
+            instancia.paisNacimiento = formEst.paisNacimiento;
+            instancia.lugarResidencia = formEst.lugarResidencia;
+            instancia.direccion = formEst.direccion;
+            instancia.telefonoCasa = formEst.telefonoCasa;
+            instancia.telefonoMovil = formEst.telefonoMovil;
+            instancia.licencia = formEst.licencia;
+            instancia.perfilPersonal = formEst.perfilPersonal;
+            instancia.profesion = formEst.profesion;
+            instancia.perfilProfesional = formEst.perfilProfesional;
+            instancia.anosExperiencia = formEst.anosExperiencia;
+            instancia.empresa = formEst.empresa;
+            instancia.puesto = formEst.puesto;
+            instancia.anosTrabajo = formEst.anosTrabajo;
+            instancia.titulo = formEst.titulo;
+            instancia.institucion = formEst.institucion;
+            instancia.idiomas = formEst.idiomas;
+            instancia.otrosTitulos = formEst.otrosTitulos;
+            instancia.estadoLaboral = formEst.estadoLaboral;
+            instancia.anoIngresoFormal= formEst.anoIngresoFormal;
+            instancia.anoFinalFormal = formEst.anoFinalFormal;
+            instancia.traslado = formEst.traslado;
+            instancia.genero = formEst.genero;
+            instancia.save();
+            return redirect(routes.ControllerEstudiante.listarFormularioEstudiante());
+        }
+        return redirect(routes.ApplicationEstudiante.homeEst());
+        
      }
      //METODO GET PARA CREAR UN FORMULARIO DE ESTUDIANTE
       public Result crearFormularioEstudianteGet() {//muestrar la pantalla el post hace la operacio
@@ -187,15 +199,15 @@ public class ControllerEstudiante extends Controller{
             Map<String ,String> values=formUsuario.data();//optiene los datos como un map del registro Empresaa
             RegistroUsuario nuevoUsuario= new RegistroUsuario();
             if(nuevoUsuario.findByUsername(values.get("correo"))==null){
-            System.out.println(values);
-            nuevoUsuario.nombre=values.get("nombre");
-            nuevoUsuario.correo= values.get("correo");
-            nuevoUsuario.telefono= Integer.parseInt(values.get("telefono"));
-           nuevoUsuario.contrasenia= Hash.createPassword(values.get("contrasenia"));
-            //nuevoUsuario.passwordHash=Hash.createPassword(values.get("contrasenia"));
-            nuevoUsuario.creationDate=new Date();
-            nuevoUsuario.save();
-            formUsuario=formFactory.form(RegistroUsuario.class);
+                System.out.println(values);
+                nuevoUsuario.nombre=values.get("nombre");
+                nuevoUsuario.correo= values.get("correo");
+                nuevoUsuario.telefono= Integer.parseInt(values.get("telefono"));
+               nuevoUsuario.contrasenia= Hash.createPassword(values.get("contrasenia"));
+                //nuevoUsuario.passwordHash=Hash.createPassword(values.get("contrasenia"));
+                nuevoUsuario.creationDate=new Date();
+                nuevoUsuario.save();
+                formUsuario=formFactory.form(RegistroUsuario.class);
             }
             else{
                  return ok(registroEstudiante.render("\n Correo ya existe.", formUsuario,
