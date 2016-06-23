@@ -35,6 +35,7 @@ public class ControllerEstudiante extends Controller {
     @Inject
     PdfGenerator pdfGenerator;
     XML xml = new XML();
+    CreadorArchivo creador = new CreadorArchivo("Estudiante.xml");
     public Result document() {
         RegistroUsuario usuario = new UsuarioSession().getRegistroUsuario();
         List<FormularioEstudiante> formEstu = FormularioEstudiante.find.where().ilike("registroUsuario", "" + usuario.id).findList();
@@ -43,7 +44,8 @@ public class ControllerEstudiante extends Controller {
     //METODO PARA LISTAR LOS ESTUDIANTES
 
     public Result listarFormularioEstudiante() {
-        xml.cargarXML();
+        //xml.cargarXML();
+        creador.cargar("Estudiante.xml");
         RegistroUsuario usuario = new UsuarioSession().getRegistroUsuario();
         List<FormularioEstudiante> formEstu = FormularioEstudiante.find.where().ilike("registroUsuario", "" + usuario.id).findList();
 
@@ -53,7 +55,8 @@ public class ControllerEstudiante extends Controller {
     //METODO PARA ELIMINAR LOS FORMULARIOS DE LOS ESTUDIANTES
 
     public Result eliminarFormularioEstudiante(Long id) {
-        xml.cargarXML();
+        //xml.cargarXML();
+        creador.cargar("Estudiante.xml");
         RegistroUsuario usuario = new UsuarioSession().getRegistroUsuario();
         List<FormularioEstudiante> instancia = FormularioEstudiante.find.where().ilike("registroUsuario", "" + usuario.id).findList();
         for (FormularioEstudiante fest : instancia) {
@@ -64,7 +67,8 @@ public class ControllerEstudiante extends Controller {
 
     //METODO GET PARA EDITAR EL FORMULARIO DE UN ESTUDIANTE
     public Result editarPerfilEstudianteGet(Long id) {
-        xml.cargarXML();
+        //xml.cargarXML();
+        creador.cargar("Estudiante.xml");
         List anios = new ArrayList();
         for (int x = 1990; x < 2017; x++) {
             anios.add(x);
@@ -77,7 +81,8 @@ public class ControllerEstudiante extends Controller {
 
     //METODO POST PARA EDITAR UN FORMULARIO DE ESTUDIANTE
     public Result editarPerfilPost(Long id) {
-        xml.cargarXML();
+      //  xml.cargarXML();
+      creador.cargar("Estudiante.xml");
         List anios = new ArrayList();
         for (int x = 1990; x < 2017; x++) {
             anios.add(x);
@@ -137,7 +142,8 @@ public class ControllerEstudiante extends Controller {
     //METODO GET PARA CREAR UN FORMULARIO DE ESTUDIANTE
 
     public Result crearFormularioEstudianteGet() {//muestrar la pantalla el post hace la operacio
-        xml.cargarXML();
+       // xml.cargarXML();
+       creador.cargar("Estudiante.xml");
         FormularioEstudiante formEstudiante = new FormularioEstudiante();
         formEstudiante.setRegistroUsuario(new UsuarioSession().getRegistroUsuario());
         Form<FormularioEstudiante> pregForm = formFactory.form(FormularioEstudiante.class).fill(formEstudiante);
@@ -151,8 +157,9 @@ public class ControllerEstudiante extends Controller {
     }
     //METODO POST PARA CREAR UN FORMULARIO DE ESTUDIANTE
 
-    public Result crearFormularioEstudiantePost() {
-        xml.cargarXML();
+    public Result crearFormularioEstudiantePost() throws IllegalAccessException {
+       // xml.cargarXML();
+       creador.cargar("Estudiante.xml");
         List anios = new ArrayList();
         for (int x = 1990; x < 2017; x++) {
             anios.add(x);
@@ -214,20 +221,24 @@ public class ControllerEstudiante extends Controller {
         }
         RegistroUsuario usuario = new UsuarioSession().getRegistroUsuario();
         List<FormularioEstudiante> formEstu = FormularioEstudiante.find.where().ilike("registroUsuario", "" + usuario.id).findList();
-       xml.guardarEnXML(devolverDatos());
+       //xml.guardarEnXML(devolverDatos());
+       creador.agregarEstudiante(formEstu);
+       creador.guardar();
         return ok(perfilEstudiante.render("", formEstu, usuario));
     }
 
     //METODO GET PARA REGISTAR ESTUDIANTES
     public Result registroEstudianteGet() {
-        xml.cargarXML();
+       // xml.cargarXML();
+       creador.cargar("Estudiante.xml");
         Form<RegistroUsuario> formUsuario = formFactory.form(RegistroUsuario.class);
         return ok(registroEstudiante.render("", formUsuario, routes.ControllerEstudiante.registroEstudiantePost()));
     }
     //METODO POST PARA REGISTRAR ESTUDIANTES
 
     public Result registroEstudiantePost() throws AppException {
-        xml.cargarXML();
+       // xml.cargarXML();
+       creador.cargar("Estudiante.xml");
         Form<RegistroUsuario> formUsuario = formFactory.form(RegistroUsuario.class).fill(new RegistroUsuario(new Date())).bindFromRequest();
         if (formUsuario.hasErrors()) {
             //formRegistro.
@@ -257,7 +268,8 @@ public class ControllerEstudiante extends Controller {
 
     //METODO PARA CARGAR EL PERFIL DE ESTUDIANTES
     public Result perfilEstudiante() {
-        xml.cargarXML();
+        //xml.cargarXML();
+        creador.cargar("Estudiante.xml");
         RegistroUsuario usuario = new RegistroUsuario();
         List<FormularioEstudiante> formEstu = FormularioEstudiante.find.all();
         return ok(perfilEstudiante.render("", formEstu, usuario));
@@ -265,7 +277,8 @@ public class ControllerEstudiante extends Controller {
     //METODO QUE CARGA LAS OPCIONES DE INICIAR SESION Y REGISTRARSE PARA LOS ESTUDIANTES
 
     public Result opciones() {
-        xml.cargarXML();
+        //xml.cargarXML();
+        creador.cargar("Estudiante.xml");
         return ok(opciones.render(" "));
     }
 
