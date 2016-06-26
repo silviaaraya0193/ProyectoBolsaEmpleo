@@ -9,7 +9,7 @@ import com.avaje.ebean.Model;
 import javax.persistence.*;
 import play.data.validation.*;
 import play.data.validation.Constraints.*;
-
+import play.api.i18n.I18nSupport ;
 /**
  *
  * @author Exder

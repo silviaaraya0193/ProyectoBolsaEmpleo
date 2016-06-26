@@ -18,6 +18,8 @@
     <li role="presentation"><a href="#educacion" aria-controls="educacion" role="tab" data-toggle="tab">Educacion</a></li>
   </ul>
     
+    
+    
     @input(searchForm("registroUsuario.id"), '_label-> None) { (id, name, value, args) =>
             <input type="hidden" name="@name" id="@id" value="@value" @toHtmlArgs(args) >
     } 
@@ -341,9 +343,15 @@
         </div>
     
   </div>
+    
  
 </div>       
-
+        
+    <script>
+        var idb =$(".error").closest(".tab-pane").attr("id");
+        $('a[href$=#'+idb+']').click(); 
+    </script>
+    
    
     }
 }

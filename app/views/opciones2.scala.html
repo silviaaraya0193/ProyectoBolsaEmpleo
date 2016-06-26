@@ -1,5 +1,5 @@
 @(message: String )
-
+@import play.api.i18n.Messages
 @main(message) {
 <div class="container">
 <!DOCTYPE html>
@@ -32,10 +32,10 @@ li a:hover {
 <ul class="nav nav-pills nav-stacked">
     <li role="presentation" class="active">
         <a href="@routes.ApplicationEmpresa.home()">
-               <span class="glyphicon glyphicon-log-in"></span>  Iniciar Sesion</a></li></br></br>
+               <span class="glyphicon glyphicon-log-in"></span> @Messages("IniciarSession")</a></li></br></br>
     <li role="presentation">
         <a href="@routes.ControllerEmpresa.registroEmpresaGet()">
-            <span class="glyphicon glyphicon-user"></span>  Registrarme </a></li></br></br>
+            <span class="glyphicon glyphicon-user"></span>  @Messages("Registrarme") </a></li></br></br>
 </ul>
 </body>
 </html>

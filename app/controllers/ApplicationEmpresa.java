@@ -56,6 +56,7 @@ public class ApplicationEmpresa extends Controller {
          public String validate() {
 
             RegistroEmpresa user = null;
+             System.out.println("aqui error algo");
             try {
                 user = RegistroEmpresa.authenticate(cfi, password);
             } catch (AppException e) {
