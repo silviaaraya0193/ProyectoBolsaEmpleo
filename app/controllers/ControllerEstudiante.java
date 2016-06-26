@@ -22,6 +22,8 @@ import play.data.validation.Constraints.*;
 import play.data.FormFactory;
 import static play.data.Form.form;
 import javax.inject.Inject; 
+import models.FormularioEmpresa;
+import models.RegistroEmpresa;
 import models.utils.XML;
 
 /**
@@ -40,8 +42,21 @@ public class ControllerEstudiante extends Controller {
        RegistroUsuario usuario = new UsuarioSession().getRegistroUsuario();
         List<FormularioEstudiante> formEstu = FormularioEstudiante.find.where(
         ).ilike("registroUsuario", ""+usuario.id).findList();
+         redireccionaCambioIdiomaIngles();
         return pdfGenerator.ok(perfilEstudiante.render("",formEstu,usuario), "http://localhost:9000").as("application/pdf");
     }
+     public Result cambioIdiomaEst(){
+          redireccionaCambioIdiomaIngles();
+            RegistroUsuario usuario = new UsuarioSession().getRegistroUsuario();
+          List<FormularioEstudiante> formEstu = FormularioEstudiante.find.where().ilike("registroUsuario", ""+usuario.id).findList();
+           return ok(perfilEstudiante.render("",formEstu,usuario));
+             // return redirect(routes.ApplicationEmpresa.home());
+      }
+      public void redireccionaCambioIdiomaIngles(){        
+          ctx().setTransientLang("en");
+        
+      }
+    
     //METODO PARA LISTAR LOS ESTUDIANTES
 
     public Result listarFormularioEstudiante() {
@@ -197,6 +212,7 @@ public class ControllerEstudiante extends Controller {
             nuevoFormEst.save();
             formEst = formFactory.form(FormularioEstudiante.class);
         }
+//       return  redirect(routes.ApplicationEstudiante.homeEst());
         RegistroUsuario usuario = new UsuarioSession().getRegistroUsuario();
         List<FormularioEstudiante> formEstu = FormularioEstudiante.find.where(
         ).ilike("registroUsuario", ""+usuario.id).findList();

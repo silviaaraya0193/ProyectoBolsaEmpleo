@@ -15,8 +15,11 @@ GET     /iniciarSesionEmpresa             controllers.ApplicationEmpresa.home()
 #INICIAR SESSION ESTUDIANTE
 GET       /iniciarSesionEstudiante       controllers.ApplicationEstudiante.homeEst()
 
-#Cambio Idioma
+#Cambio Idioma Empresa
 GET          /cambioLenguaje                  controllers.ControllerEmpresa.cambioIdioma()
+
+#Cambio de idioma Estudiante
+GET     /cambioIdiomaEst                     controllers.ControllerEstudiante.cambioIdiomaEst()
 
 #REGISTRO ESTUDIANTE
 GET     /registroEstudiante                     controllers.ControllerEstudiante.registroEstudianteGet()
