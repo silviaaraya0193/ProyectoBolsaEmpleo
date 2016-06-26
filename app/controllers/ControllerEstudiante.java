@@ -84,7 +84,7 @@ public class ControllerEstudiante extends Controller {
       //  xml.cargarXML();
       creador.cargar("Estudiante.xml");
         List anios = new ArrayList();
-        for (int x = 1990; x < 2017; x++) {
+        for (int x = 1990; x < 2020; x++) {
             anios.add(x);
         }
         FormularioEstudiante instancia = FormularioEstudiante.find.byId(id);
@@ -159,9 +159,9 @@ public class ControllerEstudiante extends Controller {
 
     public Result crearFormularioEstudiantePost() throws IllegalAccessException {
        // xml.cargarXML();
-       creador.cargar("Estudiante.xml");
+       //creador.cargar("Estudiante.xml");
         List anios = new ArrayList();
-        for (int x = 1990; x < 2017; x++) {
+        for (int x = 1990; x < 2020; x++) {
             anios.add(x);
         }
         Form<FormularioEstudiante> formEst = formFactory.form(FormularioEstudiante.class).bindFromRequest();

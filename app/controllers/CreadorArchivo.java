@@ -43,6 +43,7 @@ import org.xml.sax.SAXException;
  * @author viccr
  */
 public class CreadorArchivo {
+
     DocumentBuilderFactory factory;
     DocumentBuilder builder;
     DOMImplementation implementation;
@@ -52,12 +53,16 @@ public class CreadorArchivo {
     Element raiz;
     Inspector inspector;
     String nombreArchivo;
- 
-    public CreadorArchivo(String nombreArchivo) 
-    {
+
+    public CreadorArchivo(String nombreArchivo) {
         this.inspector = new Inspector();
         this.nombreArchivo = nombreArchivo;
-        _nuevoArchivo();
+        if (condicionCargar(nombreArchivo)) {
+            System.out.println("El archivo ya ha sido creado, se puede utilizar.");
+        } else {
+            System.out.println("Se ha creado un nuevo archivo. ");
+            _nuevoArchivo();
+        }
     }
 
     private void _nuevoArchivo() {
@@ -72,36 +77,35 @@ public class CreadorArchivo {
             Logger.getLogger(CreadorArchivo.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void guardar() 
-    {
-        try{
+
+    public void guardar() {
+        try {
             Source source = new DOMSource(document);
-            Result result = new StreamResult(new java.io.File(nombreArchivo)); 
+            Result result = new StreamResult(new java.io.File(nombreArchivo));
             Transformer transformer = TransformerFactory.newInstance().newTransformer();
             transformer.transform(source, result);
-            System.out.println("Archivo XML creado con el nombre: "+nombreArchivo);
+            System.out.println("Archivo XML creado con el nombre: " + nombreArchivo);
         } catch (TransformerException ex) {
-            Logger.getLogger(CreadorArchivo.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.toString());
         }
     }
-    
-    private void _agregarEstudiante(List<FormularioEstudiante> estudiantes) throws IllegalArgumentException, IllegalAccessException{
+
+    private void _agregarEstudiante(List<FormularioEstudiante> estudiantes) throws IllegalArgumentException, IllegalAccessException {
         HashMap<String, Object> campoEstudiante = null;
-        raiz = document.getDocumentElement();
+        raiz = document.getDocumentElement();//se cae con null pointer
         Text valor;
         Element item = null;
-        Element clave =null;
-        
-        for(FormularioEstudiante estudiante: estudiantes){
+        Element clave = null;
+
+        for (FormularioEstudiante estudiante : estudiantes) {
             // Obtengo los campos y los valores de los campos
             campoEstudiante = inspector.obtener_campos(estudiante);
             // Obtengo un iterador para recorrer el HashMap
             Iterator i = campoEstudiante.keySet().iterator();
-            item = document.createElement(inspector.obtener_nombre_clase(estudiante)); 
-            while(i.hasNext()){
-                String key = (String)i.next();
-                clave = document.createElement(key); 
+            item = document.createElement(inspector.obtener_nombre_clase(estudiante));
+            while (i.hasNext()) {
+                String key = (String) i.next();
+                clave = document.createElement(key);
                 valor = document.createTextNode(campoEstudiante.get(key).toString());
                 clave.appendChild(valor);
                 item.appendChild(clave);
@@ -109,78 +113,85 @@ public class CreadorArchivo {
             raiz.appendChild(item);
         }
     }
-    
-    public void agregarEstudiante(List<FormularioEstudiante> estudiantes) throws IllegalAccessException{
+
+    public void agregarEstudiante(List<FormularioEstudiante> estudiantes) throws IllegalAccessException {
         try {
             this._agregarEstudiante(estudiantes);
         } catch (IllegalArgumentException ex) {
             Logger.getLogger(CreadorArchivo.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    private NodeList busco_en_documento(String expresion) throws XPathExpressionException{
-        XPath xPath =  XPathFactory.newInstance().newXPath();
+
+    private NodeList busco_en_documento(String expresion) throws XPathExpressionException {
+        XPath xPath = XPathFactory.newInstance().newXPath();
         NodeList nodeList = (NodeList) xPath.compile(
                 expresion).evaluate(
-            document, XPathConstants.NODESET);
+                        document, XPathConstants.NODESET);
         return nodeList;
     }
-    
-    
-    private void _buscar(String expresion, ArrayList<String> campo) throws XPathExpressionException{
-         NodeList nodeList = this.busco_en_documento(expresion);
-         for (int i = 0; i < nodeList.getLength(); i++) {
-             Node nNode = nodeList.item(i);
-             System.out.println("\nElemento :" + nNode.getNodeName());
-             if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-               Element eElement = (Element) nNode;
-               for (int x=0; x<campo.size(); x++){
-                   
-                   System.out.println(
-                           
-                           campo.get(x)+" = "+
-                    eElement.getElementsByTagName(campo.get(x)).item(0).getTextContent()+
-                    eElement.getAttribute("class")
-                            );
-               }
-               
-             }
-         }
+
+    private void _buscar(String expresion, ArrayList<String> campo) throws XPathExpressionException {
+        NodeList nodeList = this.busco_en_documento(expresion);
+        for (int i = 0; i < nodeList.getLength(); i++) {
+            Node nNode = nodeList.item(i);
+            System.out.println("\nElemento :" + nNode.getNodeName());
+            if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+                Element eElement = (Element) nNode;
+                for (int x = 0; x < campo.size(); x++) {
+
+                    System.out.println(
+                            campo.get(x) + " = "
+                            + eElement.getElementsByTagName(campo.get(x)).item(0).getTextContent()
+                            + eElement.getAttribute("class")
+                    );
+                }
+
+            }
+        }
     }
-    public List<FormularioEstudiante> get_Estudiantes() throws XPathExpressionException{
+
+    public List<FormularioEstudiante> get_Estudiantes() throws XPathExpressionException {
         List<FormularioEstudiante> estudiantes = new ArrayList<>();
-        
+
         NodeList nodeList = this.busco_en_documento("/Estudiante.xml/*");
         InterfazBuilder ebuilder = new EstudianteBuilder();
-        for(int i=0; i<nodeList.getLength();i++){
+        for (int i = 0; i < nodeList.getLength(); i++) {
             Node nNode = nodeList.item(i);
-            if(nNode.getNodeType() == Node.ELEMENT_NODE){
+            if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                 estudiantes.add(ebuilder.construyeEstudiante(nNode));
             }
         }
         return estudiantes;
     }
-    
-    public void buscar(String expresion, ArrayList<String> campo){
+
+    public void buscar(String expresion, ArrayList<String> campo) {
         try {
             this._buscar(expresion, campo);
         } catch (XPathExpressionException ex) {
             Logger.getLogger(LectorXML.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }    
-    
-    private void _cargar(String nombreArchivo) throws SAXException, IOException{
-        document = builder.parse(
-                        new FileInputStream(nombreArchivo));
     }
-    
-    public void cargar(String nombreArchivo){
+
+    private void _cargar(String nombreArchivo) throws SAXException, IOException {
+        document = builder.parse(
+                new FileInputStream(nombreArchivo));
+    }
+
+    public void cargar(String nombreArchivo) {
         this.nombreArchivo = nombreArchivo;
-        try {    
+        try {
             _cargar(nombreArchivo);
         } catch (SAXException ex) {
             Logger.getLogger(CreadorArchivo.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(CreadorArchivo.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public boolean condicionCargar(String nombreArchivo) {
+        boolean estado = false;
+        cargar(nombreArchivo);
+        estado = true;
+        return estado;
     }
 }

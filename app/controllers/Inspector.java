@@ -24,7 +24,7 @@ public class Inspector {
         HashMap<String, Object> dev = new HashMap<>();
         for (Field field : clazz.getDeclaredFields()) {
             if (field.isAnnotationPresent(Anotacion.class)) {
-                for (Annotation anotacion : field.getDeclaredAnnotations()) {
+                for (Annotation anotacion : field.getDeclaredAnnotationsByType(Anotacion.class)) {
                     Anotacion acampo = (Anotacion) anotacion;
                     if (acampo.guardar_xml()) {
                         field.setAccessible(true);
