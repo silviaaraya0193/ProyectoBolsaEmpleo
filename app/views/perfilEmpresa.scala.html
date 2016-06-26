@@ -1,6 +1,4 @@
-@(message: String,formEmp: List[FormularioEmpresa],registroEmpresa:RegistroEmpresa , l: play.api.i18n.Lang)
-@import play.i18n._
-@import play.api.i18n.Messages.Implicits._
+@(message: String,formEmp: List[FormularioEmpresa],registroEmpresa:RegistroEmpresa)
 <!DOCTYPE html>
 <html lang="en">
     
@@ -52,14 +50,14 @@
 <div class="container">
   <h3>Perfil Empresa</h3>
    @for(formulario <- formEmp) {
-        <h2>@Messages(l, "datosEmpresa")</h2>
-        <br><label>@Messages("nombre").scalaApi().get(l, "nombre")</label> @formulario.nombre
-        <br><label>@Messages(l,"direccion")</label> @formulario.direccion
-        <br><label>@Messages(l,"telefonoContacto")</label> @formulario.telefonoContacto
-        <br><label>@Messages(l,"correoElect")</label> @formulario.correoEmpresa
-        <br><label>@Messages(l,"perfilEmpresarial")</label> @formulario.perfilEmpresarial
-        <br><label>@Messages(l,"estadoContrataciones")</label> @formulario.estadoContrataciones
-        <br><label>@Messages(l,"otrasContrataciones")</label> @formulario.otrasContrataciones
+        <h2>@Messages("datosEmpresa")</h2>
+        <br><label>@Messages("nombre")</label> @formulario.nombre
+        <br><label>@Messages("direccion")</label> @formulario.direccion
+        <br><label>@Messages("telefonoContacto")</label> @formulario.telefonoContacto
+        <br><label>@Messages("correoElect")</label> @formulario.correoEmpresa
+        <br><label>@Messages("perfilEmpresarial")</label> @formulario.perfilEmpresarial
+        <br><label>@Messages("estadoContrataciones")</label> @formulario.estadoContrataciones
+        <br><label>@Messages("otrasContrataciones")</label> @formulario.otrasContrataciones
    }
 </div>
 
