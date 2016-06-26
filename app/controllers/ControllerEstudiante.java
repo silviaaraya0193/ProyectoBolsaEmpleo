@@ -37,7 +37,7 @@ public class ControllerEstudiante extends Controller {
     XML xml = new XML();
     CreadorArchivo creador = new CreadorArchivo("Estudiante.xml");
     public Result document() {
-       egistroUsuario usuario = new UsuarioSession().getRegistroUsuario();
+       RegistroUsuario usuario = new UsuarioSession().getRegistroUsuario();
         List<FormularioEstudiante> formEstu = FormularioEstudiante.find.where(
         ).ilike("registroUsuario", ""+usuario.id).findList();
         return pdfGenerator.ok(perfilEstudiante.render("",formEstu,usuario), "http://localhost:9000").as("application/pdf");
