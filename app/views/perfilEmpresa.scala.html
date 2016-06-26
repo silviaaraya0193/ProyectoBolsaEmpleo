@@ -1,6 +1,9 @@
-@(message: String,formEmp: List[FormularioEmpresa],registroEmpresa:RegistroEmpresa)
+@(message: String,formEmp: List[FormularioEmpresa],registroEmpresa:RegistroEmpresa , l: play.api.i18n.Lang)
+@import play.i18n._
+@import play.api.i18n.Messages.Implicits._
 <!DOCTYPE html>
 <html lang="en">
+    
 <head>
   <title>Perfil Empresa</title>
   <meta charset="utf-8">
@@ -37,7 +40,7 @@
                 
             
       <li><a href="@routes.ControllerEmpresa.document()">Convertir en PDF</a></li>
-      <li><a href="#">Traducir a Ingles</a></li>
+      <li><a href="@routes.ControllerEmpresa.cambioIdioma()">Traducir a Ingles</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li><a href="@routes.ApplicationEmpresa.logout()"><span class="glyphicon glyphicon-user"></span> Salir</a></li>
@@ -49,14 +52,14 @@
 <div class="container">
   <h3>Perfil Empresa</h3>
    @for(formulario <- formEmp) {
-   <h2>Datos Empresa</h2> 
-   <br><label>Nombre: </label> @formulario.nombre
-   <br><label>Direccion: </label> @formulario.direccion
-   <br><label>Telefono del Contacto: </label> @formulario.telefonoContacto
-   <br><label>Correo Electronico: </label> @formulario.correoEmpresa
-   <br><label>Perfil Empresarial: </label> @formulario.perfilEmpresarial
-   <br><label>Estado Contrataciones: </label> @formulario.estadoContrataciones
-   <br><label>Otras Contrataciones: </label> @formulario.otrasContrataciones
+        <h2>@Messages(l, "datosEmpresa")</h2>
+        <br><label>@Messages("nombre").scalaApi().get(l, "nombre")</label> @formulario.nombre
+        <br><label>@Messages(l,"direccion")</label> @formulario.direccion
+        <br><label>@Messages(l,"telefonoContacto")</label> @formulario.telefonoContacto
+        <br><label>@Messages(l,"correoElect")</label> @formulario.correoEmpresa
+        <br><label>@Messages(l,"perfilEmpresarial")</label> @formulario.perfilEmpresarial
+        <br><label>@Messages(l,"estadoContrataciones")</label> @formulario.estadoContrataciones
+        <br><label>@Messages(l,"otrasContrataciones")</label> @formulario.otrasContrataciones
    }
 </div>
 

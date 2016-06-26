@@ -1,6 +1,7 @@
 @(message: String,  searchForm: Form[FormularioEmpresa], postUrl: play.api.mvc.Call)
 @import helper._
-
+<!DOCTYPE html>
+<html lang="en">
 @main(message) {
 <h1> Formulario Empresa</h1>
 <div class="alert"> @message </div>
@@ -19,7 +20,7 @@
     <div class="tab-content">
         <div class="row">
             
-            <div class="col-md-4"> @inputText(
+     <div class="col-md-4"> @inputText(
 
                 searchForm("nombre"),
                 '_label -> "Nombre de la Empresa: ",

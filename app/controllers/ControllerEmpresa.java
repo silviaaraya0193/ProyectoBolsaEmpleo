@@ -19,21 +19,39 @@ import play.data.FormFactory;
 import static play.data.Form.form;
 import javax.inject.Inject;
 import models.utils.EmpresaSession;
+import play.api.i18n.Lang;
+import play.api.i18n.Message;
 /**
  *
  * @author viccr
  */
-public class ControllerEmpresa extends Controller{
+public class ControllerEmpresa  extends Controller{
      @Inject
     FormFactory formFactory;
       @Inject 
      PdfGenerator pdfGenerator;
-     
+
       public Result document() {
+//           Lang en = new Lang("en");
+//         play.i18n.Lang en_lang = new play.i18n.Lang(en);
             List<FormularioEmpresa> formEmp = FormularioEmpresa.find.all();
             RegistroEmpresa registro = new RegistroEmpresa();
-           return pdfGenerator.ok(perfilEmpresa.render("Pdf empresa",formEmp,registro), "http://localhost:9000").as("application/pdf");//content type
-        }
+            
+           return pdfGenerator.ok(perfilEmpresa.render("Pdf empresa",formEmp,registro,new Lang("en")), "http://localhost:9000").as("application/pdf");//content type
+      }
+      
+      public Result cambioIdioma(){
+//          List<FormularioEmpresa> formEmp = FormularioEmpresa.find.all();
+//            RegistroEmpresa registro = new RegistroEmpresa();   
+         // ctx().changeLang("en");
+          //Lang.set("en");
+//        Lang en = new Lang("en");
+//         play.i18n.Lang en_lang = new play.i18n.Lang(en);
+           //Lang.change("en");
+            return redirect(routes.ApplicationEmpresa.home());
+           //return ok(perfilEmpresa.render("",formEmp,registro,new Lang("en")));
+      }
+      
      //METODO PARA LISTAR FORMULARIO EMPRESAS
     public Result listarFormularioEmpresa(){
         RegistroEmpresa empresa = new EmpresaSession().getRegistroEmpresa();
@@ -47,6 +65,7 @@ public class ControllerEmpresa extends Controller{
        }
        return redirect(routes.ApplicationEmpresa.home());
     }
+//   
     //METODO PARA ELIMINAR FORMULARIO EMPRESAS
     public Result eliminarFormularioEmpresa(Long id) {
         RegistroEmpresa empresa = new EmpresaSession().getRegistroEmpresa();
@@ -84,7 +103,6 @@ public class ControllerEmpresa extends Controller{
             instancia.otrasContrataciones = formEmpresa.otrasContrataciones;
             instancia.perfilEmpresarial = formEmpresa.perfilEmpresarial;
             instancia.telefonoContacto = formEmpresa.telefonoContacto;
-
             instancia.save();
             return redirect(routes.ControllerEmpresa.listarFormularioEmpresa());
         }
@@ -124,7 +142,7 @@ public class ControllerEmpresa extends Controller{
             }
             else{
                   return ok(registroEmpresa.render("\n El codigo CFI  ya se encuentra registrado.", formRegistro,
-                routes.ControllerEmpresa.registroEmpresaPost()));
+                 routes.ControllerEmpresa.registroEmpresaPost()));
             }
       }
           return ok(opciones2.render(""));//ir a opciones2 para iniciar sesion
