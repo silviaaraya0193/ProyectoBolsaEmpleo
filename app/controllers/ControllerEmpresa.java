@@ -40,20 +40,17 @@ public class ControllerEmpresa  extends Controller{
       
       public Result cambioIdioma(){
           redireccionaCambioIdiomaIngles();
-//          List<FormularioEmpresa> formEmp = FormularioEmpresa.find.all();
-//           RegistroEmpresa registro = new RegistroEmpresa();    
-//           return ok(perfilEmpresa.render("",formEmp,registro));
-              return redirect(routes.ApplicationEmpresa.home());
+          List<FormularioEmpresa> formEmp = FormularioEmpresa.find.all();
+           RegistroEmpresa registro = new RegistroEmpresa();    
+           return ok(perfilEmpresa.render("",formEmp,registro));
+             // return redirect(routes.ApplicationEmpresa.home());
               
       }
-      public void redireccionaCambioIdiomaIngles(){
-         // if(local)
+      public void redireccionaCambioIdiomaIngles(){        
           ctx().setTransientLang("en");
-          //perfilEmpresa();
+        
       }
-//      public Lang lang(){
-//          return lang;
-//      }
+
      //METODO PARA LISTAR FORMULARIO EMPRESAS
     public Result listarFormularioEmpresa(){
         RegistroEmpresa empresa = new EmpresaSession().getRegistroEmpresa();
