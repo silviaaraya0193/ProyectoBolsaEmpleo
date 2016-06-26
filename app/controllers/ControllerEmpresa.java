@@ -19,8 +19,8 @@ import play.data.FormFactory;
 import static play.data.Form.form;
 import javax.inject.Inject;
 import models.utils.EmpresaSession;
-import play.api.i18n.Lang;
-import play.api.i18n.Message;
+//import play.api.i18n.Lang;
+//import play.api.i18n.Message;
 /**
  *
  * @author viccr
@@ -32,26 +32,28 @@ public class ControllerEmpresa  extends Controller{
      PdfGenerator pdfGenerator;
 
       public Result document() {
-//           Lang en = new Lang("en");
-//         play.i18n.Lang en_lang = new play.i18n.Lang(en);
-            List<FormularioEmpresa> formEmp = FormularioEmpresa.find.all();
+           List<FormularioEmpresa> formEmp = FormularioEmpresa.find.all();
             RegistroEmpresa registro = new RegistroEmpresa();
-            
-           return pdfGenerator.ok(perfilEmpresa.render("Pdf empresa",formEmp,registro,new Lang("en")), "http://localhost:9000").as("application/pdf");//content type
+             redireccionaCambioIdiomaIngles();
+            return pdfGenerator.ok(perfilEmpresa.render("Pdf empresa",formEmp,registro), "http://localhost:9000").as("application/pdf");//content type
       }
       
       public Result cambioIdioma(){
+          redireccionaCambioIdiomaIngles();
 //          List<FormularioEmpresa> formEmp = FormularioEmpresa.find.all();
-//            RegistroEmpresa registro = new RegistroEmpresa();   
-         // ctx().changeLang("en");
-          //Lang.set("en");
-//        Lang en = new Lang("en");
-//         play.i18n.Lang en_lang = new play.i18n.Lang(en);
-           //Lang.change("en");
-            return redirect(routes.ApplicationEmpresa.home());
-           //return ok(perfilEmpresa.render("",formEmp,registro,new Lang("en")));
+//           RegistroEmpresa registro = new RegistroEmpresa();    
+//           return ok(perfilEmpresa.render("",formEmp,registro));
+              return redirect(routes.ApplicationEmpresa.home());
+              
       }
-      
+      public void redireccionaCambioIdiomaIngles(){
+         // if(local)
+          ctx().setTransientLang("en");
+          //perfilEmpresa();
+      }
+//      public Lang lang(){
+//          return lang;
+//      }
      //METODO PARA LISTAR FORMULARIO EMPRESAS
     public Result listarFormularioEmpresa(){
         RegistroEmpresa empresa = new EmpresaSession().getRegistroEmpresa();
