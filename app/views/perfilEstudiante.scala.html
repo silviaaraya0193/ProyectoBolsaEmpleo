@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Perfil Estudiante</title>
+  <title>@Messages("perfilEstudiante")</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
@@ -17,29 +17,28 @@
       <a class="navbar-brand" href="#">Bolsa de Empleo UCR</a>
     </div>
     <ul class="nav navbar-nav">
-            <li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="#">Perfil<span class="caret"></span></a>  
+            <li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="#">@Messages("perfil")<span class="caret"></span></a>  
                 <ul class="dropdown-menu">
                     @if(!formEst.isEmpty()){
                         @for(formulario <- formEst) {
                         <li class="list-group-item" >@formulario.nombre
-                            <li><a href="@routes.ControllerEstudiante.editarPerfilPost(formulario.id)">Modificar Formulario</a></li>
-                            <li><a href="@routes.ControllerEstudiante.eliminarFormularioEstudiante(formulario.id)">Eliminar Formulario</a></li>
+                            <li><a href="@routes.ControllerEstudiante.editarPerfilPost(formulario.id)">@Messages("ModificarEstudiante")</a></li>
+                            <li><a href="@routes.ControllerEstudiante.eliminarFormularioEstudiante(formulario.id)">@Messages("EliminarEstudiante")</a></li>
                             
                         </li>
                         }
                     }else{
-                    <li> <a href="@routes.ControllerEstudiante.crearFormularioEstudianteGet()">Crear Formulario</a> </li>
+                    <li> <a href="@routes.ControllerEstudiante.crearFormularioEstudianteGet()">@Messages("CrearFormulario")</a> </li>
                      }
                 </ul>
                 
             
-      <li><a href="@routes.ControllerEstudiante.document()">Convertir en PDF</a></li>
-      <li><a href="@routes.ControllerEstudiante.cambioIdiomaEst()">Traducir a Ingles</a></li>
-        
-      </li>
+      <li><a href="@routes.ControllerEstudiante.document()">@Messages("ConvertirPdf")</a></li>
+      <li><a href="@routes.ControllerEstudiante.cambioIdiomaEst()">@Messages("CambioIdioma")</a></li>
+      
     </ul>
     <ul class="nav navbar-nav navbar-right">
-      <li><a href="@routes.ApplicationEstudiante.logout()"><span class="glyphicon glyphicon-user"></span> Salir</a></li>
+      <li><a href="@routes.ApplicationEstudiante.logout()"><span class="glyphicon glyphicon-user"></span> @Messages("Salir")</a></li>
       <!--<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>-->
 
     </ul>
@@ -90,7 +89,7 @@
      <br><label>@Messages("titulo2") </label> @formulario.titulo2
      <br><label>@Messages("institucionEstudio2") </label> @formulario.institucion2
      <br><label>@Messages("anioIngresoFormal2")</label> @formulario.anoIngresoFormal2
-     <br><label>A@Messages("anioEgreso2")</label> @formulario.anoFinalFormal2
+     <br><label>@Messages("anioEgreso2")</label> @formulario.anoFinalFormal2
      <br><label>@Messages("otrosTitulos") </label> @formulario.otrosTitulos
      <br><label>@Messages("otrosTitulosFormal") </label> @formulario.otrosTitulosFormales
      <br><label>@Messages("idiomas") </label> @formulario.idiomas
@@ -100,4 +99,3 @@
 
 </body>
 </html>
-

@@ -19,7 +19,7 @@ import play.data.FormFactory;
 import static play.data.Form.form;
 import javax.inject.Inject;
 import models.utils.EmpresaSession;
-//import play.api.i18n.Lang;
+import play.api.i18n.Lang;
 //import play.api.i18n.Message;
 /**
  *
@@ -30,31 +30,41 @@ public class ControllerEmpresa  extends Controller{
     FormFactory formFactory;
       @Inject 
      PdfGenerator pdfGenerator;
-
+      Lang underlyingLang;
       public Result document() {
            List<FormularioEmpresa> formEmp = FormularioEmpresa.find.all();
             RegistroEmpresa registro = new RegistroEmpresa();
-             redireccionaCambioIdiomaIngles();
+            redireccionaCambioIdiomaIngles();
             return pdfGenerator.ok(perfilEmpresa.render("Pdf empresa",formEmp,registro), "http://localhost:9000").as("application/pdf");//content type
-      }
-      
+      } 
       public Result cambioIdioma(){
-          redireccionaCambioIdiomaIngles();
-          List<FormularioEmpresa> formEmp = FormularioEmpresa.find.all();
+           underlyingLang=play.mvc.Http.Context.current().lang();
+           if(underlyingLang.code().equals("es")){
+               ctx().setTransientLang("en");
+               ctx().changeLang("en");
+                List<FormularioEmpresa> formEmp = FormularioEmpresa.find.all();
            RegistroEmpresa registro = new RegistroEmpresa();    
            return ok(perfilEmpresa.render("",formEmp,registro));
-             // return redirect(routes.ApplicationEmpresa.home());
-              
+               
+          }
+            ctx().setTransientLang("es");
+            ctx().changeLang("es");
+            List<FormularioEmpresa> formEmp = FormularioEmpresa.find.all();
+           RegistroEmpresa registro = new RegistroEmpresa();    
+           return ok(perfilEmpresa.render("",formEmp,registro));        
       }
-      public void redireccionaCambioIdiomaIngles(){        
-          ctx().setTransientLang("en");
-        
+      public void redireccionaCambioIdiomaIngles(){
+          String aux="";
+          if(underlyingLang.code().equals("es"))
+              aux="en";
+          else
+              aux="es";
+             ctx().setTransientLang(aux);
       }
 
      //METODO PARA LISTAR FORMULARIO EMPRESAS
     public Result listarFormularioEmpresa(){
         RegistroEmpresa empresa = new EmpresaSession().getRegistroEmpresa();
-       // List<FormularioEmpresa> formulario = FormularioEmpresa.find.all();
        if(empresa!=null){
             List<FormularioEmpresa> formEmpresa = FormularioEmpresa.find.where().ilike("registroEmpresa", ""+empresa.id).findList();
             System.out.println("");
@@ -106,8 +116,7 @@ public class ControllerEmpresa  extends Controller{
             return redirect(routes.ControllerEmpresa.listarFormularioEmpresa());
         }
          return redirect(routes.ApplicationEmpresa.home());
-     }
-     
+     }  
      //METODO GET REGISTRO EMPRESA
      public Result registroEmpresaGet(){
           Form<RegistroEmpresa> pregForm = formFactory.form(RegistroEmpresa.class);
