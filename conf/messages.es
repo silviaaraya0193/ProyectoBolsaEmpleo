@@ -1,4 +1,20 @@
-datosEmpresa= Datos de la Empresa
+perfilEstudiante= Perfil Estudiante
+perfil=Perfil
+ModificarEstudiante= Modificar Estudiante
+ElimininarEstudiante=Eliminar Estudiante
+
+ConvertirPdf=Convertir PDF
+
+perfilEmpresa=Perfil Empresa
+CrearFormulario=Crear Formulario
+CambioIdioma=Cambio de Idioma
+Salir=Salir
+
+modificarEmpresa=Modificar Empresa
+eliminarEmpresa= Eliminar Empresa
+perfilEmpresa=Perfil Empresa
+
+datosEmpresa= Informacion
 nombre= Nombre
 direccion=Direccion
 telefonoContacto=Telefono de Contacto

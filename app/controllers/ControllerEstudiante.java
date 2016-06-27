@@ -25,6 +25,7 @@ import javax.inject.Inject;
 import models.FormularioEmpresa;
 import models.RegistroEmpresa;
 import models.utils.XML;
+import play.api.i18n.Lang;
 
 /**
  *
@@ -37,6 +38,9 @@ public class ControllerEstudiante extends Controller {
     @Inject
     PdfGenerator pdfGenerator;
     XML xml = new XML();
+     Lang underlyingLang;
+     
+     
     CreadorArchivo creador = new CreadorArchivo("Estudiante.xml");
     public Result document() {
        RegistroUsuario usuario = new UsuarioSession().getRegistroUsuario();
@@ -46,17 +50,29 @@ public class ControllerEstudiante extends Controller {
         return pdfGenerator.ok(perfilEstudiante.render("",formEstu,usuario), "http://localhost:9000").as("application/pdf");
     }
      public Result cambioIdiomaEst(){
-          redireccionaCambioIdiomaIngles();
-            RegistroUsuario usuario = new UsuarioSession().getRegistroUsuario();
+         underlyingLang=play.mvc.Http.Context.current().lang();
+           if(underlyingLang.code().equals("es")){
+               ctx().setTransientLang("en");
+               ctx().changeLang("en");
+               RegistroUsuario usuario = new UsuarioSession().getRegistroUsuario();
           List<FormularioEstudiante> formEstu = FormularioEstudiante.find.where().ilike("registroUsuario", ""+usuario.id).findList();
            return ok(perfilEstudiante.render("",formEstu,usuario));
-             // return redirect(routes.ApplicationEmpresa.home());
+           }
+            ctx().setTransientLang("es");
+            ctx().changeLang("es");
+             RegistroUsuario usuario = new UsuarioSession().getRegistroUsuario();
+          List<FormularioEstudiante> formEstu = FormularioEstudiante.find.where().ilike("registroUsuario", ""+usuario.id).findList();
+           return ok(perfilEstudiante.render("",formEstu,usuario));
       }
-      public void redireccionaCambioIdiomaIngles(){        
-          ctx().setTransientLang("en");
-        
+      public void redireccionaCambioIdiomaIngles(){
+          String aux="";
+          if(underlyingLang.code().equals("es"))
+              aux="en";
+          else
+              aux="es";
+             ctx().setTransientLang(aux);
       }
-    
+ 
     //METODO PARA LISTAR LOS ESTUDIANTES
 
     public Result listarFormularioEstudiante() {

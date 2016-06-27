@@ -11,14 +11,14 @@
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <label>Perfil Empresa</label>
+   
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand" href="#">Bolsa de Empleo UCR</a>
     </div>
       <ul class="nav navbar-nav">
-            <li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="#">Perfil<span class="caret"></span></a>  
+            <li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="#">@Messages("perfilEmpresa")<span class="caret"></span></a>  
                 <ul class="dropdown-menu">
                     <script type="text/javascript">
                         alert(@formEmp+"alerta");
@@ -26,8 +26,8 @@
                     @if(!formEmp.isEmpty()){
                         @for(formulario <- formEmp) {
                         <li class="list-group-item" >@formulario.nombre
-                            <li><a href="@routes.ControllerEmpresa.editarPerfilEmpresaPost(formulario.id)">Modificar Formulario</a></li>
-                            <li><a href="@routes.ControllerEmpresa.eliminarFormularioEmpresa(formulario.id)">Eliminar Formulario</a></li>
+                            <li><a href="@routes.ControllerEmpresa.editarPerfilEmpresaPost(formulario.id)">@Messages("modificarEmpresa")</a></li>
+                            <li><a href="@routes.ControllerEmpresa.eliminarFormularioEmpresa(formulario.id)">@Messages("eliminarEmpresa")</a></li>
                             
                         </li>
                         }
@@ -37,11 +37,11 @@
                 </ul>
                 
             
-      <li><a href="@routes.ControllerEmpresa.document()">Convertir en PDF</a></li>
-      <li><a href="@routes.ControllerEmpresa.cambioIdioma()">Traducir a Ingles</a></li>
+      <li><a href="@routes.ControllerEmpresa.document()">@Messages("ConvertirPdf")</a></li>
+      <li><a href="@routes.ControllerEmpresa.cambioIdioma()">@Messages("CambioIdioma")</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
-      <li><a href="@routes.ApplicationEmpresa.logout()"><span class="glyphicon glyphicon-user"></span> Salir</a></li>
+      <li><a href="@routes.ApplicationEmpresa.logout()"><span class="glyphicon glyphicon-user"></span> @Messages("Salir")</a></li>
       <!--<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>-->
     </ul>
   </div>
