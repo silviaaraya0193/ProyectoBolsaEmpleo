@@ -25,24 +25,24 @@ public class ApplicationEstudiante extends Controller {
       
  
 public Result homeEst() {//controlador del home o index
-            System.out.println("entra aqui");
+           // System.out.println("entra aqui");
         String correo = ctx().session().get("correo");
-        System.out.println("correo" + correo);
+      //  System.out.println("correo" + correo);
         if (correo!=null) {
-             System.out.println("entra aqui 2");
+            // System.out.println("entra aqui 2");
             RegistroUsuario user = RegistroUsuario.findByUsername(correo);//busca el coreo
            // System.out.println("user"+user);
             if (user != null) {
-                System.out.println("entra aqui 3");
+              //  System.out.println("entra aqui 3");
                 return redirect(routes.ControllerEstudiante.listarFormularioEstudiante());//revisar este render
                 //linea 34 error de anios silvia ya lo arreglo :v
             } else {
-                System.out.println("entra aqui 4");
+              //  System.out.println("entra aqui 4");
                 session().clear();
             }
         }
         // session().clear();
-        System.out.println("entra aqui 5");
+       // System.out.println("entra aqui 5");
         return ok(iniciarSesionEstudiante.render("Error",form(ApplicationEstudiante.Login.class)));
     }
      
@@ -62,7 +62,7 @@ public static class Login {
                 return Messages.get("error.technical");
             }
             if (user == null) {
-                return Messages.get("user es null");
+                return Messages.get("Usuario no existente");
             }
             return null;
         }

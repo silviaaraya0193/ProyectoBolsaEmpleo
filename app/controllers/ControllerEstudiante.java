@@ -76,8 +76,6 @@ public class ControllerEstudiante extends Controller {
     //METODO PARA LISTAR LOS ESTUDIANTES
 
     public Result listarFormularioEstudiante() {
-        //xml.cargarXML();
-        creador.cargar("Estudiante.xml");
        RegistroUsuario usuario = new UsuarioSession().getRegistroUsuario();
         if(usuario!=null){
             List<FormularioEstudiante> formEstu = FormularioEstudiante.find.where(
@@ -93,8 +91,6 @@ public class ControllerEstudiante extends Controller {
     //METODO PARA ELIMINAR LOS FORMULARIOS DE LOS ESTUDIANTES
 
     public Result eliminarFormularioEstudiante(Long id) {
-        //xml.cargarXML();
-        creador.cargar("Estudiante.xml");
          RegistroUsuario usuario = new UsuarioSession().getRegistroUsuario();
         if(usuario!=null){
              List<FormularioEstudiante> instancia = FormularioEstudiante.find.where().ilike("registroUsuario",""+usuario.id).findList();
@@ -106,69 +102,73 @@ public class ControllerEstudiante extends Controller {
           return redirect(routes.ApplicationEstudiante.homeEst());
     } 
     //METODO GET PARA EDITAR EL FORMULARIO DE UN ESTUDIANTE
+    //en este metodo usted agrego un if(usuario != null) como el del metodo de arriba de listar, pero 
+    //si le dejaba eso me daba error, bueno me redireccionaba a la pagina de home es estudiante
+    //o me cargaba el formulario sin los datos del usuario que quiere modificar.
     public Result editarPerfilEstudianteGet(Long id) {
-        //xml.cargarXML();
-        creador.cargar("Estudiante.xml");
-       RegistroUsuario usuario = new UsuarioSession().getRegistroUsuario();
-        if(usuario!=null){
-             List<FormularioEstudiante> instancia = FormularioEstudiante.find.where().ilike("registroUsuario",""+usuario.id).findList();
-            for(FormularioEstudiante fest: instancia){
-                fest.delete();
-            }
-                 return redirect(routes.ControllerEstudiante.listarFormularioEstudiante());
-        }
-          return redirect(routes.ApplicationEstudiante.homeEst());
+       List anios = new ArrayList();
+        for (int x = 1990; x<2017; x++){anios.add(x);}
+         FormularioEstudiante instancia = FormularioEstudiante.find.byId(id);
+         Form<FormularioEstudiante> formEst = formFactory.form(FormularioEstudiante.class).fill(instancia);
+         return ok(formularioEstudiante.render("Formulario Estudiante", formEst,
+                 anios, routes.ControllerEstudiante.editarPerfilPost(id)));
     }
 
     //METODO POST PARA EDITAR UN FORMULARIO DE ESTUDIANTE
 
     public Result editarPerfilPost(Long id) {
-      //  xml.cargarXML();
-      creador.cargar("Estudiante.xml");
-         List anios = new ArrayList();
+          List anios = new ArrayList();
         for (int x = 1990; x<2017; x++){anios.add(x);}
          FormularioEstudiante instancia = FormularioEstudiante.find.byId(id);
          Form<FormularioEstudiante> formEstu = formFactory.form(FormularioEstudiante.class).fill(instancia).bindFromRequest();
-          RegistroUsuario usuario = new UsuarioSession().getRegistroUsuario();
-        if(usuario!=null){
-            if(formEstu.hasErrors()){
-                return badRequest(formularioEstudiante.render("Encontramos errores en el formulario", formEstu, 
-                        anios, routes.ControllerEstudiante.editarPerfilPost(id)));
-            }
-            FormularioEstudiante formEst = formEstu.get();
-            instancia.nombre = formEst.nombre;
-            instancia.primerApellido = formEst.primerApellido;
-            instancia.segundoApellido = formEst.segundoApellido;
-            instancia.fechaNacimiento = formEst.fechaNacimiento;
-            instancia.cedula = formEst.cedula;
-            instancia.correo = formEst.correo;
-            instancia.estadoCivil = formEst.estadoCivil;
-            instancia.paisNacimiento = formEst.paisNacimiento;
-            instancia.lugarResidencia = formEst.lugarResidencia;
-            instancia.direccion = formEst.direccion;
-            instancia.telefonoCasa = formEst.telefonoCasa;
-            instancia.telefonoMovil = formEst.telefonoMovil;
-            instancia.licencia = formEst.licencia;
-            instancia.perfilPersonal = formEst.perfilPersonal;
-            instancia.profesion = formEst.profesion;
-            instancia.perfilProfesional = formEst.perfilProfesional;
-            instancia.anosExperiencia = formEst.anosExperiencia;
-            instancia.empresa = formEst.empresa;
-            instancia.puesto = formEst.puesto;
-            instancia.anosTrabajo = formEst.anosTrabajo;
-            instancia.titulo = formEst.titulo;
-            instancia.institucion = formEst.institucion;
-            instancia.idiomas = formEst.idiomas;
-            instancia.otrosTitulos = formEst.otrosTitulos;
-            instancia.estadoLaboral = formEst.estadoLaboral;
-            instancia.anoIngresoFormal= formEst.anoIngresoFormal;
-            instancia.anoFinalFormal = formEst.anoFinalFormal;
-            instancia.traslado = formEst.traslado;
-            instancia.genero = formEst.genero;
-            instancia.save();
-            return redirect(routes.ControllerEstudiante.listarFormularioEstudiante());
-        }
-        return redirect(routes.ApplicationEstudiante.homeEst());
+         if(formEstu.hasErrors()){
+             return badRequest(formularioEstudiante.render("Encontramos errores en el formulario", formEstu, 
+                     anios, routes.ControllerEstudiante.editarPerfilPost(id)));
+         }
+         FormularioEstudiante formEst = formEstu.get();
+         instancia.nombre = formEst.nombre;
+         instancia.primerApellido = formEst.primerApellido;
+         instancia.segundoApellido = formEst.segundoApellido;
+         instancia.fechaNacimiento = formEst.fechaNacimiento;
+         instancia.cedula = formEst.cedula;
+         instancia.correo = formEst.correo;
+         instancia.estadoCivil = formEst.estadoCivil;
+         instancia.paisNacimiento = formEst.paisNacimiento;
+         instancia.lugarResidencia = formEst.lugarResidencia;
+         instancia.direccion = formEst.direccion;
+         instancia.telefonoCasa = formEst.telefonoCasa;
+         instancia.telefonoMovil = formEst.telefonoMovil;
+         instancia.licencia = formEst.licencia;
+         instancia.perfilPersonal = formEst.perfilPersonal;
+         instancia.profesion = formEst.profesion;
+         instancia.perfilProfesional = formEst.perfilProfesional;
+         instancia.anosExperiencia = formEst.anosExperiencia;
+         instancia.empresa = formEst.empresa;
+         instancia.empresa2 = formEst.empresa2;
+         instancia.empresa3 = formEst.empresa3;
+         instancia.puesto = formEst.puesto;
+         instancia.puesto2 = formEst.puesto2;
+         instancia.puesto3 = formEst.puesto3;
+         instancia.anosTrabajo = formEst.anosTrabajo;
+         instancia.anosTrabajo2 = formEst.anosTrabajo2;
+         instancia.anosTrabajo3 = formEst.anosTrabajo3;
+         instancia.titulo = formEst.titulo;
+         instancia.titulo2 = formEst.titulo2;
+         instancia.institucion = formEst.institucion;
+         instancia.institucion2 = formEst.institucion2;
+         instancia.idiomas = formEst.idiomas;
+         instancia.otrosTitulos = formEst.otrosTitulos;
+         instancia.otrosTrabajos = formEst.otrosTrabajos;
+         instancia.otrosTitulosFormales = formEst.otrosTitulosFormales;
+         instancia.estadoLaboral = formEst.estadoLaboral;
+         instancia.anoIngresoFormal= formEst.anoIngresoFormal;
+         instancia.anoIngresoFormal2= formEst.anoIngresoFormal2;
+         instancia.anoFinalFormal = formEst.anoFinalFormal;
+         instancia.anoFinalFormal2 = formEst.anoFinalFormal2;
+         instancia.traslado = formEst.traslado;
+         instancia.genero = formEst.genero;
+         instancia.save();
+         return redirect(routes.ControllerEstudiante.listarFormularioEstudiante());
     }
     //METODO GET PARA CREAR UN FORMULARIO DE ESTUDIANTE
 
