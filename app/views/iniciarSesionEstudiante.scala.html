@@ -13,16 +13,16 @@
     }
      <fieldset>
          <div class="row">
-            <div class="col-md-4">@inputText(
+            <div id="input_StyleB3" class="col-md-4">@inputText(
                 loginForm("correo"),'_showErrors -> true,
                  '_label -> "Correo Usuario",
                 '_help -> "Requerido",
                 'class -> "form-control"
                 )
-            </div>
+            </div> 
         </div>
         <div class="row">
-            <div class="col-md-4"> @inputPassword(
+            <div id="input_StyleB3" class="col-md-4"> @inputPassword(
                 loginForm("contrasenia"),'_showErrors -> true,
                 '_label -> "Password",
                 '_help -> "Requerido",
@@ -32,12 +32,12 @@
         </div>
     </fieldset>
     <div class="form-actions">
-        <input type="submit" class="btn btn-success" value="Iniciar Sesion" >
+        <button id="btn_StyleB3" type="submit" class="btn btn-success" value="Iniciar Sesion" >Iniciar Sesion</button>
     </div>
   }
   <form action="@routes.HomeController.index()">
                 <div class="form-actions text-center">
-                    <input id="before"type="submit" class="btn btn-success" value="Volver a Principal">
-                </div>
+                    <button id="btn_StyleB3" type="submit" class="btn btn-success" value="Volver a Principal">Volver a Principal</button>
+                </div> 
     </form>
     }
