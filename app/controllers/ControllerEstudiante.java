@@ -22,7 +22,6 @@ import play.data.validation.Constraints.*;
 import play.data.FormFactory;
 import static play.data.Form.form;
 import javax.inject.Inject;
-import models.utils.XML;
 import play.api.i18n.Lang;
 
 /**
@@ -35,10 +34,8 @@ public class ControllerEstudiante extends Controller {
     FormFactory formFactory;
     @Inject
     PdfGenerator pdfGenerator;
-    XML xml = new XML();
     Lang underlyingLang;
 
-    //CreadorArchivo creador = new CreadorArchivo("Estudiante.xml");
     public Result document() {
         RegistroUsuario usuario = new UsuarioSession().getRegistroUsuario();
         List<FormularioEstudiante> formEstu = FormularioEstudiante.find.where().ilike("registroUsuario", "" + usuario.id).findList();
@@ -285,56 +282,4 @@ public class ControllerEstudiante extends Controller {
         return ok(opciones.render(" "));
     }
 
-    public String[] devolverDatos() {
-        RegistroUsuario usuario = new UsuarioSession().getRegistroUsuario();
-        List<FormularioEstudiante> formEstu = FormularioEstudiante.find.where().ilike("registroUsuario", "" + usuario.id).findList();
-        String[] datos;
-        datos = new String[41];
-        for (int i = 0; i < formEstu.size(); i++) {
-            datos[0] = formEstu.get(i).cedula;
-            datos[1] = formEstu.get(i).nombre;
-            datos[2] = formEstu.get(i).direccion;
-            datos[3] = formEstu.get(i).fechaNacimiento;
-            datos[4] = formEstu.get(i).primerApellido;
-            datos[5] = formEstu.get(i).segundoApellido;
-            datos[6] = formEstu.get(i).correo;
-            datos[7] = formEstu.get(i).estadoCivil;
-            datos[8] = formEstu.get(i).paisNacimiento;
-            datos[9] = formEstu.get(i).lugarResidencia;
-            //datos[10] = formEstu.get(i).id;
-            datos[10] = formEstu.get(i).telefonoCasa;
-            datos[11] = formEstu.get(i).telefonoMovil;
-            datos[12] = formEstu.get(i).licencia;
-            datos[13] = formEstu.get(i).perfilPersonal;
-            datos[14] = formEstu.get(i).profesion;
-            datos[15] = formEstu.get(i).perfilProfesional;
-            datos[16] = formEstu.get(i).anosExperiencia;
-            datos[17] = formEstu.get(i).empresa;
-            datos[18] = formEstu.get(i).empresa2;
-            datos[19] = formEstu.get(i).empresa3;
-            datos[20] = formEstu.get(i).puesto;
-            datos[21] = formEstu.get(i).puesto2;
-            datos[22] = formEstu.get(i).puesto3;
-            datos[23] = formEstu.get(i).anosTrabajo;
-            datos[24] = formEstu.get(i).anosTrabajo2;
-            datos[25] = formEstu.get(i).anosTrabajo3;
-            datos[26] = formEstu.get(i).titulo;
-            datos[27] = formEstu.get(i).titulo2;
-            datos[28] = formEstu.get(i).institucion;
-            datos[29] = formEstu.get(i).institucion2;
-            datos[30] = formEstu.get(i).idiomas;
-            datos[31] = formEstu.get(i).otrosTitulos;
-            datos[32] = formEstu.get(i).otrosTitulosFormales;
-            datos[33] = formEstu.get(i).otrosTrabajos;
-            datos[34] = formEstu.get(i).estadoLaboral;
-            datos[35] = formEstu.get(i).anoIngresoFormal;
-            datos[36] = formEstu.get(i).anoIngresoFormal2;
-            datos[37] = formEstu.get(i).anoFinalFormal;
-            datos[38] = formEstu.get(i).anoFinalFormal2;
-            datos[39] = formEstu.get(i).traslado;
-            datos[40] = formEstu.get(i).genero;
-
-        }
-        return datos;
-    }
 }
