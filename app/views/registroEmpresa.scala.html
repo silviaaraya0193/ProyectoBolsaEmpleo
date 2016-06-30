@@ -3,10 +3,11 @@
 
 @main(message) {
 <h1>Registro Empresa</h1>
-<div class="alert"> @message </div>
+<div id="alertB3" class="alert">  @message </div>
+
 @form(postUrl, 'class -> "form") {
     @if(searchForm.hasGlobalErrors) {
-        <div class="alert alert-danger">
+        <div id="alertB3" class="alert alert-danger">
             @searchForm.globalError.message
         </div>
     }
@@ -21,7 +22,7 @@
             <div class="col-md-4"> @inputText(
                 searchForm("nombre"),'_showErrors -> true,
                 '_label -> "Nombre",
-                '_help -> "required",
+                '_help -> "Requerido",
                 'class -> "form-control"
                 )
             </div>   
@@ -30,7 +31,7 @@
             <div class="col-md-4">@inputText(
                 searchForm("cfi"),'_showErrors -> true,
                  '_label -> "CFI EMPRESA",
-                '_help -> "requeried",
+                '_help -> "Requerido",
                 'class -> "form-control"
                 )
             </div>
@@ -39,7 +40,7 @@
               <div class="col-md-4">@inputText(
                 searchForm("correo"),
                 '_label -> "Correo de la empresa",'_showErrors -> true,
-                '_help -> "requeried",
+                '_help -> "Requerido",
                 'class -> "form-control"
                 )
             </div>
@@ -48,7 +49,7 @@
             <div class="col-md-4">@inputText(
                 searchForm("telefono"),
                   '_label -> "Telefono",
-                '_help -> "requeried",
+                '_help -> "Requerido",
                 'class -> "form-control"
                 )
             </div>
@@ -58,7 +59,7 @@
             <div class="col-md-4">@inputPassword(
                 searchForm("contrasenia"),'_showErrors -> true,
                 '_label -> "Contrasenia",
-                '_help -> "requeried",
+                '_help -> "Requerido",
                 'class -> "form-control")
             </div>   
         </div>

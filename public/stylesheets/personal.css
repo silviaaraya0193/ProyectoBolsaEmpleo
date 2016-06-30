@@ -2,9 +2,10 @@
 #btn_StyleB3:hover{
     width: 150px;
     height: 45px;
-    transition-duration: 2s;
+    transition-duration: 1.5s;
     background: #49F5C1;
-    color: #fff;
+    color: #000;
+    font-style: oblique;
     border-radius: 15px;
 }
 
@@ -15,10 +16,20 @@
     border-radius: 18px;
 }
 
+#alertB3{
+    color:red;
+    font-size: 32px;
+    font-style: oblique;
+    text-align: center;
+    
+}
+
 /*-----Global style-----*/
 
 input:hover{
     /*width: 250px;*/
     border-radius: 12px;
 }
+
+
 

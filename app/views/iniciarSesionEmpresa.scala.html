@@ -1,13 +1,13 @@
 @(message:String,loginForm: Form[ApplicationEmpresa.Login])
 @import helper._
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-@main(null) {
-<h1>Iniciar seccion Empresa</h1>
+@main(message) {
+<h1>Iniciar sesion Empresa</h1>
 
 @form(routes.ApplicationEmpresa.authenticate(), 'class -> "form") {
 
     @if(loginForm.hasGlobalErrors) {
-        <div class="alert alert-danger">
+        <div id="alertB3" class="alert alert-danger">
             @loginForm.globalError.message
         </div>
     }

@@ -3,10 +3,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 @main(message) {
 <h1>Registro Estudiante</h1>
-<div class="alert"> @message </div>
+<div id="alertB3" class="alert"> @message </div>
 @form(postUrl, 'class -> "form") {
     @if(searchForm.hasGlobalErrors) {
-        <div class="alert alert-danger">
+        <div id="alertB3" class="alert alert-danger">
             @searchForm.globalError.message
         </div>
     }

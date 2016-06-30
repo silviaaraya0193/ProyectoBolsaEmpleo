@@ -4,10 +4,10 @@
 <html lang="en">
 @main(message) {
 <h1> Formulario Empresa</h1>
-<div class="alert"> @message </div>
+<div id="alertB3" class="alert"> @message </div>
 @form(postUrl, 'class -> "form") {
     @if(searchForm.hasGlobalErrors) {
-        <div class="alert alert-danger">
+        <div id="alertB3" class="alert alert-danger">
             @searchForm.globalError.message
         </div>
     }

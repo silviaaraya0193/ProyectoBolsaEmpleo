@@ -95,14 +95,14 @@ public class ApplicationEmpresa extends Controller {
         if (loginForm.hasErrors()) {
             return badRequest(iniciarSesionEmpresa.render("Error Autentificacion",loginForm));
         } else {
-            System.out.println("SESSION:   "+loginForm.get().cfi);
+           // System.out.println("SESSION:   "+loginForm.get().cfi);
             session("cfi", loginForm.get().cfi);
             return GO_HOME;
         }
     }
   public Result logout() {
         session().clear();
-        flash("success",  "Usted ha cerrado sesión correctamente");
+        flash("success",  "Usted ha cerrado sesion correctamente");
         return GO_HOME;
     }
         
