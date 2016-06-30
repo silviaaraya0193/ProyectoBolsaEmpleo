@@ -16,7 +16,7 @@
             <div class="col-md-4">@inputText(
                 loginForm("cfi"),'_showErrors -> true,
                  '_label -> "CFI EMPRESA",
-                '_help -> "requeried",
+                '_help -> "Requerido",
                 'class -> "form-control"
                 )
             </div>
@@ -24,8 +24,8 @@
         <div class="row">
             <div class="col-md-4"> @inputPassword(
                 loginForm("password"),'_showErrors -> true,
-                '_label -> "password",
-                '_help -> "required",
+                '_label -> "Password",
+                '_help -> "Requerido",
                 'class -> "form-control"
                 )
             </div>   
@@ -36,4 +36,9 @@
     </div>
 
   }
+  <form action="@routes.HomeController.index()">
+                <div class="form-actions text-center">
+                    <input type="submit" class="btn btn-success" value="Volver a Principal">
+                </div>
+    </form>
     }

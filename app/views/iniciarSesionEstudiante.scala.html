@@ -16,7 +16,7 @@
             <div class="col-md-4">@inputText(
                 loginForm("correo"),'_showErrors -> true,
                  '_label -> "Correo Usuario",
-                '_help -> "requeried",
+                '_help -> "Requerido",
                 'class -> "form-control"
                 )
             </div>
@@ -25,7 +25,7 @@
             <div class="col-md-4"> @inputPassword(
                 loginForm("contrasenia"),'_showErrors -> true,
                 '_label -> "Password",
-                '_help -> "required",
+                '_help -> "Requerido",
                 'class -> "form-control"
                 )
             </div>   
@@ -34,6 +34,10 @@
     <div class="form-actions">
         <input type="submit" class="btn btn-success" value="Iniciar Sesion" >
     </div>
-
   }
+  <form action="@routes.HomeController.index()">
+                <div class="form-actions text-center">
+                    <input id="before"type="submit" class="btn btn-success" value="Volver a Principal">
+                </div>
+    </form>
     }

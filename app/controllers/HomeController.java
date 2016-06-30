@@ -25,4 +25,7 @@ public class HomeController extends Controller {
         return ok(index.render("")); 
                 
     } 
+    public Result contacto(){
+        return ok(contacto.render("",routes.HomeController.contacto()));
+    }
 }

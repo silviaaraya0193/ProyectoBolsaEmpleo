@@ -1,0 +1,32 @@
+@(message: String ,postUrl: play.api.mvc.Call)
+@import helper._
+
+@main(message) {
+<html>
+    <body>
+        <div class="container">
+            <h2>Contactos Bolsa de Empleo UCR</h2>
+            <h2>Contactos</h2>
+             <p><span style="font-family: arial,helvetica,sans-serif;"><span style="font-size: 20px;">Coordinadora de Carrera, MCi. Wendy Vargas 
+                          <p><span style="font-family: arial,helvetica,sans-serif;"><span style="font-size: 20px;">Tel&#233;fono: 2511-7437  
+            <p><span style="font-family: arial,helvetica,sans-serif;"><span style="font-size: 20px;">Correo Inform&#225;tica Empresarial:  
+                        <a href="mailto:informaticaempresarial.sp&#64ucr.ac.cr">informaticaempresarial.sp&#64ucr.ac.cr</a></span></span></p>
+            <p><span style="font-family: arial,helvetica,sans-serif;"><span style="font-size: 20px;">Web Site Sede Pac&#237;fico:  
+                        <a href="http://www.srp.ucr.ac.cr/">www.srp.ucr.ac.cr</a></span></span></p>
+            <h2>Red Social </h2>
+            <p><span style="font-family: arial,helvetica,sans-serif;"><span style="font-size: 20px;">Facebook UCR Sede Pac&#237;fico: 
+                        <a href="https://m.facebook.com/ucrsededelpacifico">www.facebook.com</a></span></span></p>
+            <h2>Desarrolladores </h2>
+            <p><span style="font-family: arial,helvetica,sans-serif;"><span style="font-size: 20px;">Silvia Araya Jim&#233;nez. B30466: 
+                        <a href="mailto:silvia.araya&#64ucrso.info">silvia.araya&#64ucrso.info</a></span></span></p>
+            <p><span style="font-family: arial,helvetica,sans-serif;"><span style="font-size: 20px;">Exder L&#243;pez Gonz&#225;lez. B4: 
+                        <a href="mailto:exderlopez&#64ucrso.info">exder.lopez&#64ucr.ac.cr</a></span></span></p>
+            <form action="@routes.HomeController.index()">
+                <div class="form-actions text-center">
+                    <input type="submit" class="btn btn-success" value="Volver">
+                </div>
+            </form>
+        </div>
+    </body>
+</html>
+}

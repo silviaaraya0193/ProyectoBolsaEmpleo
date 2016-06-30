@@ -110,7 +110,7 @@ public class ControllerEstudiante extends Controller {
         for (int x = 1990; x<2017; x++){anios.add(x);}
          FormularioEstudiante instancia = FormularioEstudiante.find.byId(id);
          Form<FormularioEstudiante> formEst = formFactory.form(FormularioEstudiante.class).fill(instancia);
-         return ok(formularioEstudiante.render("Formulario Estudiante", formEst,
+         return ok(formularioEstudiante.render("", formEst,
                  anios, routes.ControllerEstudiante.editarPerfilPost(id)));
     }
 
