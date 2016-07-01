@@ -62,7 +62,7 @@ public static class Login {
                 return Messages.get("error.technical");
             }
             if (user == null) {
-                return Messages.get("Usuario no existente");
+                return Messages.get("Contrasenia o usuario invalido");
             }
             return null;
         }

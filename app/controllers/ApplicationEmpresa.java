@@ -63,7 +63,7 @@ public class ApplicationEmpresa extends Controller {
                 return Messages.get("error.technical");
             }
             if (user == null) {
-                return Messages.get("Usuario no existente");
+                return Messages.get("Contrasenia o usuario no existente");
             }
             return null;
         }
